@@ -20,7 +20,7 @@ import generalmedicine from '../../assets/service-breas/generalmedcine.jpg'
 import hematology from '../../assets/service-breas/Hematology.jpg'
 import icu from '../../assets/service-breas/icu.jpg'
 import nephrology from '../../assets/service-breas/Nephrology.jpg'
-import neurology from '../../assets/service-breas/neurology.jpg'
+// import neurology from '../../assets/service-breas/neurology.jpg'
 import obsetric from '../../assets/service-breas/obsertic.jpg'
 import oncology from '../../assets/service-breas/Oncology.jpg'
 import ophthalmology from '../../assets/service-breas/Ophthalmology.jpg'
@@ -632,7 +632,7 @@ const OrthopaedicDepartment = () => {
       symptomsDesc: "Please consult a neurologist if you or a loved one experience any of these neurological warning signs for immediate evaluation.",
       sideEffectsTitle: "Possible Side Effects of Neurological Treatment",
       sideEffectsDesc: "Most treatments are safe and managed by specialists. Understanding potential side effects helps in comprehensive patient care and management.",
-      image: neurology,
+      // image: neurology,
       caseStats: [
         {
           count: "24/7",

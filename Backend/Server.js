@@ -2,25 +2,52 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import doctorRoutes from './src/routes/doctors.routes.js';
+import doctorRoutes from './src/routes/doctors.routes.js'; 
+import galleryRoutes from './src/routes/gallery.routes.js'; // ✅ import gallery routes
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({ origin: 'http://localhost:5173', methods: ['GET','POST','PATCH','DELETE'], credentials: true }));
+// ✅ Middleware
+app.use(cors({
+  origin: 'http://localhost:5173',
+  methods: ['GET','POST','PATCH','DELETE'],
+  credentials: true
+}));
 app.use(express.json());
 
-// Connect MongoDB
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log("MongoDB connected 🚀"))
-  .catch(err => console.log("MongoDB error ❌", err));
+// ✅ Serve uploads folder (required for multer temporary files)
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// Routes
+// ✅ Connect to MongoDB
+(async () => {
+  try {
+    // FIXED: Removed /${DB_NAME}
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("MONGODB CONNECTED SUCCESSFULLY 🚀🚀🚀");
+  } catch (error) {
+    console.log("MONGODB CONNECTION FAILED ❌❌❌", error);
+  }
+})();
+
+// ✅ Routes
 app.use("/api/doctors", doctorRoutes);
+app.use("/api/gallery", galleryRoutes); // ✅ add gallery routes
 
-// Default route
-app.get("/", (req, res) => res.send("Doctor API is running 🚀"));
+// ✅ Default route
+app.get("/", (req, res) => {
+  res.send("Doctor & Gallery API is running 🚀");
+});
 
-// Start server
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// ✅ Start server
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

@@ -10,12 +10,29 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // ✅ Middleware
+// app.use(cors({
+//   origin: 'http://localhost:5173',
+//   methods: ['GET','POST','PATCH','DELETE'],
+//   credentials: true
+// }));
+// app.use(express.json());
+
+const allowedOrigins = [
+  "http://localhost:5173",                     // Dev frontend
+  "https://ashaali-hospital-lko.netlify.app"  // Production frontend
+];
+
 app.use(cors({
-  origin: 'http://localhost:5173',
-  methods: ['GET','POST','PATCH','DELETE'],
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PATCH", "DELETE"],
   credentials: true
 }));
-app.use(express.json());
 
 // ✅ Serve uploads folder (required for multer temporary files)
 import path from 'path';

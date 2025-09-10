@@ -6,7 +6,7 @@ const Team = () => {
   const [departments, setDepartments] = useState([]);
   const [department, setDepartment] = useState("");
   const [availability, setAvailability] = useState("");
-  const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+  const BASE_URL = import.meta.env.VITE_API_URL || "https://ashaali-hospital-2.onrender.com";
   const navigate = useNavigate();
 
   useEffect(() => {

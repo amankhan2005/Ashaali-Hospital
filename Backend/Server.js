@@ -28,10 +28,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 (async () => {
   try {
     // FIXED: Removed /${DB_NAME}
-    await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log("MONGODB CONNECTED SUCCESSFULLY 🚀🚀🚀");
   } catch (error) {
     console.log("MONGODB CONNECTION FAILED ❌❌❌", error);

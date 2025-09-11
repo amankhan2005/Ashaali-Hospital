@@ -114,7 +114,7 @@ const BookAppointment = () => {
   <div className="w-full max-w-6xl rounded-3xl shadow-2xl flex flex-col lg:flex-row overflow-hidden">
 
     {/* Left Form */}
-    <div className="lg:w-1/2 p-10 space-y-6 bg-orange-400/70 backdrop-blur-md">
+    <div className="lg:w-1/2 p-10 space-y-6 bg-orange-400/90 backdrop-blur-md">
       <h2 className="text-3xl font-bold text-gray-800 mb-4 text-center lg:text-left">Book Appointment</h2>
 
       <form onSubmit={handleSubmit} className="space-y-5">
@@ -209,7 +209,7 @@ const BookAppointment = () => {
 
     {/* Right Doctor Info */}
     {doctorDetails && (
-      <div className="lg:w-1/2 flex flex-col items-center justify-center p-10 bg-sky-400/70 backdrop-blur-md border-l border-gray-200">
+      <div className="lg:w-1/2 flex flex-col items-center justify-center p-10   backdrop-blur-md border-l border-gray-200">
         <img src={doctorDetails.photo || "https://via.placeholder.com/150"} alt="Doctor" className="w-40 h-40 rounded-full object-cover shadow-lg mb-6 border border-gray-300"/>
         <h3 className="text-2xl font-bold text-gray-800">{doctorDetails.name}</h3>
         <p className="text-gray-800 mt-2">{doctorDetails.department}</p>

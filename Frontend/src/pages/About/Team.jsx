@@ -9,23 +9,36 @@ const Team = () => {
   const BASE_URL = import.meta.env.VITE_API_URL || "https://ashaali-hospital-2.onrender.com";
   const navigate = useNavigate();
 
+  // Fetch departments
   useEffect(() => {
     fetch(`${BASE_URL}/api/doctors/departments/list`)
       .then((res) => res.json())
-      .then((data) => setDepartments(data));
+      .then((data) => setDepartments(data))
+      .catch(err => console.error("Departments fetch error:", err));
   }, [BASE_URL]);
 
+  // Fetch doctors based on filters
   useEffect(() => {
     let url = `${BASE_URL}/api/doctors?`;
     if (department) url += `department=${department}&`;
     if (availability) url += `available=${availability}&`;
+
     fetch(url)
       .then((res) => res.json())
-      .then((data) => setDoctors(data));
+      .then((data) => setDoctors(data))
+      .catch(err => console.error("Doctors fetch error:", err));
   }, [department, availability, BASE_URL]);
 
   const mainDoctor = doctors[0];
   const otherDoctors = doctors.slice(1);
+
+  const handleBookClick = (doctor) => {
+    if (!doctor.available) {
+      alert(`Sorry Dr. ${doctor.name} is not available`);
+      return;
+    }
+    navigate(`/book-appointment?doctorId=${doctor._id}&department=${doctor.department}`);
+  };
 
   return (
     <section className="bg-gradient-to-b from-gray-50 to-white">
@@ -51,9 +64,7 @@ const Team = () => {
           >
             <option value="">All Departments</option>
             {departments.map((dep, i) => (
-              <option key={i} value={dep}>
-                {dep}
-              </option>
+              <option key={i} value={dep}>{dep}</option>
             ))}
           </select>
 
@@ -90,23 +101,16 @@ const Team = () => {
                 <p className="text-gray-500 mb-6">{mainDoctor.bio}</p>
                 <span
                   className={`inline-block px-5 py-1 rounded-full text-sm font-medium mb-6 ${
-                    mainDoctor.available
-                      ? "bg-green-100 text-green-700"
-                      : "bg-red-100 text-red-700"
+                    mainDoctor.available ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
                   }`}
                 >
                   {mainDoctor.available ? "Available" : "Not Available"}
                 </span>
 
                 <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+                  {/* Removed View Profile Button */}
                   <button
-                    onClick={() => navigate(`/about/team/${mainDoctor._id}`)}
-                    className="px-6 py-3 rounded-full border border-[#18978d] text-[#18978d] font-medium shadow-sm hover:bg-[#18978d] hover:text-white transition"
-                  >
-                    View Profile
-                  </button>
-                  <button
-                    onClick={() => navigate(`/book-appointment/${mainDoctor._id}`)}
+                    onClick={() => handleBookClick(mainDoctor)}
                     className="px-6 py-3 rounded-full bg-[#18978d] text-white font-medium shadow-md hover:bg-[#147a71] transition"
                   >
                     Book Appointment
@@ -137,23 +141,16 @@ const Team = () => {
 
               <span
                 className={`inline-block px-4 py-1 rounded-full text-sm font-medium mb-5 ${
-                  doctor.available
-                    ? "bg-green-100 text-green-700"
-                    : "bg-red-100 text-red-700"
+                  doctor.available ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
                 }`}
               >
                 {doctor.available ? "Available" : "Not Available"}
               </span>
 
               <div className="flex flex-col gap-3">
+                {/* Removed View Profile Button */}
                 <button
-                  onClick={() => navigate(`/about/team/${doctor._id}`)}
-                  className="px-5 py-2 rounded-full border border-[#18978d] text-[#18978d] font-medium shadow-sm hover:bg-[#18978d] hover:text-white transition"
-                >
-                  View Profile
-                </button>
-                <button
-                  onClick={() => navigate(`/book-appointment/${doctor._id}`)}
+                  onClick={() => handleBookClick(doctor)}
                   className="px-5 py-2 rounded-full bg-[#18978d] text-white font-medium shadow-md hover:bg-[#147a71] transition"
                 >
                   Book Appointment

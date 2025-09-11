@@ -2,9 +2,12 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
+
 import doctorRoutes from './src/routes/doctors.routes.js'; 
 import galleryRoutes from './src/routes/gallery.routes.js';
-import blogRoutes from './src/routes/blog.routes.js'; // ✅ add blog routes
+import blogRoutes from './src/routes/blog.routes.js'; 
+import contactRoutes from './src/routes/contact.routes.js'; 
+import appointmentRoutes from './src/routes/appointment.routes.js'; // ✅ Added appointment route
 
 dotenv.config();
 const app = express();
@@ -52,11 +55,13 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // ✅ Routes
 app.use("/api/doctors", doctorRoutes);
 app.use("/api/gallery", galleryRoutes);
-app.use("/api/blogs", blogRoutes); // ✅ added blogs route
+app.use("/api/blogs", blogRoutes);
+app.use("/api/contact", contactRoutes); 
+app.use("/api/appointments", appointmentRoutes); // ✅ Appointment route added
 
 // ✅ Default route
 app.get("/", (req, res) => {
-  res.send("Doctor, Gallery & Blog API is running 🚀");
+  res.send("Doctor, Gallery, Blog, Contact & Appointment API is running 🚀");
 });
 
 // ✅ Start server

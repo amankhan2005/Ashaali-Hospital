@@ -30,7 +30,7 @@ export default function App() {
         <Route path='/facility/:name' element={<FacilitiesComponent />} />
         <Route path='/blogs' element={<BlogPage />} />
         <Route path='/blogs/:detail' element={<BlogDetails />} />
-        <Route path='/book-appointment/:doctorId' element={<BookAppointment />} />
+<Route path='/book-appointment' element={<BookAppointment />} />
       </Routes>
       <Footer />
     </div>

@@ -39,7 +39,7 @@ export default function Home() {
       <AshalliCompoonent />
       <DoctorCarousel />
       <HomeGallery />
-      <HospitalDoctorsCTA />
+      {/* <HospitalDoctorsCTA /> */}
       {/* <YouTubeVideoGallery/> */}
       <YouTubeChannelShowcase />
       {/* <WhyChooseUs />     */}

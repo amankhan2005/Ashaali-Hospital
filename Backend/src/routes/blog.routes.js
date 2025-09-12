@@ -1,19 +1,12 @@
  import express from "express";
-import {
-  createBlog,
-  getBlogs,
-  getBlogBySlug,
-  updateBlog,
-  deleteBlog,
-} from "../controllers/blog.controllers.js";
+import { createBlog, updateBlog, deleteBlog, getBlogs } from "../controllers/blog.controllers.js";
+import upload from "../middleware/upload.js";
 
 const router = express.Router();
 
-// CRUD Routes
-router.post("/add", createBlog);             // Create
-router.get("/", getBlogs);                   // Read all
-router.get("/:slug", getBlogBySlug);        // Read one
-router.put("/update/:id", updateBlog);      // Update
-router.delete("/delete/:id", deleteBlog);   // Delete
+router.get("/", getBlogs);
+router.post("/add", upload.single("image"), createBlog);
+router.put("/update/:id", upload.single("image"), updateBlog);
+router.delete("/delete/:id", deleteBlog);
 
 export default router;

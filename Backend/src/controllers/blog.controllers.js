@@ -4,15 +4,17 @@ import cloudinary from "../config/cloudinary.js";
 // ✅ Create Blog
 export const createBlog = async (req, res) => {
   try {
-    const { title, excerpt, content, author, category, image } = req.body;
+    const { title, excerpt, content, author, category } = req.body;
 
-    if (!image) return res.status(400).json({ message: "Image is required" });
+    if (!title || !excerpt || !content || !author || !category) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
 
-    let imageUrl = image;
-
-    // Agar image base64 ya file hai, upload to Cloudinary
-    if (!image.startsWith("http")) {
-      const result = await cloudinary.uploader.upload(image, { folder: "blogs" });
+    let imageUrl = null;
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        folder: "blogs",
+      });
       imageUrl = result.secure_url;
     }
 
@@ -29,6 +31,7 @@ export const createBlog = async (req, res) => {
     await blog.save();
     res.status(201).json(blog);
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: err.message });
   }
 };
@@ -43,31 +46,18 @@ export const getBlogs = async (req, res) => {
   }
 };
 
-// ✅ Get blog by slug
-export const getBlogBySlug = async (req, res) => {
-  try {
-    const blog = await Blog.findOne({ slug: req.params.slug });
-    if (!blog) return res.status(404).json({ message: "Blog not found" });
-    res.json(blog);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-// ✅ Update blog
+// ✅ Update Blog
 export const updateBlog = async (req, res) => {
   try {
-    const { title, excerpt, content, author, category, image } = req.body;
+    const { title, excerpt, content, author, category } = req.body;
 
     const updateData = { title, excerpt, content, author, category };
 
-    if (image) {
-      let imageUrl = image;
-      if (!image.startsWith("http")) {
-        const result = await cloudinary.uploader.upload(image, { folder: "blogs" });
-        imageUrl = result.secure_url;
-      }
-      updateData.image = imageUrl;
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        folder: "blogs",
+      });
+      updateData.image = result.secure_url;
     }
 
     if (title) {
@@ -79,17 +69,19 @@ export const updateBlog = async (req, res) => {
 
     res.json(blog);
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: err.message });
   }
 };
 
-// ✅ Delete blog
+// ✅ Delete Blog
 export const deleteBlog = async (req, res) => {
   try {
     const blog = await Blog.findByIdAndDelete(req.params.id);
     if (!blog) return res.status(404).json({ message: "Blog not found" });
     res.json({ message: "Blog deleted successfully" });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: err.message });
   }
 };

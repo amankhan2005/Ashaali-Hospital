@@ -1,6 +1,5 @@
  import { Appointment } from "../models/appointment.models.js";
 import { Doctor } from "../models/doctors.models.js"; 
-import { generateSlots } from "../utils/slotGenerator.js";
 import nodemailer from "nodemailer";
 
 // ✅ Book Appointment
@@ -10,14 +9,6 @@ export const bookAppointment = async (req, res) => {
 
     const doctor = await Doctor.findById(doctorId);
     if (!doctor) return res.status(404).json({ error: "Doctor not found" });
-
-    // Generate available slots
-    const opdHours = parseInt(doctor.opdTime);
-    const availableSlots = generateSlots(opdHours);
-
-    if (!availableSlots.includes(time)) {
-      return res.status(400).json({ error: "Selected time slot is invalid" });
-    }
 
     const appointment = new Appointment({
       patientName,
@@ -32,12 +23,12 @@ export const bookAppointment = async (req, res) => {
 
     await appointment.save();
 
-    // ✅ Send email to admin
+    // Send email to admin
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: { 
         user: process.env.ADMIN_EMAIL, 
-        pass: process.env.ADMIN_EMAIL_PASSWORD, // ✅ corrected
+        pass: process.env.ADMIN_EMAIL_PASSWORD,
       },
     });
 
@@ -59,23 +50,21 @@ Time: ${time}`,
   }
 };
 
-// ✅ Approve Appointment (optional admin feature)
+// ✅ Approve Appointment
 export const approveAppointment = async (req, res) => {
   try {
-    const appointment = await Appointment.findByIdAndUpdate(
-      req.params.id,
-      { status: "approved" },
-      { new: true }
-    ).populate("doctor");
-
+    let appointment = await Appointment.findById(req.params.id).populate("doctor");
     if (!appointment) return res.status(404).json({ error: "Appointment not found" });
 
-    // ✅ Email confirmation to patient
+    appointment.status = "approved";
+    await appointment.save();
+
+    // Send email to patient
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: { 
         user: process.env.ADMIN_EMAIL, 
-        pass: process.env.ADMIN_EMAIL_PASSWORD, // ✅ corrected
+        pass: process.env.ADMIN_EMAIL_PASSWORD,
       },
     });
 
@@ -83,12 +72,57 @@ export const approveAppointment = async (req, res) => {
       from: process.env.ADMIN_EMAIL,
       to: appointment.email,
       subject: "Appointment Confirmed",
-      text: `Your appointment with Dr. ${appointment.doctor.name} (${appointment.doctor.department}) on ${appointment.date} at ${appointment.time} has been confirmed.`,
+      text: `Your appointment with Dr. ${appointment.doctor.name} (${appointment.doctor.department}) on ${appointment.date.toDateString()} at ${appointment.time} has been confirmed.`,
     });
 
     res.json({ success: true, message: "Appointment approved & email sent", appointment });
   } catch (err) {
     console.error("Approve appointment error:", err.message);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// ✅ Reject Appointment
+export const rejectAppointment = async (req, res) => {
+  try {
+    let appointment = await Appointment.findById(req.params.id).populate("doctor");
+    if (!appointment) return res.status(404).json({ error: "Appointment not found" });
+
+    appointment.status = "rejected";
+    await appointment.save();
+
+    // Send email to patient
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: { 
+        user: process.env.ADMIN_EMAIL, 
+        pass: process.env.ADMIN_EMAIL_PASSWORD,
+      },
+    });
+
+    await transporter.sendMail({
+      from: process.env.ADMIN_EMAIL,
+      to: appointment.email,
+      subject: "Appointment Rejected",
+      text: `Your appointment with Dr. ${appointment.doctor.name} (${appointment.doctor.department}) on ${appointment.date.toDateString()} at ${appointment.time} has been rejected.`,
+    });
+
+    res.json({ success: true, message: "Appointment rejected & email sent", appointment });
+  } catch (err) {
+    console.error("Reject appointment error:", err.message);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// ✅ Delete Appointment
+export const deleteAppointment = async (req, res) => {
+  try {
+    const appointment = await Appointment.findByIdAndDelete(req.params.id);
+    if (!appointment) return res.status(404).json({ error: "Appointment not found" });
+
+    res.json({ success: true, message: "Appointment deleted" });
+  } catch (err) {
+    console.error("Delete appointment error:", err.message);
     res.status(500).json({ error: err.message });
   }
 };

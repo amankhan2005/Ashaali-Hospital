@@ -129,42 +129,53 @@ const HomeGallery = () => {
           </Slider>
         </div>
 
-        {isModalOpen && (
-          <div className="fixed inset-0 bg-opacity-75 flex items-center justify-center z-50 p-4" onClick={closeModal}>
-            <div className="relative max-w-4xl max-h-full">
-              <button onClick={closeModal} className="absolute top-0 right-0 text-black hover:text-gray-300 transition-colors duration-200 z-10">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+       {isModalOpen && (
+  <div
+    className="fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 p-4"
+    onClick={closeModal}
+  >
+    <div className="relative max-w-4xl max-h-full">
+      <button
+        onClick={closeModal}
+        className="absolute top-2 right-2 text-white hover:text-gray-300 transition-colors duration-200 z-10"
+      >
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
 
-              <button onClick={(e) => { e.stopPropagation(); goToPrevious(); }}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 text-black rounded-full p-2 transition-all duration-200 z-10">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
+      <button
+        onClick={(e) => { e.stopPropagation(); goToPrevious(); }}
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 text-black rounded-full p-2 transition-all duration-200 z-10"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
 
-              <button onClick={(e) => { e.stopPropagation(); goToNext(); }}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 text-black rounded-full p-2 transition-all duration-200 z-10">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
+      <button
+        onClick={(e) => { e.stopPropagation(); goToNext(); }}
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 text-black rounded-full p-2 transition-all duration-200 z-10"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
 
-              <img
-                src={selectedImage?.image}
-                alt={selectedImage?.alt || 'Gallery Image'}
-                className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
-                onClick={(e) => e.stopPropagation()}
-              />
+      <img
+        src={selectedImage?.image}
+        alt={selectedImage?.alt || 'Gallery Image'}
+        className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      />
 
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">
-                {selectedImageIndex + 1} / {gallery.length}
-              </div>
-            </div>
-          </div>
-        )}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+        {selectedImageIndex + 1} / {gallery.length}
+      </div>
+    </div>
+  </div>
+)}
+
 
         <style jsx global>{`
           .gallery-carousel .slick-dots { bottom: -40px; }

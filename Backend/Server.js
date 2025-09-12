@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3000;
 // ✅ Middleware
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://ashaali-hospital-lko.netlify.app","http://localhost:5174"
+  "https://ashaali-hospital-lko.netlify.app","http://localhost:5174","https://ashaali-adminpage.netlify.app"
 ];
 
 app.use(cors({

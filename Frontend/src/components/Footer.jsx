@@ -95,7 +95,7 @@ const Footer = () => {
             {/* Admin Login Button */}
             <div className="mt-4">
               <a
-                href="http://localhost:5173/"
+                href="https://ashaali-adminpage.netlify.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block px-4 py-2 bg-[#18978d] hover:bg-[#0f6e63] text-white font-semibold rounded-full transition"

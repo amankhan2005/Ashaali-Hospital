@@ -4,22 +4,32 @@ import { useNavigate } from "react-router-dom";
 import ServiceBreadcums from "../service/ServiceBrad";
 import blogbread from "../../assets/service-breas/blogbead.jpg";
 
-const API_URL = import.meta.env.VITE_API_URL; // http://localhost:3000
+const API_URL = import.meta.env.VITE_API_URL;
 
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
   const navigate = useNavigate();
 
-  // Slug fallback
+  // Slug fallback (optional, just in case)
   const slugify = (text) =>
-    text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    text
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
         const res = await fetch(`${API_URL}/api/blogs`);
         const data = await res.json();
-        setBlogs(data);
+
+        // Ensure each blog has a slug
+        const blogsWithSlug = data.map((post) => ({
+          ...post,
+          slug: post.slug || slugify(post.title),
+        }));
+
+        setBlogs(blogsWithSlug);
       } catch (error) {
         console.error("Error fetching blogs:", error);
       }
@@ -29,8 +39,7 @@ const BlogPage = () => {
   }, []);
 
   const handleReadMore = (post) => {
-    const slug = post.slug || slugify(post.title);
-    navigate(`/blogs/${slug}`);
+    navigate(`/blogs/${post.slug}`); // ✅ navigate using slug
   };
 
   const breadcrumbItems = [

@@ -1,7 +1,6 @@
  import { useState, useEffect } from "react";
 import { MessageCircleQuestion } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
-import ServiceBreadcums from "../service/ServiceBrad";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -11,20 +10,22 @@ const BlogDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
-  const { detail } = useParams();
+  const { detail } = useParams(); // detail = slug
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Single blog by slug
-        const res = await fetch(`${API_URL}/api/blogs/${detail}`);
-        const blog = await res.json();
-        setCurrentPost(blog);
-
-        // All blogs for sidebar
+        // Fetch all blogs
         const resAll = await fetch(`${API_URL}/api/blogs`);
         const allBlogs = await resAll.json();
-        setRecentPosts(allBlogs);
+
+        // Find the blog with matching slug
+        const blog = allBlogs.find((b) => b.slug === detail);
+        setCurrentPost(blog);
+
+        // Set recent posts excluding current
+        const recent = allBlogs.filter((b) => b.slug !== detail);
+        setRecentPosts(recent);
 
         setIsLoading(false);
         window.scrollTo(0, 0);
@@ -39,20 +40,8 @@ const BlogDetails = () => {
   if (isLoading) return <div className="text-center py-10">Loading...</div>;
   if (!currentPost) return <div className="text-center py-10">Blog not found.</div>;
 
-  const breadcrumbItems = [
-    { label: "Home", href: "/" },
-    { label: "Blogs", href: "/blogs" },
-    { label: currentPost.title },
-  ];
-
   return (
     <div className="bg-gray-50 w-full">
-      <ServiceBreadcums
-        items={breadcrumbItems}
-        headText={currentPost.title}
-        image={currentPost.image}
-      />
-
       <main className="w-full mx-auto lg:px-10 px-4 md:px-8 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="lg:flex-1">
@@ -66,6 +55,10 @@ const BlogDetails = () => {
                 <h1 className="text-[#18978d] text-3xl md:text-4xl font-extrabold mb-4">
                   {currentPost.title}
                 </h1>
+                <p className="text-gray-600 mb-4 font-medium">
+                  <span>Author: {currentPost.author}</span> |{" "}
+                  <span>Category: {currentPost.category}</span>
+                </p>
                 <div className="prose max-w-none text-justify">
                   <p>{currentPost.content}</p>
                 </div>

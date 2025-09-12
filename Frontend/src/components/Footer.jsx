@@ -1,10 +1,8 @@
-import React from 'react';
+ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiPhone, FiMail, FiClock, FiMapPin, FiChevronRight } from 'react-icons/fi';
-import logo from '../assets/cclogo.png'
-import { BsTelephone } from 'react-icons/bs';
+import logo from '../assets/cclogo.png';
 import { TbDeviceLandlinePhone } from 'react-icons/tb';
-
 
 const Footer = () => {
   const facilities = [
@@ -14,8 +12,6 @@ const Footer = () => {
   const specialties = [
     "Orthopaedics", "Ophthalmology", "Pediatrics", "Neurology", "General Medicine", "ENT", "Gastrology",
     "General Surgery", "Obstetrics & Gynaecology", "Urology", "Nephrology", "Dental", "Hematology"
-    // "Pulmonology", "Dermatology", "Psychiatry", "Cardiology", "Oncology", "ICU and Critical Care",
-    // "Rheumatology", "Endocrinology"
   ];
 
   return (
@@ -28,17 +24,15 @@ const Footer = () => {
             <h2 className="text-2xl font-bold text-white">Ashaali Hospital</h2>
             <div className="space-y-3 text-gray-300 text-sm">
 
-
               {/* Phone */}
-              <div className="flex  items-center gap-2">
+              <div className="flex items-center gap-2">
                 <FiPhone />
                 <a href="tel:+917897934949" className="hover:underline">
                   +91-7897934949
                 </a>
               </div>
-              <div className="flex  items-center gap-2">
+              <div className="flex items-center gap-2">
                 <TbDeviceLandlinePhone />
-
                 <a href="tel:+917897934949" className="hover:underline">
                   0522-3503390, 3503566
                 </a>
@@ -55,8 +49,9 @@ const Footer = () => {
               {/* Timing */}
               <div className="flex items-center gap-2">
                 <FiClock />
-                <p ><span className='font-bold'>Opening Hours:</span> 9AM:-4PM </p>
+                <p><span className='font-bold'>Opening Hours:</span> 9AM:-4PM </p>
               </div>
+
               {/* Address */}
               <div className="flex items-start gap-2">
                 <FiMapPin className="mt-1" />
@@ -70,9 +65,7 @@ const Footer = () => {
                   Lucknow, Uttar Pradesh 226003
                 </a>
               </div>
-
             </div>
-
           </div>
 
           {/* Quick Links Section */}
@@ -89,13 +82,27 @@ const Footer = () => {
                 { name: "Contact Us", path: "/contact" },
               ].map((item, idx) => (
                 <li key={idx}>
-                  <Link to={item.path} className="flex items-center gap-1 hover:text-white transition">
+                  <Link
+                    to={item.path}
+                    className="flex items-center gap-1 hover:text-white transition font-medium"
+                  >
                     <FiChevronRight className="text-xs" /> {item.name}
                   </Link>
                 </li>
               ))}
             </ul>
 
+            {/* Admin Login Button */}
+            <div className="mt-4">
+              <a
+                href="http://localhost:5173/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-4 py-2 bg-[#18978d] hover:bg-[#0f6e63] text-white font-semibold rounded-full transition"
+              >
+                Admin Login
+              </a>
+            </div>
           </div>
 
           {/* Facilities Section */}
@@ -132,7 +139,7 @@ const Footer = () => {
               <ul className="space-y-2">
                 {specialties.slice(Math.ceil(specialties.length / 2)).map((item, idx) => (
                   <li key={idx + Math.ceil(specialties.length / 2)}>
-                    <Link to="/" className="flex items-center gap-1 hover:text-white transition">
+                    <Link to={`/department/${item.toLowerCase().replace(/\s+/g, '-')}`} className="flex items-center gap-1 hover:text-white transition">
                       <FiChevronRight className="text-xs" /> {item}
                     </Link>
                   </li>
@@ -140,12 +147,10 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-
-
         </div>
 
-
-        <div className="  border-t border-gray-700 mt-6 pt-4 flex flex-col sm:flex-row items-center justify-center flex-wrap gap-2 ">
+        {/* Footer Bottom */}
+        <div className="border-t border-gray-700 mt-6 pt-4 flex flex-col sm:flex-row items-center justify-center flex-wrap gap-2">
           <p className="text-sm text-white text-center sm:text-left">
             Copyright © 2025 <span className="font-semibold">Ashaali Hospital</span> || All Rights Reserved ||
           </p>

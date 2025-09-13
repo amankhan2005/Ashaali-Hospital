@@ -1,24 +1,28 @@
  import express from "express";
-import { upload } from "../middleware/multer.js";
 import {
-  addDoctor,
+  createDoctor,
   updateDoctor,
   getDoctors,
-  deleteDoctor,
-  getDepartments,
-  getDoctorById
+  getDoctorById,
+  deleteDoctor
 } from "../controllers/doctors.controllers.js";
+import multer from "multer";
+import path from "path";
 
 const router = express.Router();
 
-// Public routes
-router.get("/", getDoctors);
-router.get("/departments/list", getDepartments);
-router.get("/:id", getDoctorById);
+// Multer setup
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, "uploads/"),
+  filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
+});
+const upload = multer({ storage });
 
-// Admin routes
-router.post("/add", upload.single("photo"), addDoctor);
-router.patch("/update/:id", upload.single("photo"), updateDoctor);
-router.delete("/delete/:id", deleteDoctor);
+// Routes
+router.get("/", getDoctors);
+router.get("/:id", getDoctorById);
+router.post("/", upload.single("photo"), createDoctor);
+router.patch("/:id", upload.single("photo"), updateDoctor);
+router.delete("/:id", deleteDoctor);
 
 export default router;

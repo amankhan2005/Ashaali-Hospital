@@ -1,10 +1,12 @@
- import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import Slider from "react-slick";
+import { Calendar } from "lucide-react"; // ✅ Import Calendar icon
 
 const DoctorCarouselBackend = () => {
   const [doctors, setDoctors] = useState([]);
-  const BASE_URL = import.meta.env.VITE_API_URL || "https://ashaali-hospital-2.onrender.com";
+  const BASE_URL =
+    import.meta.env.VITE_API_URL || "https://ashaali-hospital-2.onrender.com";
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,7 +18,7 @@ const DoctorCarouselBackend = () => {
 
   const settings = {
     dots: true,
-    infinite: doctors.length > 4, // infinite tabhi jab 4+ doctors ho
+    infinite: doctors.length > 4,
     speed: 500,
     slidesToShow: Math.min(4, doctors.length || 1),
     slidesToScroll: 1,
@@ -26,8 +28,8 @@ const DoctorCarouselBackend = () => {
     responsive: [
       { breakpoint: 1200, settings: { slidesToShow: 3, slidesToScroll: 1 } },
       { breakpoint: 768, settings: { slidesToShow: 2, slidesToScroll: 1 } },
-      { breakpoint: 480, settings: { slidesToShow: 1, slidesToScroll: 1 } }
-    ]
+      { breakpoint: 480, settings: { slidesToShow: 1, slidesToScroll: 1 } },
+    ],
   };
 
   const primaryColor = "#18978d";
@@ -59,9 +61,7 @@ const DoctorCarouselBackend = () => {
           <Slider {...settings}>
             {doctors.map((doctor, i) => (
               <div key={doctor._id || i} className="px-2">
-                <div
-                  className="bg-white rounded-xl shadow-sm border border-gray-100 px-2 py-6 flex flex-col items-center text-center transition-shadow duration-300 hover:shadow-md"
-                >
+                <div className="bg-white rounded-xl shadow-sm border border-gray-100 px-2 py-6 flex flex-col items-center text-center transition-shadow duration-300 hover:shadow-md">
                   {/* Image with dotted bg */}
                   <div className="relative mb-2">
                     <div
@@ -79,10 +79,21 @@ const DoctorCarouselBackend = () => {
                               height="8"
                               patternUnits="userSpaceOnUse"
                             >
-                              <circle cx="4" cy="4" r="0.8" fill="#4db6ac" opacity="0.4" />
+                              <circle
+                                cx="4"
+                                cy="4"
+                                r="0.8"
+                                fill="#4db6ac"
+                                opacity="0.4"
+                              />
                             </pattern>
                           </defs>
-                          <rect width="160" height="160" fill={`url(#smallDots-${i})`} rx="80" />
+                          <rect
+                            width="160"
+                            height="160"
+                            fill={`url(#smallDots-${i})`}
+                            rx="80"
+                          />
                         </svg>
                       </div>
                       <div className="w-50 h-50 rounded-full overflow-hidden border-3 border-white shadow-lg relative z-10">
@@ -95,15 +106,6 @@ const DoctorCarouselBackend = () => {
                     </div>
                   </div>
 
-                  {/* Book Appointment */}
-                  <button
-                    onClick={() => navigate(`/book-appointment/${doctor._id}`)}
-                    className="text-white text-xs font-bold px-4 py-2.5 rounded-md mb-1 tracking-wider uppercase transition-all duration-300 hover:opacity-90"
-                    style={{ backgroundColor: primaryColor, minWidth: "140px" }}
-                  >
-                    Book Appointment
-                  </button>
-
                   {/* Details */}
                   <div className="text-center">
                     <h3 className="text-base font-bold text-gray-900 leading-tight">
@@ -113,6 +115,15 @@ const DoctorCarouselBackend = () => {
                       {doctor.degree || doctor.specialty}
                     </p>
                   </div>
+
+                  {/* Book Appointment */}
+                  <Link
+                    to="/book-appointment"
+                    className="bg-teal-700 text-white py-2 px-4 rounded-lg text-sm font-semibold hover:bg-teal-800 transition-all duration-300 flex items-center justify-center gap-2 mx-auto mt-1"
+                  >
+                    <Calendar className="w-4 h-4" />
+                    Book Appointment
+                  </Link>
                 </div>
               </div>
             ))}

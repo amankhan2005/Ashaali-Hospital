@@ -36,7 +36,7 @@ export default function Home() {
       {/* <HospitalDoctorsCTA/> */}
       <TruestedAshaali/>
       <HospitalFacilities />
-      <AshalliCompoonent />
+      {/* <AshalliCompoonent /> */}
       <DoctorCarousel />
       <HomeGallery />
       {/* <HospitalDoctorsCTA /> */}

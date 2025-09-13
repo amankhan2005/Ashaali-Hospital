@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from "react-router-dom";
+ 
+
 import {
   Bone, Phone, Activity, CheckCircle, AlertTriangle, Shield,
   Star, MapPin, Clock, Stethoscope, Award, Users,
@@ -6,8 +9,7 @@ import {
 } from 'lucide-react';
 
 import BreadCrumbs from '../../components/Breadcums';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import ServiceBreadcums from './ServiceBrad';
+ import ServiceBreadcums from './ServiceBrad';
 
 import cardiology from '../../assets/service-breas/Cardiology.jpg'
 import Dental from '../../assets/service-breas/Dental.jpg'
@@ -2645,17 +2647,26 @@ const OrthopaedicDepartment = () => {
                   {activeService?.heroDescription}
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <button className="text-white font-semibold px-8 py-3 rounded-lg hover:opacity-90 transition-opacity" style={{ backgroundColor: primaryColor }}>
-                    Book Appointment
-                  </button>
-                  <button className="border-2 font-semibold px-8 py-3 rounded-lg hover:bg-gray-50 transition-colors" style={{ borderColor: secondaryColor, color: secondaryColor }}>
-                    <a href="tel:+917897934949" className="flex items-center">
-                      <Phone className="mr-2 w-5 h-5" />
-                      Call Now
-                    </a>
-                  </button>
-                </div>
+               <div className="flex flex-col sm:flex-row gap-4">
+  {/* ✅ Book Appointment Button linked */}
+  <Link
+    to="/book-appointment"
+    className="text-white font-semibold px-8 py-3 rounded-lg hover:opacity-90 transition-opacity text-center"
+    style={{ backgroundColor: primaryColor }}
+  >
+    Book Appointment
+  </Link>
+
+  {/* Call Now Button */}
+  <a
+    href="tel:+917897934949"
+    className="border-2 font-semibold px-8 py-3 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center"
+    style={{ borderColor: secondaryColor, color: secondaryColor }}
+  >
+    <Phone className="mr-2 w-5 h-5" />
+    Call Now
+  </a>
+</div>
               </div>
             </div>
           </div>

@@ -1,82 +1,112 @@
- import Doctor from "../models/doctors.models.js";
+import Doctor from "../models/doctors.models.js"; // ✅ correct
+import cloudinary from "../config/cloudinary.js";
 
-// CREATE
-export const createDoctor = async (req, res) => {
+// Add doctor
+export const addDoctor = async (req, res) => {
   try {
-    const { name, department, specialization, opdTime, bio } = req.body;
-    let availableSlots = [];
+    const data = { ...req.body };
 
-    if (req.body.availableSlots) {
-      availableSlots = JSON.parse(req.body.availableSlots);
-    }
-
-    const doctor = new Doctor({
-      name,
-      department,
-      specialization,
-      opdTime,
-      bio,
-      availableSlots,
-      photo: req.file ? `/uploads/${req.file.filename}` : undefined
+    // Parse JSON fields if sent as strings
+    ["education", "certifications", "specialties", "achievements", "availableSlots"].forEach(key => {
+      if (data[key]) {
+        try { data[key] = JSON.parse(data[key]); } 
+        catch (err) { data[key] = []; }
+      } else data[key] = [];
     });
 
-    await doctor.save();
-    res.status(201).json(doctor);
-  } catch (e) {
-    res.status(400).json({ error: e.message });
-  }
-};
-
-// UPDATE
-export const updateDoctor = async (req, res) => {
-  try {
-    const { name, department, specialization, opdTime, bio } = req.body;
-    let availableSlots = [];
-
-    if (req.body.availableSlots) {
-      availableSlots = JSON.parse(req.body.availableSlots);
+    // Upload photo to Cloudinary
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        folder: "doctors"
+      });
+      data.photo = result.secure_url;
     }
 
-    const updateData = { name, department, specialization, opdTime, bio, availableSlots };
-    if (req.file) updateData.photo = `/uploads/${req.file.filename}`;
-
-    const doctor = await Doctor.findByIdAndUpdate(req.params.id, updateData, { new: true });
-    if (!doctor) return res.status(404).json({ message: "Not found" });
-
-    res.json(doctor);
-  } catch (e) {
-    res.status(400).json({ error: e.message });
+    const doctor = new Doctor(data);
+    await doctor.save();
+    res.status(201).json({ success: true, message: "Doctor added", data: doctor });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };
 
-// GET all doctors
+// Get all doctors
 export const getDoctors = async (req, res) => {
   try {
-    const doctors = await Doctor.find();
+    const { department, available } = req.query;
+    let query = {};
+    if (department) query.department = department;
+    if (available !== undefined) query.available = available === "true";
+    const doctors = await Doctor.find(query);
     res.json(doctors);
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };
 
-// GET doctor by ID
+// Get doctor by ID
 export const getDoctorById = async (req, res) => {
   try {
     const doctor = await Doctor.findById(req.params.id);
-    if (!doctor) return res.status(404).json({ message: "Not found" });
+    if (!doctor) return res.status(404).json({ message: "Doctor not found" });
     res.json(doctor);
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };
 
-// DELETE doctor
+// Get unique departments
+export const getDepartments = async (req, res) => {
+  try {
+    const departments = await Doctor.distinct("department");
+    res.json(departments);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Update doctor
+export const updateDoctor = async (req, res) => {
+  try {
+    const data = { ...req.body };
+    ["education", "certifications", "specialties", "achievements", "availableSlots"].forEach(key => {
+      if (data[key]) {
+        try { data[key] = JSON.parse(data[key]); } 
+        catch (err) { data[key] = []; }
+      }
+    });
+
+    // Upload new photo to Cloudinary if provided
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        folder: "doctors"
+      });
+      data.photo = result.secure_url;
+    }
+
+    const doctor = await Doctor.findByIdAndUpdate(req.params.id, data, { new: true });
+    if (!doctor) return res.status(404).json({ error: "Doctor not found" });
+
+    res.json({ success: true, message: "Doctor updated", data: doctor });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Delete doctor
 export const deleteDoctor = async (req, res) => {
   try {
     const doctor = await Doctor.findByIdAndDelete(req.params.id);
-    if (!doctor) return res.status(404).json({ message: "Not found" });
-    res.json({ message: "Doctor deleted" });
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+    if (!doctor) return res.status(404).json({ error: "Doctor not found" });
+
+    // Optional: delete photo from Cloudinary
+    if (doctor.photo) {
+      const public_id = doctor.photo.split("/").pop().split(".")[0]; // crude way to get public_id
+      await cloudinary.uploader.destroy(`doctors/${public_id}`).catch(()=>{});
+    }
+
+    res.json({ success: true, message: "Doctor deleted" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };

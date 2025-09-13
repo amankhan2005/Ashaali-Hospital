@@ -1,19 +1,17 @@
  import mongoose from "mongoose";
 
-const availableSlotSchema = new mongoose.Schema({
-  day: { type: String, required: true },
-  start: { type: String, required: true },
-  end: { type: String, required: true }
-});
-
 const doctorSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  title: { type: String },
   department: { type: String, required: true },
-  specialization: { type: String },
-  opdTime: { type: Number, default: 1 },
-  availableSlots: [availableSlotSchema],
+  specialty: { type: String },
+  qualification: { type: String },
+  experience: { type: String },
   photo: { type: String },
-  bio: { type: String }
+  availableDays: [{ type: String }], // ["Monday","Tuesday"]
+  availableSlots: [{ type: String }], // ["09:00","09:10", ...]
 });
 
-export default mongoose.model("Doctor", doctorSchema);
+const Doctor = mongoose.model("Doctor", doctorSchema);
+
+export default Doctor; // ✅ default export

@@ -1,28 +1,40 @@
  import express from "express";
+import { upload } from "../middleware/multer.js";
 import {
-  createDoctor,
+  addDoctor,
   updateDoctor,
   getDoctors,
-  getDoctorById,
-  deleteDoctor
+  deleteDoctor,
+  getDepartments,
+  getDoctorById
 } from "../controllers/doctors.controllers.js";
-import multer from "multer";
-import path from "path";
 
 const router = express.Router();
 
-// Multer setup
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, "uploads/"),
-  filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
-});
-const upload = multer({ storage });
+// -------------------------
+// Public routes
+// -------------------------
 
-// Routes
+// ✅ Get all doctors (with filters like ?department=Cardiology&available=true)
 router.get("/", getDoctors);
+
+// ✅ Get unique department list
+router.get("/departments/list", getDepartments);
+
+// ✅ Get single doctor by ID
 router.get("/:id", getDoctorById);
-router.post("/", upload.single("photo"), createDoctor);
-router.patch("/:id", upload.single("photo"), updateDoctor);
-router.delete("/:id", deleteDoctor);
+
+// -------------------------
+// Admin routes
+// -------------------------
+
+// ✅ Add new doctor (with photo + JSON fields like availableSlots)
+router.post("/add", upload.single("photo"), addDoctor);
+
+// ✅ Update existing doctor (with optional new photo + JSON fields)
+router.patch("/update/:id", upload.single("photo"), updateDoctor);
+
+// ✅ Delete doctor
+router.delete("/delete/:id", deleteDoctor);
 
 export default router;

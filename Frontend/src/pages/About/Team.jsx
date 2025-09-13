@@ -51,7 +51,7 @@ const Team = () => {
 
   const handleBookClick = (doctor) => {
     if (!doctor.available) {
-      alert(`Sorry Dr. ${doctor.name} is not available`);
+      alert(`Sorry  ${doctor.name} is not available`);
       return;
     }
     navigate(
@@ -195,7 +195,7 @@ const Team = () => {
                           </span>
                         </div>
                         <h3 className="text-3xl font-bold text-gray-900 mt-3 mb-2">
-                          Dr. {mainDoctor.name}
+                           {mainDoctor.name}
                         </h3>
                         <p className="text-xl text-[#18978d] font-medium mb-4">
                           {mainDoctor.specialty}
@@ -290,7 +290,7 @@ const Team = () => {
                     <div className="p-6">
                       <div className="text-center mb-4">
                         <h4 className="text-xl font-bold text-gray-900 mb-1">
-                          Dr. {doctor.name}
+                          {doctor.name}
                         </h4>
                         <p className="text-[#18978d] font-medium mb-1">
                           {doctor.specialty}

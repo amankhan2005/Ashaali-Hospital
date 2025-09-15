@@ -4,40 +4,42 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 const FAQ = () => {
   const [activeIndex, setActiveIndex] = useState(null);
 
-  const faqData = [
-    {
-      question: "What is your return policy?",
-      answer: "We offer a 30-day return policy for all unused items in their original packaging. Simply contact our customer service team to initiate a return. Refunds are processed within 5-7 business days after we receive the returned item."
-    },
-    {
-      question: "How long does shipping take?",
-      answer: "Standard shipping typically takes 3-5 business days within the continental US. Express shipping options are available for 1-2 day delivery. International shipping times vary by destination, usually 7-14 business days."
-    },
-    {
-      question: "Do you offer international shipping?",
-      answer: "Yes, we ship to over 50 countries worldwide. Shipping costs and delivery times vary by destination. Custom duties and taxes may apply depending on your country's regulations."
-    },
-    {
-      question: "How can I track my order?",
-      answer: "Once your order ships, you'll receive a tracking number via email. You can use this number to track your package on our website or directly with the shipping carrier. You'll also receive updates on your order status."
-    },
-    {
-      question: "What payment methods do you accept?",
-      answer: "We accept all major credit cards (Visa, MasterCard, American Express, Discover), PayPal, Apple Pay, Google Pay, and bank transfers. All transactions are secured with SSL encryption for your safety."
-    },
-    {
-      question: "Can I cancel or modify my order?",
-      answer: "You can cancel or modify your order within 1 hour of placing it. After that, we begin processing and cannot make changes. Please contact our customer service team immediately if you need to make changes."
-    },
-    {
-      question: "Do you offer customer support?",
-      answer: "Yes, our customer support team is available Monday-Friday, 9 AM to 6 PM EST. You can reach us via email, phone, or live chat. We strive to respond to all inquiries within 24 hours."
-    },
-    {
-      question: "Are your products eco-friendly?",
-      answer: "We're committed to sustainability. Many of our products are made from recycled materials, and we use eco-friendly packaging whenever possible. We're continuously working to reduce our environmental impact."
-    }
-  ];
+ const faqData = [
+  {
+    question: "When should I visit an Orthopaedic doctor?",
+    answer: "If you experience persistent joint pain, fractures, arthritis, or difficulty in movement, you should consult an orthopaedic specialist for proper evaluation and treatment."
+  },
+  {
+    question: "What conditions are treated in Ophthalmology?",
+    answer: "Ophthalmology deals with vision problems, cataracts, glaucoma, corneal diseases, and other eye-related conditions requiring medical or surgical treatment."
+  },
+  {
+    question: "Why is Pediatrics important for children?",
+    answer: "Pediatricians specialize in child health, including regular checkups, vaccinations, growth monitoring, and treatment of childhood illnesses to ensure healthy development."
+  },
+  {
+    question: "When should I consult a Neurologist?",
+    answer: "If you have frequent headaches, seizures, dizziness, memory loss, stroke symptoms, or nerve pain, you should consult a neurologist immediately."
+  },
+  {
+    question: "What does General Medicine cover?",
+    answer: "General medicine deals with diagnosis and treatment of common illnesses like diabetes, hypertension, fever, infections, and lifestyle diseases."
+  },
+  {
+    question: "When is an ENT consultation necessary?",
+    answer: "Visit an ENT specialist if you have hearing loss, sinus problems, throat pain, frequent ear infections, or nasal blockages."
+  },
+  {
+    question: "What is Gastrology?",
+    answer: "Gastrology focuses on digestive system issues like acidity, ulcers, liver disease, irritable bowel syndrome (IBS), and stomach pain."
+  },
+  {
+    question: "When is General Surgery required?",
+    answer: "General surgeons handle appendicitis, hernia, gallbladder stones, and other abdominal surgeries along with emergency trauma care."
+  },
+  
+];
+
 
   const toggleFAQ = (index) => {
     setActiveIndex(activeIndex === index ? null : index);

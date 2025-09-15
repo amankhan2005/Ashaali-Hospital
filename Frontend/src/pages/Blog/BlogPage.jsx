@@ -2,7 +2,8 @@
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import ServiceBreadcums from "../service/ServiceBrad";
-import blogbread from "../../assets/service-breas/blogbead.jpg";
+ import BreadCrumb from '../../components/Breadcrumb'; // updated import
+
 
 const API_URL = import.meta.env.VITE_API_URL || "https://ashaali-hospital-2.onrender.com";
 
@@ -43,13 +44,12 @@ const BlogPage = () => {
   };
 
   const breadcrumbItems = [
-    { label: "Home", href: "/" },
-    { label: "Blogs" },
+    { label: 'Home', link: '/' },
+    { label: 'Blogs' },
   ];
-
   return (
     <div className="min-h-screen bg-gray-50">
-      <ServiceBreadcums items={breadcrumbItems} headText="Blogs" image={blogbread} />
+      <BreadCrumb items={breadcrumbItems} title=" Ashaali Hospitals" />
 
       <div className="container mx-auto xl:px-10 lg:px-6 px-2 py-12">
         {blogs.length === 0 ? (

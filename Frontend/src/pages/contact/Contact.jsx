@@ -4,10 +4,11 @@
 import { FaFacebookF, FaInstagram, FaYoutube, FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 import { MdContactPhone, MdEmail } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
-import BreadcrumbComponent from "../../components/Breadcums";
-import Swal from "sweetalert2";
+ import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import BreadCrumb from '../../components/Breadcrumb'; // updated import
+
 
 
 const Contact = () => {
@@ -91,9 +92,14 @@ const Contact = () => {
     window.scrollTo(0, 0);
   }, [location]);
 
+   const breadcrumbItems = [
+    { label: 'Home', link: '/' },
+    { label: 'Contact Us' },
+  ];
+
   return (
     <section>
-      <BreadcrumbComponent items={[{ label: 'Home', path: '/' }, { label: 'Contact' }]} headText="Contact Us" />
+      <BreadCrumb items={breadcrumbItems} title=" Ashaali Hospitals" />
 
       <div className="relative w-full flex items-center justify-center lg:p-8 p-2 md:px-4 bg-gray-100 overflow-hidden">
         <div className="absolute w-[500px] h-[500px] bg-gradient-to-b from-teal-500 to-teal-600 rounded-full transform translate-x-[40%] translate-y-[40%] opacity-30"></div>

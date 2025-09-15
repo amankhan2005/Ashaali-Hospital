@@ -20,27 +20,8 @@ import {
 } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 // Mock BreadCrumbs Component
-const BreadCrumbsComponent = ({ items, headText }) => (
-  <div className="bg-gray-100 ">
-    <div className=" mx-auto px-4 sm:px-6 lg:px-12 container py-4">
-      <div className="flex items-center space-x-2 text-sm text-gray-600">
-        {items.map((item, index) => (
-          <span key={index}>
-            {item.href ? (
-              <a href={item.href} className="hover:text-teal-600">
-                {item.label}
-              </a>
-            ) : (
-              <span className="text-gray-500">{item.label}</span>
-            )}
-            {index < items.length - 1 && <span className="mx-2">/</span>}
-          </span>
-        ))}
-      </div>
-      <h1 className="text-2xl font-bold text-gray-800 mt-2">{headText}</h1>
-    </div>
-  </div>
-);
+ import BreadCrumb from '../../components/Breadcrumb'; // updated import
+
 
 const FacilitiesComponent = () => {
   // State for dynamic data
@@ -1199,17 +1180,15 @@ const FacilitiesComponent = () => {
   }, []);
 
   const breadcrumbItems = [
-    { label: "Home", href: "/" },
-    { label: "facility" },
-    { label: featuredFacility?.title },
+    { label: 'Home', link: '/' },
+    { label: 'Facility' },
   ];
 
   return (
     <div className=" bg-gray-50">
-      <BreadCrumbsComponent
-        items={breadcrumbItems}
-        headText={featuredFacility?.title}
-      />
+      <BreadCrumb items={breadcrumbItems} title=" Ashaali Hospitals" />
+
+    
       <div className="container lg:px-12 px-2 sm:px-6 md:px-8  mx-auto  py-2   ">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}

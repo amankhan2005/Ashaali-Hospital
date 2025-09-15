@@ -1,54 +1,29 @@
- import React from "react";
-import { Link } from "react-router-dom";
-
-const Dashboard = () => {
+ import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ErrorBoundary from "./components/ErrorBoundary";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import DoctorsAdmin from "./pages/DoctorsAdmin";
+import AppointmentsAdmin from "./pages/AppointmentsAdmin";
+import BlogsAdmin from "./pages/BlogsAdmin";
+import GalleryAdmin from "./pages/GalleryAdmin";
+import InquiriesAdmin from "./pages/InquiriesAdmin";
+ 
+const App = () => {
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      {/* Hospital Title */}
-      <div className="bg-white rounded-xl shadow p-6 text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">
-          Ashaali Hospital
-        </h1>
-        <p className="text-gray-600 mt-2">
-          Best Orthopedic Surgeon, Eye Care, Obstetrician and Gynecologist, Neuro-Spine Brain Hospital in Lucknow
-        </p>
-      </div>
-
-      {/* Admin Navigation */}
-      <div className="bg-white rounded-xl shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
-          Admin Panel – Manage Sections
-        </h2>
-        <ul className="space-y-3 text-gray-700 text-lg">
-          <li>
-            <Link to="/admin/doctors" className="hover:underline">
-              ➤ Manage Doctors
-            </Link>
-          </li>
-          <li>
-            <Link to="/admin/appointments" className="hover:underline">
-              ➤ Manage Appointments
-            </Link>
-          </li>
-          <li>
-            <Link to="/admin/blogs" className="hover:underline">
-              ➤ Manage Blogs
-            </Link>
-          </li>
-          <li>
-            <Link to="/admin/gallery" className="hover:underline">
-              ➤ Manage Gallery
-            </Link>
-          </li>
-          <li>
-            <Link to="/admin/inquiries" className="hover:underline">
-              ➤ Manage Inquiries
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
+       <BrowserRouter>
+        <Routes>
+          <Route path="/admin/login" element={<Login />} />
+          <Route path="/admin/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/admin/doctors" element={<ProtectedRoute><DoctorsAdmin /></ProtectedRoute>} />
+          <Route path="/admin/appointments" element={<ProtectedRoute><AppointmentsAdmin /></ProtectedRoute>} />
+          <Route path="/admin/blogs" element={<ProtectedRoute><BlogsAdmin /></ProtectedRoute>} />
+          <Route path="/admin/gallery" element={<ProtectedRoute><GalleryAdmin /></ProtectedRoute>} />
+          <Route path="/admin/inquiries" element={<ProtectedRoute><InquiriesAdmin /></ProtectedRoute>} />
+          <Route path="*" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
+   );
 };
 
-export default Dashboard;
+export default App;

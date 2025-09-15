@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ServiceBreadcums from "../service/ServiceBrad";
 import blogbread from "../../assets/service-breas/blogbead.jpg";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || "https://ashaali-hospital-2.onrender.com";
 
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);

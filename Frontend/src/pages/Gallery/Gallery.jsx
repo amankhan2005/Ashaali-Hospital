@@ -150,7 +150,7 @@
 import BreadCrumbsComponent from '../../components/Breadcums';
 import { ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react';
 
-const API_URL = import.meta.env.VITE_API_URL; // e.g., http://localhost:3000
+const API_URL = import.meta.env.VITE_API_URL || "https://ashaali-hospital-2.onrender.com";
 
 const Gallery = () => {
   const [gallery, setGallery] = useState([]);

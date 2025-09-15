@@ -1,45 +1,58 @@
-import Doctor from "../models/doctors.models.js"; // ✅ correct
-import cloudinary from "../config/cloudinary.js";
+ import Doctor from "../models/doctors.models.js";
+import cloudinary from "../config/cloudinary.js"; // Your Cloudinary config
+
+// Helper: only parse if it's a string
+const parseJsonField = (data, field) => {
+  if (data[field] && typeof data[field] === "string") {
+    try {
+      data[field] = JSON.parse(data[field]);
+    } catch (err) {
+      console.warn(`Could not parse JSON for field ${field}:`, data[field], err);
+      data[field] = [];
+    }
+  } else if (!data[field]) {
+    data[field] = [];
+  }
+};
 
 // Add doctor
 export const addDoctor = async (req, res) => {
   try {
     const data = { ...req.body };
 
-    // Parse JSON fields if sent as strings
-    ["education", "certifications", "specialties", "achievements", "availableSlots"].forEach(key => {
-      if (data[key]) {
-        try { data[key] = JSON.parse(data[key]); } 
-        catch (err) { data[key] = []; }
-      } else data[key] = [];
-    });
+    // Ensure availableSlots is an array of objects
+    parseJsonField(data, "availableSlots");
 
-    // Upload photo to Cloudinary
+    // Upload photo to Cloudinary if present
     if (req.file) {
       const result = await cloudinary.uploader.upload(req.file.path, {
-        folder: "doctors"
+        folder: "doctors",
       });
       data.photo = result.secure_url;
     }
+
+    // Remove _id if present to avoid duplicate key error
+    delete data._id;
 
     const doctor = new Doctor(data);
     await doctor.save();
     res.status(201).json({ success: true, message: "Doctor added", data: doctor });
   } catch (err) {
+    console.error("Error adding doctor:", err);
     res.status(500).json({ error: err.message });
   }
 };
 
-// Get all doctors
+// Get all doctors (optionally filtered by department)
 export const getDoctors = async (req, res) => {
   try {
-    const { department, available } = req.query;
+    const { department } = req.query;
     let query = {};
     if (department) query.department = department;
-    if (available !== undefined) query.available = available === "true";
     const doctors = await Doctor.find(query);
     res.json(doctors);
   } catch (err) {
+    console.error("Error fetching doctors:", err);
     res.status(500).json({ error: err.message });
   }
 };
@@ -51,6 +64,7 @@ export const getDoctorById = async (req, res) => {
     if (!doctor) return res.status(404).json({ message: "Doctor not found" });
     res.json(doctor);
   } catch (err) {
+    console.error("Error fetching doctor by ID:", err);
     res.status(500).json({ error: err.message });
   }
 };
@@ -61,6 +75,7 @@ export const getDepartments = async (req, res) => {
     const departments = await Doctor.distinct("department");
     res.json(departments);
   } catch (err) {
+    console.error("Error fetching departments:", err);
     res.status(500).json({ error: err.message });
   }
 };
@@ -69,17 +84,11 @@ export const getDepartments = async (req, res) => {
 export const updateDoctor = async (req, res) => {
   try {
     const data = { ...req.body };
-    ["education", "certifications", "specialties", "achievements", "availableSlots"].forEach(key => {
-      if (data[key]) {
-        try { data[key] = JSON.parse(data[key]); } 
-        catch (err) { data[key] = []; }
-      }
-    });
+    parseJsonField(data, "availableSlots");
 
-    // Upload new photo to Cloudinary if provided
     if (req.file) {
       const result = await cloudinary.uploader.upload(req.file.path, {
-        folder: "doctors"
+        folder: "doctors",
       });
       data.photo = result.secure_url;
     }
@@ -89,6 +98,7 @@ export const updateDoctor = async (req, res) => {
 
     res.json({ success: true, message: "Doctor updated", data: doctor });
   } catch (err) {
+    console.error("Error updating doctor:", err);
     res.status(500).json({ error: err.message });
   }
 };
@@ -99,14 +109,15 @@ export const deleteDoctor = async (req, res) => {
     const doctor = await Doctor.findByIdAndDelete(req.params.id);
     if (!doctor) return res.status(404).json({ error: "Doctor not found" });
 
-    // Optional: delete photo from Cloudinary
+    // Delete photo from Cloudinary (optional)
     if (doctor.photo) {
-      const public_id = doctor.photo.split("/").pop().split(".")[0]; // crude way to get public_id
-      await cloudinary.uploader.destroy(`doctors/${public_id}`).catch(()=>{});
+      const public_id = doctor.photo.split("/").pop().split(".")[0];
+      await cloudinary.uploader.destroy(`doctors/${public_id}`).catch(() => {});
     }
 
     res.json({ success: true, message: "Doctor deleted" });
   } catch (err) {
+    console.error("Error deleting doctor:", err);
     res.status(500).json({ error: err.message });
   }
 };

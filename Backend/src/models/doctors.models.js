@@ -8,10 +8,15 @@ const doctorSchema = new mongoose.Schema({
   qualification: { type: String },
   experience: { type: String },
   photo: { type: String },
-  availableDays: [{ type: String }], // ["Monday","Tuesday"]
-  availableSlots: [{ type: String }], // ["09:00","09:10", ...]
+  availableSlots: [
+    {
+      day: { type: String },        // "Monday", "Tuesday", etc.
+      startTime: { type: String },  // "09:00"
+      endTime: { type: String },    // "17:00"
+    }
+  ],
 });
 
 const Doctor = mongoose.model("Doctor", doctorSchema);
 
-export default Doctor; // ✅ default export
+export default Doctor;

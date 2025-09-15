@@ -52,6 +52,8 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
   }
 })();
 
+ 
+
 // ✅ Routes
 app.use("/api/doctors", doctorRoutes);
 app.use("/api/gallery", galleryRoutes);

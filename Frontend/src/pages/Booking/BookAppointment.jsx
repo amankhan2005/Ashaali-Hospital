@@ -244,7 +244,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
 
 const AppointmentBooking = () => {
-    import.meta.env.VITE_API_URL || "https://ashaali-hospital-2.onrender.com";
+    import.meta.env.VITE_API_URL ;
   const [departments, setDepartments] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState("");

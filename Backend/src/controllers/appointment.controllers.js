@@ -39,7 +39,7 @@ export const bookAppointment = async (req, res) => {
     // Convert selected date to IST to avoid day mismatch
     const [year, month, day] = date.split("-").map(Number);
     const appointmentDate = new Date(Date.UTC(year, month - 1, day));
-    appointmentDate.setHours(5, 30, 0, 0); // IST offset
+    appointmentDate.setHours(5, 30, 0, 0); // 00:00 IST
 
     // Check if slot already booked
     const existing = await Appointment.findOne({
@@ -91,9 +91,11 @@ export const getAvailableSlotsForDoctorDate = async (req, res) => {
 
     const doctor = await Doctor.findById(doctorId);
     if (!doctor) return res.status(404).json({ error: "Doctor not found" });
-console.log(date)
+
     const dayName = new Date(date).toLocaleDateString("en-IN", { weekday: "long" });
-    const doctorDailyAvailability = doctor.availableSlots.find(slot => slot.day === dayName);
+    const doctorDailyAvailability = doctor.availableSlots.find(
+      (slot) => slot.day === dayName
+    );
 
     if (!doctorDailyAvailability) {
       return res.json({ slots: [], message: "Doctor not available on this day." });
@@ -105,12 +107,13 @@ console.log(date)
       10
     );
 
-    // Set IST start & end of day
-    const [year, month, day] = date.split("-").map(Number);
-    const startOfDay = new Date(Date.UTC(year, month - 1, day));
-    startOfDay.setHours(5, 30, 0, 0);
+    // ✅ Correct IST start & end of day
+    const [year, month, dayNum] = date.split("-").map(Number);
+    const startOfDay = new Date(Date.UTC(year, month - 1, dayNum));
+    startOfDay.setHours(5, 30, 0, 0); // 00:00 IST
+
     const endOfDay = new Date(startOfDay);
-    endOfDay.setHours(29, 59, 59, 999); // IST end of day
+    endOfDay.setUTCHours(23, 59, 59, 999); // 23:59 IST
 
     const bookedAppointments = await Appointment.find({
       doctor: doctorId,
@@ -118,9 +121,9 @@ console.log(date)
       status: { $in: ["pending", "approved"] },
     }).select("slot");
 
-    const bookedTimes = bookedAppointments.map(a => a.slot);
+    const bookedTimes = bookedAppointments.map((a) => a.slot);
 
-    const finalSlots = allPossibleSlots.map(slotTime => ({
+    const finalSlots = allPossibleSlots.map((slotTime) => ({
       time: slotTime,
       booked: bookedTimes.includes(slotTime),
     }));
@@ -173,7 +176,9 @@ export const rejectAppointment = async (req, res) => {
       to: appointment.email,
       subject: "Appointment Rejected",
       html: `<p>Dear ${appointment.patientName},</p>
-             <p>Your appointment with Dr. ${appointment.doctor.name} on ${formatDateIST(appointment.date)} at ${appointment.slot} has been rejected.</p>`,
+             <p>Your appointment with Dr. ${appointment.doctor.name} on ${formatDateIST(
+        appointment.date
+      )} at ${appointment.slot} has been rejected.</p>`,
     });
 
     res.json({ success: true, message: "Appointment rejected", appointment });
@@ -199,7 +204,9 @@ export const deleteAppointment = async (req, res) => {
 // ✅ Get all appointments (admin)
 export const getAppointments = async (req, res) => {
   try {
-    const appointments = await Appointment.find().populate("doctor").sort({ createdAt: -1 });
+    const appointments = await Appointment.find()
+      .populate("doctor")
+      .sort({ createdAt: -1 });
     res.json(appointments);
   } catch (err) {
     console.error("Get appointments error:", err.message);

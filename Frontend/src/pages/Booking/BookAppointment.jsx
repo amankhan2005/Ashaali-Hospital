@@ -492,27 +492,38 @@ axios.get(`${API_URL}/api/doctors/departments/list`)
                     </div>
                   ) : (
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                      {availableSlots.map((slot, i) => (
-                        <button
-                          key={i}
-                          disabled={slot.booked}
-                          onClick={() => setSelectedSlot(slot.time)}
-                          className={`py-3 px-4 rounded-xl text-sm font-medium transition-all duration-200 transform hover:scale-105
-                            ${
-                              selectedSlot === slot.time
-                                ? "bg-teal-500 text-white shadow-md"
-                                : "bg-gray-100 hover:bg-gray-200 text-gray-700"
-                            }
-                            ${
-                              slot.booked
-                                ? "bg-red-100 text-red-500 line-through cursor-not-allowed opacity-70"
-                                : ""
-                            }`}
-                        >
-                          {slot.time}
-                        </button>
-                      ))}
-                    </div>
+  {availableSlots.map((slot, i) => {
+    // Convert backend "HH:MM" to IST (Kolkata) readable format
+    const displayTime = new Date(`2000-01-01T${slot.time}:00`).toLocaleTimeString("en-IN", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: "Asia/Kolkata", // ✅ Force IST (Kolkata)
+    });
+
+    return (
+      <button
+        key={i}
+        disabled={slot.booked}
+        onClick={() => setSelectedSlot(slot.time)} // raw "HH:MM" save for backend
+        className={`py-3 px-4 rounded-xl text-sm font-medium transition-all duration-200 transform hover:scale-105
+          ${
+            selectedSlot === slot.time
+              ? "bg-teal-500 text-white shadow-md"
+              : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+          }
+          ${
+            slot.booked
+              ? "bg-red-100 text-red-500 line-through cursor-not-allowed opacity-70"
+              : ""
+          }`}
+      >
+        {displayTime} {/* ✅ User ko dikhane ke liye formatted time */}
+      </button>
+    );
+  })}
+</div>
+
                   )}
                 </div>
               )}
@@ -714,7 +725,7 @@ axios.get(`${API_URL}/api/doctors/departments/list`)
                     +1 (800) 123-4567
                   </span>
                 </p>
-                <div className="mt-2 sm:mt-0 flex space-x-4">
+                {/* <div className="mt-2 sm:mt-0 flex space-x-4">
                   <a href="#" className="text-gray-400 hover:text-teal-500">
                     <span className="sr-only">Privacy Policy</span>
                     Privacy
@@ -723,7 +734,7 @@ axios.get(`${API_URL}/api/doctors/departments/list`)
                     <span className="sr-only">Terms</span>
                     Terms
                   </a>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

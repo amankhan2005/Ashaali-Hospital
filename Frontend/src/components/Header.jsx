@@ -149,14 +149,14 @@ const SahyadriHeader = () => {
             </div>
 
             <div className="flex items-center gap-4">
-              <div className="relative xl:block hidden">
+              {/* <div className="relative xl:block hidden">
                 <input
                   type="text"
                   placeholder="Search doctor here"
                   className="w-full pl-4 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-sm"
                 />
                 <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-              </div>
+              </div> */}
               {/* Emergency Contacts */}
               <div className="flex items-center gap-2">
                 {/* Email */}
@@ -191,9 +191,9 @@ const SahyadriHeader = () => {
                 {/* <button className="px-4 py-1.5 border border-[#18978d] text-[#18978d] rounded-md hover:bg-red-50 transition-colors text-sm">
                   Home Care
                 </button> */}
-                <Link className="px-4 py-1.5 bg-[#18978d] lg:block xl:hidden text-white rounded-md transition-colors text-sm">
+                {/* <Link className="px-4 py-1.5 bg-[#18978d] lg:block xl:hidden text-white rounded-md transition-colors text-sm">
                   Book Appointment
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>

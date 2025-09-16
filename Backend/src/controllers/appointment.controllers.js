@@ -91,8 +91,8 @@ export const getAvailableSlotsForDoctorDate = async (req, res) => {
 
     const doctor = await Doctor.findById(doctorId);
     if (!doctor) return res.status(404).json({ error: "Doctor not found" });
-
-    const dayName = new Date(date).toLocaleDateString("en-US", { weekday: "long" });
+console.log(date)
+    const dayName = new Date(date).toLocaleDateString("en-IN", { weekday: "long" });
     const doctorDailyAvailability = doctor.availableSlots.find(slot => slot.day === dayName);
 
     if (!doctorDailyAvailability) {

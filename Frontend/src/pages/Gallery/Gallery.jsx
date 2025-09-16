@@ -49,7 +49,7 @@ const Gallery = () => {
 
   return (
     <section>
-      <BreadCrumb items={breadcrumbItems} title=" Ashaali Hospitals" />
+      <BreadCrumb items={breadcrumbItems} title=" Ashaali Hospital" />
 
       <div className="min-h-screen bg-gray-100 lg:p-8 p-4">
         <div className="max-w-7xl mx-auto">

@@ -50,7 +50,7 @@ const TruestedAshaali = () => {
                     </div>
 
                     {/* Main SEO heading */}
-                    <h1 className="text-lg md:text-2xl lg:text-3xl xl:text-5xl font-bold  " >
+                    <h1 className="text-lg md:text-xl lg:text-3xl xl:text-5xl font-bold  " >
                   You Deserve Care That’s Advanced, Accessible, and Always Compassionate
                     </h1>
 

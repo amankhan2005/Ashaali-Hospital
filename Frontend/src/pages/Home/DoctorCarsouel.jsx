@@ -1,20 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
-import { Calendar } from "lucide-react"; // ✅ Import Calendar icon
+import { Calendar } from "lucide-react";
+import useDoctors from "../../hooks/useDoctors.js"; // ✅ useDoctors hook import
 
 const DoctorCarouselBackend = () => {
-  const [doctors, setDoctors] = useState([]);
-  const BASE_URL =
-    import.meta.env.VITE_API_URL || "https://ashaali-hospital-2.onrender.com";
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    fetch(`${BASE_URL}/api/doctors`)
-      .then((res) => res.json())
-      .then((data) => setDoctors(data))
-      .catch((err) => console.error("Error fetching doctors:", err));
-  }, [BASE_URL]);
+  const { doctors, loading } = useDoctors(); // no filter = all doctors
+  const primaryColor = "#18978d";
 
   const settings = {
     dots: true,
@@ -32,7 +24,13 @@ const DoctorCarouselBackend = () => {
     ],
   };
 
-  const primaryColor = "#18978d";
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center py-20">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#18978d]"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-100 py-10 lg:px-12 px-4 sm:px-6 md:px-8">
@@ -112,13 +110,15 @@ const DoctorCarouselBackend = () => {
                       {doctor.name}
                     </h3>
                     <p className="text-sm text-gray-400 font-normal uppercase tracking-wide">
-                      {doctor.degree || doctor.specialty}
+                      {doctor.department}
                     </p>
                   </div>
 
                   {/* Book Appointment */}
                   <Link
-                    to="/book-appointment"
+                    to={`/book-appointment?doctorId=${doctor._id}&department=${
+                      doctor.department
+                    }&doctorName=${encodeURIComponent(doctor.name)}`}
                     className="bg-teal-700 text-white py-2 px-4 rounded-lg text-sm font-semibold hover:bg-teal-800 transition-all duration-300 flex items-center justify-center gap-2 mx-auto mt-1"
                   >
                     <Calendar className="w-4 h-4" />
@@ -129,43 +129,6 @@ const DoctorCarouselBackend = () => {
             ))}
           </Slider>
         </div>
-
-        {/* Slick custom CSS */}
-        <style jsx>{`
-          .carousel-container .slick-slide {
-            padding: 0 2px !important;
-          }
-          .carousel-container .slick-track {
-            display: flex !important;
-          }
-          .carousel-container .slick-dots {
-            bottom: 10px !important;
-          }
-          .carousel-container .slick-dots li button:before {
-            color: #18978d !important;
-            font-size: 8px !important;
-          }
-          .carousel-container .slick-dots li.slick-active button:before {
-            color: #18978d !important;
-          }
-          .carousel-container .slick-prev,
-          .carousel-container .slick-next {
-            z-index: 1;
-            width: 40px;
-            height: 40px;
-          }
-          .carousel-container .slick-prev:before,
-          .carousel-container .slick-next:before {
-            color: #18978d !important;
-            font-size: 20px !important;
-          }
-          .carousel-container .slick-prev {
-            left: 10px;
-          }
-          .carousel-container .slick-next {
-            right: 10px;
-          }
-        `}</style>
       </div>
     </div>
   );

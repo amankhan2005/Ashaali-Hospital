@@ -1,30 +1,52 @@
-import React from "react";
+  import React, { memo } from "react";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import SlidingBanner from "../pages/Home/SliderBanner";
-
-import img1 from '../assets/banner/banner1.png'
-import img2 from '../assets/banner/banner2.png'
-
+import banner1 from "../assets/banner/banner1.png";
+import banner2 from "../assets/banner/banner2.png";
+ 
 // Slider data
 const slides = [
-  {
-    id: 1,
-    image: img1,
-    title: "Higher Standards for all Healthcare",
-  },
-  {
-    id: 2,
-    image: img2,
-    title: "Best Healthcare services",
-  },
-
+   { id: 2, image: banner2, title: "Best Healthcare Services" },
+  { id: 3, image: banner1, title: "Trustworthy Hospital" },
 ];
 
+// Memoized Slide component
+const Slide = memo(({ slide }) => (
+  <div className="relative w-full h-auto lg:h-[70vh]">
+    <img
+      src={slide.image}
+      alt={slide.title}
+      title={slide.title}
+      loading="lazy"
+      className="w-full lg:h-full object-cover"
+    />
+  </div>
+));
+
+// Memoized custom arrows
+const SampleNextArrow = memo(({ onClick }) => (
+  <button
+    aria-label="Next"
+    title="Next"
+    className="absolute top-1/2 right-6 -translate-y-1/2 bg-primary text-white rounded-full p-3 hover:bg-primary cursor-pointer z-10"
+    onClick={onClick}
+  >
+    <FaArrowRight size={20} />
+  </button>
+));
+
+const SamplePrevArrow = memo(({ onClick }) => (
+  <button
+    aria-label="Previous"
+    title="Previous"
+    className="absolute top-1/2 left-6 -translate-y-1/2 bg-primary text-white rounded-full p-3 hover:bg-primary cursor-pointer z-10"
+    onClick={onClick}
+  >
+    <FaArrowLeft size={20} />
+  </button>
+));
+
 export default function HeroSlider() {
-  // Slider settings
   const settings = {
     dots: false,
     infinite: true,
@@ -35,76 +57,21 @@ export default function HeroSlider() {
     slidesToScroll: 1,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
+    draggable: false, // reduces unnecessary event listeners
     responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          arrows: false,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          arrows: false,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          dots: false,
-          arrows: false,
-        },
-      },
+      { breakpoint: 1024, settings: { arrows: false } },
+      { breakpoint: 600, settings: { arrows: false } },
+      { breakpoint: 480, settings: { arrows: false, dots: false } },
     ],
   };
 
   return (
-    
-      <div className="w-full relative overflow-hidden p-0 m-0">
-        <Slider {...settings} className="h-full ">
-          {slides.map((slide, index) => (
-            <div key={slide.id} className="relative w-full h-[68vh] overflow-hidden p-0 m-0">
-              <img
-                src={slide.image}
-                alt={slide.title}
-                title={slide.title}
-                loading="eager"
-                fetchpriority="high"
-                className="w-full h-full object-cover block"
-              />
-            </div>
-          ))}
-        </Slider>
-        <SlidingBanner className="!mt-0 !pt-0"  />
-      </div>
-    
+    <div className="w-full relative">
+      <Slider {...settings}>
+        {slides.map((slide) => (
+          <Slide key={slide.id} slide={slide} />
+        ))}
+      </Slider>
+    </div>
   );
 }
-
-const SampleNextArrow = (props) => {
-  const { onClick } = props;
-  return (
-    <button
-      aria-label="Next"
-      title="Next"
-      className="absolute top-1/2 right-6 transform -translate-y-1/2 bg-primary text-white rounded-full p-3 hover:bg-primary-dark cursor-pointer z-10"
-      onClick={onClick}
-    >
-      <FaArrowRight size={20} />
-    </button>
-  );
-};
-
-const SamplePrevArrow = (props) => {
-  const { onClick } = props;
-  return (
-    <button
-      aria-label="previous"
-      title="previous"
-      className="absolute top-1/2 left-6 transform -translate-y-1/2 bg-primary text-white rounded-full p-3 hover:bg-primary-dark cursor-pointer z-10"
-      onClick={onClick}
-    >
-      <FaArrowLeft size={20} />
-    </button>
-  );
-};

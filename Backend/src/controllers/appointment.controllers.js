@@ -39,7 +39,9 @@ export const bookAppointment = async (req, res) => {
     // Convert selected date to IST to avoid day mismatch
     const [year, month, day] = date.split("-").map(Number);
     const appointmentDate = new Date(Date.UTC(year, month - 1, day));
+    // appointmentDate.setHours(5, 30, 0, 0); // 00:00 IST
     appointmentDate.setHours(5, 30, 0, 0); // 00:00 IST
+
 
     // Check if slot already booked
     const existing = await Appointment.findOne({
@@ -110,10 +112,12 @@ export const getAvailableSlotsForDoctorDate = async (req, res) => {
     // ✅ Correct IST start & end of day
     const [year, month, dayNum] = date.split("-").map(Number);
     const startOfDay = new Date(Date.UTC(year, month - 1, dayNum));
-    startOfDay.setHours(5, 30, 0, 0); // 00:00 IST
+     startOfDay.setUTCHours(0, 0, 0, 0); // day start UTC
+const endOfDay = new Date(startOfDay);
+endOfDay.setUTCHours(23, 59, 59, 999); // day end UTC
 
-    const endOfDay = new Date(startOfDay);
-    endOfDay.setUTCHours(23, 59, 59, 999); // 23:59 IST
+
+
 
     const bookedAppointments = await Appointment.find({
       doctor: doctorId,

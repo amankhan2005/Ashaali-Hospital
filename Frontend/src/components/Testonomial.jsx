@@ -34,7 +34,7 @@ const Testinomial = () => {
                     </div>
 
                     {/* Main SEO heading */}
-                    <h1 className="text-lg hidden lg:block  md:text-xl lg:text-2xl xl:text-3xl font-bold  " >
+                    <h1 className=" text-lg md:text-xl lg:text-3xl xl:text-5xl font-bold " >
                       Voices of Trust, Care, and Healing
                     </h1>
 

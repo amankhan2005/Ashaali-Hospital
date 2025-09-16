@@ -5,6 +5,8 @@ import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
+import { useSearchParams } from "react-router-dom";
+
 
 const AppointmentBooking = () => {
 const API_URL = import.meta.env.VITE_API_URL;
@@ -20,6 +22,20 @@ const API_URL = import.meta.env.VITE_API_URL;
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [bookingSuccess, setBookingSuccess] = useState(false);
   const [bookingDetails, setBookingDetails] = useState(null);
+
+  const [searchParams] = useSearchParams();
+
+useEffect(() => {
+  const docId = searchParams.get("doctorId");
+  const dep = searchParams.get("department");
+  const docName = searchParams.get("doctorName");
+
+  if (dep) setSelectedDepartment(dep);   // Department dropdown default set hoga
+  if (docId && doctors.length > 0) {
+    handleDoctorSelect(docId);           // Doctor auto select hoga jab doctors load ho jaye
+  }
+}, [searchParams, doctors]);
+
 
   // Load departments
   useEffect(() => {
@@ -401,7 +417,7 @@ axios.get(`${API_URL}/api/doctors/departments/list`)
                       <option value="">-- Select Doctor --</option>
                       {doctors.map((d) => (
                         <option key={d._id} value={d._id}>
-                          Dr. {d.name} ({d.specialty})
+                           {d.name} ({d.specialty})
                         </option>
                       ))}
                     </select>

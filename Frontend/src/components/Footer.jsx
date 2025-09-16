@@ -150,24 +150,25 @@ const Footer = () => {
         </div>
 
         {/* Footer Bottom */}
-        <div className="border-t border-gray-700 mt-6 pt-4 flex flex-col sm:flex-row items-center justify-center flex-wrap gap-2">
-          <p className="text-sm text-white text-center sm:text-left">
-            Copyright © 2025 <span className="font-semibold">Ashaali Hospital</span> || All Rights Reserved ||
-          </p>
-          <a
-            href="https://www.codecrafter.co.in/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center text-base text-gray-400 hover:text-main"
-          >
-            <span className="ml-1 text-white">Developed By:</span>
-            <img
-              src={logo}
-              alt="Code Crafter Web Solutions"
-              className="w-24 sm:w-32 max-w-full h-auto object-contain ml-2"
-            />
-          </a>
-        </div>
+     <div className="border-t border-gray-700 mt-6 pt-4 flex flex-row items-center justify-center flex-wrap gap-3">
+  <p className="text-sm text-white text-center">
+    Copyright © 2025 <span className="font-semibold">Ashaali Hospital</span> || All Rights Reserved ||
+  </p>
+  <a
+    href="https://www.codecrafter.co.in/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex items-center text-sm text-gray-400 hover:text-main"
+  >
+    <span className="ml-1 text-white">Developed By:</span>
+    <img
+      src={logo}
+      alt="Code Crafter Web Solutions"
+      className="w-24 max-w-full h-auto object-contain ml-2"
+    />
+  </a>
+</div>
+
       </div>
     </footer>
   );

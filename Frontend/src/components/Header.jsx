@@ -122,14 +122,14 @@ const SahyadriHeader = () => {
                 <User className="text-white w-3 h-3" />
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row gap-2 justify-center">
-              {/* <button className="px-4 py-1.5 border border-[#18978d] text-[#18978d] rounded-md hover:bg-red-50 transition-colors text-xs">
+            {/* <div className="flex flex-col sm:flex-row gap-2 justify-center">
+              <button className="px-4 py-1.5 border border-[#18978d] text-[#18978d] rounded-md hover:bg-red-50 transition-colors text-xs">
                 Home Care
-              </button> */}
+              </button>
               <button className="px-4 py-1.5 bg-[#18978d] text-white rounded-md transition-colors text-xs w-full">
                 Book Appointment
               </button>
-            </div>
+            </div> */}
           </div>
 
           {/* Desktop/Tablet Layout */}

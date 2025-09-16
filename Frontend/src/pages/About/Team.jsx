@@ -1,55 +1,30 @@
- import React, { useState, useEffect } from "react";
+ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaUserMd, FaCalendarAlt, FaFilter, FaStar, FaBriefcase, FaHospital, FaSearch } from "react-icons/fa";
+import {
+  FaUserMd,
+  FaFilter,
+  FaStar,
+  FaBriefcase,
+  FaHospital,
+  FaSearch,
+} from "react-icons/fa";
+import useDoctors from "../../hooks/useDoctors";
 
 const Team = () => {
-  const [doctors, setDoctors] = useState([]);
-  const [departments, setDepartments] = useState([]);
   const [department, setDepartment] = useState("");
-  const [loading, setLoading] = useState(true);
-  const BASE_URL =
-    import.meta.env.VITE_API_URL || "https://ashaali-hospital-2.onrender.com";
+  const { doctors, departments, loading } = useDoctors(department);
   const navigate = useNavigate();
-
-  // Fetch departments
-  useEffect(() => {
-    setLoading(true);
-    fetch(`${BASE_URL}/api/doctors/departments/list`)
-      .then((res) => res.json())
-      .then((data) => {
-        setDepartments(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Departments fetch error:", err);
-        setLoading(false);
-      });
-  }, [BASE_URL]);
-
-  // Fetch doctors based on department
-  useEffect(() => {
-    setLoading(true);
-    let url = `${BASE_URL}/api/doctors?`;
-    if (department) url += `department=${department}&`;
-
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        setDoctors(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Doctors fetch error:", err);
-        setLoading(false);
-      });
-  }, [department, BASE_URL]);
 
   const mainDoctor = doctors[0];
   const otherDoctors = doctors.slice(1);
 
-  const handleBookClick = (doctor) => {
-    navigate(`/book-appointment?doctorId=${doctor._id}&department=${doctor.department}`);
-  };
+// Team.jsx
+const handleBookClick = (doctor) => {
+  navigate(
+    `/book-appointment?doctorId=${doctor._id}&department=${doctor.department}&doctorName=${encodeURIComponent(doctor.name)}`
+  );
+};
+
 
   const getDoctorImage = (doctor) => {
     if (doctor.photo) return doctor.photo;
@@ -62,19 +37,19 @@ const Team = () => {
     return `https://ui-avatars.com/api/?name=${initials}&background=18978d&color=fff&size=200&format=svg`;
   };
 
-  const renderRating = (rating) => {
-    return (
-      <div className="flex items-center justify-center">
-        {[...Array(5)].map((_, i) => (
-          <FaStar
-            key={i}
-            className={i < Math.floor(rating) ? "text-yellow-400" : "text-gray-300"}
-          />
-        ))}
-        <span className="ml-2 text-gray-600 text-sm">({rating})</span>
-      </div>
-    );
-  };
+  const renderRating = (rating) => (
+    <div className="flex items-center justify-center">
+      {[...Array(5)].map((_, i) => (
+        <FaStar
+          key={i}
+          className={
+            i < Math.floor(rating) ? "text-yellow-400" : "text-gray-300"
+          }
+        />
+      ))}
+      <span className="ml-2 text-gray-600 text-sm">({rating})</span>
+    </div>
+  );
 
   return (
     <section className="bg-gradient-to-br from-blue-50 to-teal-50 min-h-screen py-20">
@@ -85,7 +60,8 @@ const Team = () => {
             Meet Our <span className="text-[#18978d]">Expert Doctors</span>
           </h2>
           <p className="mt-3 text-gray-600 max-w-2xl mx-auto text-lg">
-            Highly qualified specialists with years of experience, dedicated to providing you with the best healthcare.
+            Highly qualified specialists with years of experience, dedicated to
+            providing you with the best healthcare.
           </p>
         </div>
 
@@ -155,7 +131,7 @@ const Team = () => {
                         </p>
                       </div>
 
-                      <div className="mb-6">
+                      {/* <div className="mb-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                           <div className="flex items-center">
                             <div className="bg-blue-50 p-3 rounded-lg mr-4">
@@ -163,7 +139,9 @@ const Team = () => {
                             </div>
                             <div>
                               <p className="text-sm text-gray-500">Experience</p>
-                              <p className="font-semibold">{mainDoctor.experience || "10+ Years"}</p>
+                              <p className="font-semibold">
+                                {mainDoctor.experience || "10+ Years"}
+                              </p>
                             </div>
                           </div>
 
@@ -173,13 +151,19 @@ const Team = () => {
                             </div>
                             <div>
                               <p className="text-sm text-gray-500">Patients</p>
-                              <p className="font-semibold">{mainDoctor.patients || "1000+"}</p>
+                              <p className="font-semibold">
+                                {mainDoctor.patients || "1000+"}
+                              </p>
                             </div>
                           </div>
                         </div>
 
-                        {mainDoctor.rating && <div className="mb-6">{renderRating(mainDoctor.rating)}</div>}
-                      </div>
+                        {mainDoctor.rating && (
+                          <div className="mb-6">
+                            {renderRating(mainDoctor.rating)}
+                          </div>
+                        )}
+                      </div> */}
 
                       <div className="mt-auto">
                         <button
@@ -222,12 +206,22 @@ const Team = () => {
 
                     <div className="p-6">
                       <div className="text-center mb-4">
-                        <h4 className="text-xl font-bold text-gray-900 mb-1">{doctor.name}</h4>
-                        <p className="text-[#18978d] font-medium mb-1">{doctor.specialty}</p>
-                        <p className="text-gray-600 text-sm">{doctor.department}</p>
+                        <h4 className="text-xl font-bold text-gray-900 mb-1">
+                          {doctor.name}
+                        </h4>
+                        <p className="text-[#18978d] font-medium mb-1">
+                          {doctor.specialty}
+                        </p>
+                        <p className="text-gray-600 text-sm">
+                          {doctor.department}
+                        </p>
                       </div>
 
-                      {doctor.rating && <div className="flex justify-center mb-4">{renderRating(doctor.rating)}</div>}
+                      {doctor.rating && (
+                        <div className="flex justify-center mb-4">
+                          {renderRating(doctor.rating)}
+                        </div>
+                      )}
 
                       <button
                         onClick={() => handleBookClick(doctor)}
@@ -244,9 +238,12 @@ const Team = () => {
                     <div className="inline-block p-4 bg-blue-50 rounded-full mb-4">
                       <FaSearch className="w-12 h-12 text-blue-400" />
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-800 mb-2">No Doctors Found</h3>
+                    <h3 className="text-2xl font-bold text-gray-800 mb-2">
+                      No Doctors Found
+                    </h3>
                     <p className="text-gray-600 max-w-md mx-auto">
-                      No doctors match your selected filters. Try adjusting your criteria to see more results.
+                      No doctors match your selected filters. Try adjusting your
+                      criteria to see more results.
                     </p>
                   </div>
                 )}

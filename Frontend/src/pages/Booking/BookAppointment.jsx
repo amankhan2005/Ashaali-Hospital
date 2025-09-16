@@ -23,18 +23,17 @@ const API_URL = import.meta.env.VITE_API_URL;
 
   // Load departments
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}/api/doctors/departments/list`)
-      .then((res) => setDepartments(res.data))
+axios.get(`${API_URL}/api/doctors/departments/list`)
+       .then((res) => setDepartments(res.data))
       .catch(() => toast.error("Failed to load departments"));
   }, []);
 
   // Load doctors based on department
   useEffect(() => {
     if (!selectedDepartment) return setDoctors([]);
-    axios
-      .get(`${BASE_URL}/api/doctors?department=${selectedDepartment}`)
-      .then((res) => setDoctors(res.data))
+      axios.get(`${API_URL}/api/doctors?department=${selectedDepartment}`)
+
+       .then((res) => setDoctors(res.data))
       .catch(() => toast.error("Failed to load doctors"));
   }, [selectedDepartment]);
 
@@ -69,7 +68,7 @@ const API_URL = import.meta.env.VITE_API_URL;
     try {
       const options = { timeZone: "Asia/Kolkata" };
       const formattedDate = date.toLocaleDateString("en-CA", options);
-      const res = await axios.get(`${BASE_URL}/api/appointments/available-slots`, {
+      const res = await axios.get(`${API_URL}/api/appointments/available-slots`, {
         params: { doctorId: selectedDoctor._id, date: formattedDate },
       });
       setAvailableSlots(Array.isArray(res.data.slots) ? res.data.slots : []);
@@ -126,7 +125,7 @@ const API_URL = import.meta.env.VITE_API_URL;
         date: selectedDate.toISOString().split("T")[0],
         slot: selectedSlot,
       };
-      const res = await axios.post(`${BASE_URL}/api/appointments/book`, payload);
+      const res = await axios.post(`${API_URL}/api/appointments/book`, payload)
 
       // Set booking details for success message
       setBookingDetails({

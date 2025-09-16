@@ -24,7 +24,7 @@ const API_URL = import.meta.env.VITE_API_URL || "https://ashaali-hospital-2.onre
   // Load departments
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/doctors/departments/list`)
+      .get(`${BASE_URL}/api/doctors/departments/list`)
       .then((res) => setDepartments(res.data))
       .catch(() => toast.error("Failed to load departments"));
   }, []);
@@ -33,7 +33,7 @@ const API_URL = import.meta.env.VITE_API_URL || "https://ashaali-hospital-2.onre
   useEffect(() => {
     if (!selectedDepartment) return setDoctors([]);
     axios
-      .get(`${BASE_URL}/doctors?department=${selectedDepartment}`)
+      .get(`${BASE_URL}/api/doctors?department=${selectedDepartment}`)
       .then((res) => setDoctors(res.data))
       .catch(() => toast.error("Failed to load doctors"));
   }, [selectedDepartment]);
@@ -69,7 +69,7 @@ const API_URL = import.meta.env.VITE_API_URL || "https://ashaali-hospital-2.onre
     try {
       const options = { timeZone: "Asia/Kolkata" };
       const formattedDate = date.toLocaleDateString("en-CA", options);
-      const res = await axios.get(`${BASE_URL}/appointments/available-slots`, {
+      const res = await axios.get(`${BASE_URL}/api/appointments/available-slots`, {
         params: { doctorId: selectedDoctor._id, date: formattedDate },
       });
       setAvailableSlots(Array.isArray(res.data.slots) ? res.data.slots : []);
@@ -126,7 +126,7 @@ const API_URL = import.meta.env.VITE_API_URL || "https://ashaali-hospital-2.onre
         date: selectedDate.toISOString().split("T")[0],
         slot: selectedSlot,
       };
-      const res = await axios.post(`${BASE_URL}/appointments/book`, payload);
+      const res = await axios.post(`${BASE_URL}/api/appointments/book`, payload);
 
       // Set booking details for success message
       setBookingDetails({

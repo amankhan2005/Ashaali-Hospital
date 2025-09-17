@@ -52,14 +52,14 @@ const BlogDetails = () => {
                 className="w-full h-64 md:h-96 object-cover"
               />
               <div className="py-4 px-4 md:px-6">
-                <h1 className="text-[#18978d] text-3xl md:text-4xl font-extrabold mb-4">
+                <h1 className="text-[#18978d] text-xl md:text-4xl text-center md:text-justify font-extrabold mb-4">
                   {currentPost.title}
                 </h1>
-                <p className="text-gray-600 mb-4 font-medium">
+                <p className="text-gray-600 mb-4 text-center md:text-justify font-medium">
                   <span>Author: {currentPost.author}</span> |{" "}
                   <span>Category: {currentPost.category}</span>
                 </p>
-                <div className="prose max-w-none text-justify">
+                <div className="prose max-w-none text-center md:text-justify">
                   <p>{currentPost.content}</p>
                 </div>
               </div>

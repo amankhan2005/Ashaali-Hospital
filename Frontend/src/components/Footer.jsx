@@ -28,7 +28,13 @@ const Footer = () => {
               <div className="flex items-center gap-2">
                 <FiPhone />
                 <a href="tel:+917897934949" className="hover:underline">
-                  +91-7897934949
+                  +91-78979 34949
+                </a>
+                {/* <a href="" className="hover:underline">
+                  ,
+                </a> */}
+                <a href="tel:+91830321220" className="hover:underline">
+                  +91-83032 12210
                 </a>
               </div>
               <div className="flex items-center gap-2">
@@ -150,24 +156,25 @@ const Footer = () => {
         </div>
 
         {/* Footer Bottom */}
-     <div className="border-t border-gray-700 mt-6 pt-4 flex flex-row items-center justify-center flex-wrap gap-3">
-  <p className="text-sm text-white text-center">
+      <div className="border-t border-gray-700 mt-6 pt-4 flex items-center justify-center flex-wrap gap-4">
+  <p className="text-sm text-white whitespace-nowrap">
     Copyright © 2025 <span className="font-semibold">Ashaali Hospital</span> || All Rights Reserved ||
   </p>
   <a
     href="https://www.codecrafter.co.in/"
     target="_blank"
     rel="noopener noreferrer"
-    className="flex items-center text-sm text-gray-400 hover:text-main"
+    className="flex items-center whitespace-nowrap"
   >
-    <span className="ml-1 text-white">Developed By:</span>
+    <span className="text-sm text-white">Developed By:</span>
     <img
       src={logo}
       alt="Code Crafter Web Solutions"
-      className="w-24 max-w-full h-auto object-contain ml-2"
+      className="w-24 h-auto object-contain ml-2"
     />
   </a>
 </div>
+
 
       </div>
     </footer>

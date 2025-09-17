@@ -45,7 +45,7 @@ const TruestedAshaali = () => {
                                 backgroundColor: `${primaryColor}10` // Light background
                             }}
                         >
-                         Why Trust Ashaali 
+                         Why Trust Ashaali Hospital
                         </span>
                     </div>
 

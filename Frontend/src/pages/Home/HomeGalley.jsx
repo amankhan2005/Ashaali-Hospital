@@ -2,16 +2,20 @@
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { useNavigate } from 'react-router-dom';
+import { Calendar } from 'lucide-react';
 
-const API_URL = import.meta.env.VITE_API_URL; // e.g., http://localhost:3000
+const API_URL = import.meta.env.VITE_API_URL;
 
 const HomeGallery = () => {
   const [gallery, setGallery] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
-  // Fetch all gallery images from backend
+  const primaryColor = "#18978d";
+
   const fetchGallery = async () => {
     try {
       const res = await fetch(`${API_URL}/api/gallery`);
@@ -22,45 +26,16 @@ const HomeGallery = () => {
     }
   };
 
-  useEffect(() => {
-    fetchGallery();
-  }, []);
+  useEffect(() => { fetchGallery(); }, []);
 
   const openModal = (image, index) => {
     setSelectedImage(image);
     setSelectedImageIndex(index);
     setIsModalOpen(true);
   };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedImage(null);
-    setSelectedImageIndex(0);
-  };
-
-  const goToPrevious = () => {
-    const prevIndex = selectedImageIndex > 0 ? selectedImageIndex - 1 : gallery.length - 1;
-    setSelectedImageIndex(prevIndex);
-    setSelectedImage(gallery[prevIndex]);
-  };
-
-  const goToNext = () => {
-    const nextIndex = selectedImageIndex < gallery.length - 1 ? selectedImageIndex + 1 : 0;
-    setSelectedImageIndex(nextIndex);
-    setSelectedImage(gallery[nextIndex]);
-  };
-
-  const handleKeyDown = (e) => {
-    if (!isModalOpen) return;
-    if (e.key === 'ArrowLeft') goToPrevious();
-    else if (e.key === 'ArrowRight') goToNext();
-    else if (e.key === 'Escape') closeModal();
-  };
-
-  useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isModalOpen, selectedImageIndex]);
+  const closeModal = () => { setIsModalOpen(false); setSelectedImage(null); setSelectedImageIndex(0); };
+  const goToPrevious = () => { const prev = selectedImageIndex > 0 ? selectedImageIndex - 1 : gallery.length - 1; setSelectedImageIndex(prev); setSelectedImage(gallery[prev]); };
+  const goToNext = () => { const next = selectedImageIndex < gallery.length - 1 ? selectedImageIndex + 1 : 0; setSelectedImageIndex(next); setSelectedImage(gallery[next]); };
 
   const settings = {
     dots: true,
@@ -77,16 +52,17 @@ const HomeGallery = () => {
     responsive: [
       { breakpoint: 1024, settings: { slidesToShow: 2, centerPadding: '15px' } },
       { breakpoint: 768, settings: { slidesToShow: 1, centerPadding: '10px' } },
-      { breakpoint: 480, settings: { slidesToShow: 1, centerPadding: '5px', arrows: false } }
-    ]
+      { breakpoint: 480, settings: { slidesToShow: 1, centerPadding: '5px' } }
+    ],
+    nextArrow: <CustomArrow direction="next" />,
+    prevArrow: <CustomArrow direction="prev" />,
   };
-
-  const primaryColor = "#18978d";
 
   return (
     <div className='w-full py-8 md:py-10 lg:py-12'>
       <div className="container mx-auto lg:px-12 px-4 sm:px-6 md:px-8">
 
+        {/* Heading */}
         <div className="text-center mb-4 md:mb-6 px-4 max-w-5xl mx-auto">
           <div className="mb-3 md:mb-4">
             <span
@@ -101,6 +77,7 @@ const HomeGallery = () => {
           </h1>
         </div>
 
+        {/* Carousel */}
         <div className="gallery-carousel">
           <Slider {...settings}>
             {gallery.map((image, index) => (
@@ -110,7 +87,7 @@ const HomeGallery = () => {
                   onClick={() => openModal(image, index)}
                 >
                   <img
-                    src={image.image}
+                    src={image.image || '/doctor.png'}
                     alt={image.alt || 'Gallery Image'}
                     className="w-full h-48 md:h-60 lg:h-72 object-cover transition-transform duration-300 group-hover:scale-105"
                   />
@@ -123,80 +100,100 @@ const HomeGallery = () => {
                       </div>
                     </div>
                   </div>
+
+              
                 </div>
               </div>
             ))}
           </Slider>
         </div>
 
-       {isModalOpen && (
-  <div
-    className="fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 p-4"
-    onClick={closeModal}
-  >
-    <div className="relative max-w-4xl max-h-full">
-      <button
-        onClick={closeModal}
-        className="absolute top-2 right-2 text-white hover:text-gray-300 transition-colors duration-200 z-10"
-      >
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
+        {/* Modal */}
+        {isModalOpen && (
+          <div
+            className="fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 p-4"
+            onClick={closeModal}
+          >
+            <div className="relative max-w-4xl max-h-full">
+              <button
+                onClick={closeModal}
+                className="absolute top-2 right-2 text-white hover:text-gray-300 transition-colors duration-200 z-10"
+              >
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
 
-      <button
-        onClick={(e) => { e.stopPropagation(); goToPrevious(); }}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 text-black rounded-full p-2 transition-all duration-200 z-10"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); goToPrevious(); }}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 text-black rounded-full p-2 transition-all duration-200 z-10"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
 
-      <button
-        onClick={(e) => { e.stopPropagation(); goToNext(); }}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 text-black rounded-full p-2 transition-all duration-200 z-10"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); goToNext(); }}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 text-black rounded-full p-2 transition-all duration-200 z-10"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
 
-      <img
-        src={selectedImage?.image}
-        alt={selectedImage?.alt || 'Gallery Image'}
-        className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
-        onClick={(e) => e.stopPropagation()}
-      />
+              <img
+                src={selectedImage?.image || '/doctor.png'}
+                alt={selectedImage?.alt || 'Gallery Image'}
+                className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+              />
 
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
-        {selectedImageIndex + 1} / {gallery.length}
-      </div>
-    </div>
-  </div>
-)}
-
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+                {selectedImageIndex + 1} / {gallery.length}
+              </div>
+            </div>
+          </div>
+        )}
 
         <style jsx global>{`
           .gallery-carousel .slick-dots { bottom: -40px; }
-          .gallery-carousel .slick-dots li button:before {
-            font-size: 12px; color: #18978d; opacity: 0.5;
-          }
-          .gallery-carousel .slick-dots li.slick-active button:before {
-            color: #18978d; opacity: 1;
-          }
+          .gallery-carousel .slick-dots li button:before { font-size: 12px; color: #18978d; opacity: 0.5; }
+          .gallery-carousel .slick-dots li.slick-active button:before { color: #18978d; opacity: 1; }
           .gallery-carousel .slick-prev, .gallery-carousel .slick-next {
             z-index: 10; width: 40px; height: 40px;
           }
           .gallery-carousel .slick-prev { left: 10px; }
           .gallery-carousel .slick-next { right: 10px; }
           .gallery-carousel .slick-prev:before, .gallery-carousel .slick-next:before {
-            font-size: 24px; color: #18978d; text-shadow: 0 0 3px rgba(0,0,0,0.3);
+            font-size: 24px; color: #fff; opacity: 0.5;
           }
         `}</style>
       </div>
     </div>
   );
 };
+
+// Custom arrows for slider
+const CustomArrow = ({ onClick, direction }) => (
+  <div
+    className={`absolute top-1/2 transform -translate-y-1/2 z-20 cursor-pointer ${
+      direction === "next" ? "right-2" : "left-2"
+    }`}
+    onClick={onClick}
+    style={{
+      backgroundColor: "rgba(255,255,255,0.5)",
+      borderRadius: "50%",
+      width: 35,
+      height: 35,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: 20,
+    }}
+  >
+    {direction === "next" ? ">" : "<"}
+  </div>
+);
 
 export default HomeGallery;

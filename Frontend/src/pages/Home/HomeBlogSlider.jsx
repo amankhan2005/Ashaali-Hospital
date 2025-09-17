@@ -139,22 +139,22 @@ const HomeBlogSlider = () => {
             </div>
           </div>
 
-          {/* ✅ Buttons hidden on mobile, shown on md+ */}
+          {/* ✅ Arrow Buttons inside screen with 50% white opacity */}
           {totalSlides > 1 && (
             <>
               <button
                 onClick={prevSlide}
-                className="hidden md:flex absolute -left-6 top-[40%] -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50 transition-colors"
-                style={{ color: primaryColor }}
+                className="absolute left-2 sm:left-4 md:left-6 top-1/2 transform -translate-y-1/2 z-10 rounded-full p-3 transition-transform hover:scale-110"
+                style={{ backgroundColor: 'rgba(255,255,255,0.5)' }}
               >
-                <ChevronLeft className="w-6 h-6" />
+                <ChevronLeft className="w-6 h-6 text-black" />
               </button>
               <button
                 onClick={nextSlide}
-                className="hidden md:flex absolute -right-6 top-[40%] -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50 transition-colors"
-                style={{ color: primaryColor }}
+                className="absolute right-2 sm:right-4 md:right-6 top-1/2 transform -translate-y-1/2 z-10 rounded-full p-3 transition-transform hover:scale-110"
+                style={{ backgroundColor: 'rgba(255,255,255,0.5)' }}
               >
-                <ChevronRight className="w-6 h-6" />
+                <ChevronRight className="w-6 h-6 text-black" />
               </button>
             </>
           )}

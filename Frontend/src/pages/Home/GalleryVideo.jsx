@@ -128,16 +128,16 @@ const YouTubeChannelShowcase = () => {
                             <button
                                 onClick={prevSlide}
                                 className="absolute left-2 top-1/2 transform -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-transform z-10"
-                                style={{ backgroundColor: primaryColor }}
+                                style={{ backgroundColor: 'rgba(255,255,255,0.5)' }} // white 50%
                             >
-                                <ChevronLeft className="w-6 h-6" />
+                                <ChevronLeft className="w-6 h-6 text-black" />
                             </button>
                             <button
                                 onClick={nextSlide}
                                 className="absolute right-2 top-1/2 transform -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-transform z-10"
-                                style={{ backgroundColor: primaryColor }}
+                                style={{ backgroundColor: 'rgba(255,255,255,0.5)' }} // white 50%
                             >
-                                <ChevronRight className="w-6 h-6" />
+                                <ChevronRight className="w-6 h-6 text-black" />
                             </button>
                         </>
                     )}

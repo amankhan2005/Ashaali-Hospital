@@ -1,12 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
+ import React from "react";
+import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import { Calendar } from "lucide-react";
-import useDoctors from "../../hooks/useDoctors.js"; // ✅ useDoctors hook import
+import useDoctors from "../../hooks/useDoctors.js";
 
 const DoctorCarouselBackend = () => {
-  const { doctors, loading } = useDoctors(); // no filter = all doctors
+  const { doctors, loading } = useDoctors(); // all doctors
   const primaryColor = "#18978d";
+  const navigate = useNavigate();
 
   const settings = {
     dots: true,
@@ -14,14 +15,27 @@ const DoctorCarouselBackend = () => {
     speed: 500,
     slidesToShow: Math.min(4, doctors.length || 1),
     slidesToScroll: 1,
-    autoplay: doctors.length > 4,
+    autoplay: true,
     autoplaySpeed: 3000,
     arrows: true,
+    nextArrow: <CustomArrow direction="next" />,
+    prevArrow: <CustomArrow direction="prev" />,
     responsive: [
       { breakpoint: 1200, settings: { slidesToShow: 3, slidesToScroll: 1 } },
       { breakpoint: 768, settings: { slidesToShow: 2, slidesToScroll: 1 } },
       { breakpoint: 480, settings: { slidesToShow: 1, slidesToScroll: 1 } },
     ],
+  };
+
+  const getDoctorImage = (doctor) => {
+    if (doctor.photo) return doctor.photo;
+    const initials = doctor.name
+      .split(" ")
+      .map((w) => w[0])
+      .join("")
+      .substring(0, 2)
+      .toUpperCase();
+    return `https://ui-avatars.com/api/?name=${initials}&background=18978d&color=fff&size=200&format=svg`;
   };
 
   if (loading) {
@@ -49,7 +63,7 @@ const DoctorCarouselBackend = () => {
               Trusted Professionals Committed to Your Care and Recovery
             </span>
           </div>
-          <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold">
+          <h1 className="text-xl md:text-3xl lg:text-4xl xl:text-5xl font-bold">
             Meet Our Team of Expert Doctors
           </h1>
         </div>
@@ -60,7 +74,7 @@ const DoctorCarouselBackend = () => {
             {doctors.map((doctor, i) => (
               <div key={doctor._id || i} className="px-2">
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 px-2 py-6 flex flex-col items-center text-center transition-shadow duration-300 hover:shadow-md">
-                  {/* Image with dotted bg */}
+                  {/* Image */}
                   <div className="relative mb-2">
                     <div
                       className="w-60 h-60 rounded-full flex items-center justify-center relative"
@@ -96,7 +110,7 @@ const DoctorCarouselBackend = () => {
                       </div>
                       <div className="w-50 h-50 rounded-full overflow-hidden border-3 border-white shadow-lg relative z-10">
                         <img
-                          src={doctor.photo || "/doctor.png"}
+                          src={getDoctorImage(doctor)}
                           alt={doctor.name}
                           className="w-full h-full object-cover"
                         />
@@ -109,21 +123,26 @@ const DoctorCarouselBackend = () => {
                     <h3 className="text-base font-bold text-gray-900 leading-tight">
                       {doctor.name}
                     </h3>
-                    <p className="text-sm text-gray-400 font-normal uppercase tracking-wide">
+                    <p className="text-sm text-gray-600 font-bold uppercase tracking-wide">
                       {doctor.department}
                     </p>
                   </div>
 
-                  {/* Book Appointment */}
-                  <Link
-                    to={`/book-appointment?doctorId=${doctor._id}&department=${
-                      doctor.department
-                    }&doctorName=${encodeURIComponent(doctor.name)}`}
-                    className="bg-teal-700 text-white py-2 px-4 rounded-lg text-sm font-semibold hover:bg-teal-800 transition-all duration-300 flex items-center justify-center gap-2 mx-auto mt-1"
+                  {/* Book Appointment Button */}
+                  <button
+                    onClick={() => {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                      window.location.href = `/book-appointment?doctorId=${
+                        doctor._id
+                      }&department=${doctor.department}&doctorName=${encodeURIComponent(
+                        doctor.name
+                      )}`;
+                    }}
+                    className="bg-[#18978d] text-white py-2 px-4 rounded-lg text-sm font-semibold hover:bg-[#147a71] transition-all duration-300 flex items-center justify-center gap-2 mx-auto mt-2"
                   >
                     <Calendar className="w-4 h-4" />
                     Book Appointment
-                  </Link>
+                  </button>
                 </div>
               </div>
             ))}
@@ -133,5 +152,27 @@ const DoctorCarouselBackend = () => {
     </div>
   );
 };
+
+// Custom arrows
+const CustomArrow = ({ onClick, direction }) => (
+  <div
+    className={`absolute top-1/2 transform -translate-y-1/2 z-20 cursor-pointer ${
+      direction === "next" ? "right-2" : "left-2"
+    }`}
+    onClick={onClick}
+    style={{
+      backgroundColor: "rgba(255,255,255,0.5)",
+      borderRadius: "50%",
+      width: 35,
+      height: 35,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: 20,
+    }}
+  >
+    {direction === "next" ? ">" : "<"}
+  </div>
+);
 
 export default DoctorCarouselBackend;

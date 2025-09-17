@@ -2637,13 +2637,13 @@ const OrthopaedicDepartment = () => {
           <div className="bg-white">
             <div className="py-4 mx-auto px-4   rounded-xl shadow-lg border border-gray-200">
               <div className="w-full">
-                <h1 className="lg:text-4xl text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                <h1 className="lg:text-4xl text-xl md:text-3xl font-bold text-gray-900 mb-2 md:text-justify">
                   {activeService?.departmentTitle}
                 </h1>
-                <p className="text-xl text-gray-600">
+                <p className="text-xl text-gray-600 md:text-justify">
                   {activeService?.subtitle}
                 </p>
-                <p className="text-lg text-gray-700 leading-relaxed mb-8 max-w-full">
+                <p className="text-lg text-gray-700 leading-relaxed mb-8 max-w-full text-center md:text-justify">
                   {activeService?.heroDescription}
                 </p>
 
@@ -2673,23 +2673,23 @@ const OrthopaedicDepartment = () => {
 
                 {/* Statistics Section */}
                 <div className="bg-white rounded-lg py-8 px-4 shadow-sm border border-gray-200">
-                  <h2 className="lg:text-3xl text-xl md:text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                  <h2 className="lg:text-3xl text-xl md:text-2xl font-bold text-gray-900 mb-4 flex items-center md:text-justify">
                     <Activity className="w-8 h-8 mr-3" style={{ color: primaryColor }} />
                     {activeService?.treatmentExperienceTitle}
                   </h2>
 
-                  <p className="text-gray-700 mb-8 text-lg leading-relaxed text-justify">
+                  <p className="text-gray-700 mb-8 text-lg leading-relaxed  items-center md:text-justify">
                     {activeService?.treatmentExperienceDesc}
                   </p>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     {activeService?.caseStats && activeService?.caseStats.map((stat, index) => (
                       <div key={index} className="border border-gray-200 py-2 px-2 rounded-lg">
-                        <div className="text-3xl font-bold mb-2" style={{ color: primaryColor }}>
+                        <div className="text-3xl items-center md:text-justify font-bold mb-2" style={{ color: primaryColor }}>
                           {stat.count}
                         </div>
-                        <div className="text-lg font-semibold text-gray-900 mb-2">{stat.title}</div>
-                        <p className="text-gray-600 text-sm leading-relaxed">{stat.description}</p>
+                        <div className="text-lg font-semibold items-center md:text-justify text-gray-900 mb-2">{stat.title}</div>
+                        <p className="text-gray-600 text-sm items-center md:text-justify leading-relaxed">{stat.description}</p>
                       </div>
                     ))}
                   </div>
@@ -2698,10 +2698,10 @@ const OrthopaedicDepartment = () => {
                     <div className="flex items-start">
                       <CheckCircle className="w-6 h-6 text-green-500 mr-3 mt-0.5" />
                       <div>
-                        <h3 className="text-lg font-semibold text-green-800 mb-2">
+                        <h3 className="text-lg items-center md:text-justify font-semibold text-green-800 mb-2">
                           {activeService?.successRateTitle}
                         </h3>
-                        <p className="text-gray-700 leading-relaxed">
+                        <p className="text-gray-700 leading-relaxed items-center md:text-justify">
                           {activeService?.successRateDesc}
                         </p>
                       </div>
@@ -2712,8 +2712,8 @@ const OrthopaedicDepartment = () => {
                 {/* All Content Sections */}
                 <div className="bg-white rounded-xl p-4 shadow-md border border-gray-200">
                   {/* Conditions We Treat */}
-                  <h2 className="lg:text-3xl text-xl md:text-2xl font-bold text-gray-900 mb-2">{activeService?.conditionsTitle}</h2>
-                  <p className="text-gray-700 mb-6 text-lg">{activeService?.conditionsDesc}</p>
+                  <h2 className="lg:text-3xl text-xl md:text-2xl font-bold items-center md:text-justify text-gray-900 mb-2">{activeService?.conditionsTitle}</h2>
+                  <p className="text-gray-700 mb-6 items-center md:text-justify text-lg">{activeService?.conditionsDesc}</p>
 
                   <div className="space-y-3 mb-10">
                     {activeService?.conditionsTreated && activeService?.conditionsTreated.map((condition, index) => (
@@ -2724,8 +2724,8 @@ const OrthopaedicDepartment = () => {
                   </div>
 
                   {/* Procedures & Surgeries */}
-                  <h2 className="lg:text-3xl text-xl md:text-2xl font-bold text-gray-900 mb-2">{activeService?.proceduresTitle}</h2>
-                  <p className="text-gray-700 mb-6 text-lg">{activeService?.proceduresDesc}</p>
+                  <h2 className="lg:text-3xl text-xl md:text-2xl items-center md:text-justify font-bold text-gray-900 mb-2">{activeService?.proceduresTitle}</h2>
+                  <p className="text-gray-700 mb-6 items-center md:text-justify text-lg">{activeService?.proceduresDesc}</p>
 
                   <div className="overflow-x-auto mb-10">
                     <table className="w-full border border-gray-300 text-left">

@@ -8,7 +8,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import logo from "../assets/logo.jpg";
+import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import {
   FaProcedures,
@@ -31,7 +31,16 @@ import {
   FaLungs,
   FaAllergies,
   FaNotesMedical,
+  FaPhoneAlt,
+  FaWhatsapp,
+  FaEnvelope,
+  FaYoutube,
+  FaLinkedin,
+  FaFacebookF,
 } from "react-icons/fa";
+
+import { FaXTwitter } from "react-icons/fa6";
+
 import { MdPsychology } from "react-icons/md";
 
 const SahyadriHeader = () => {
@@ -100,7 +109,7 @@ const SahyadriHeader = () => {
       {/* Top Bar */}
       <div className="bg-gray-100  py-[0.3rem] text-sm">
         <div className="container mx-auto ">
-          {/* Mobile Layout */}
+          {/* Top Layout */}
           <div className="flex flex-col space-y-2 md:hidden">
             <div className="flex items-center justify-center gap-2 text-gray-600">
               <span className="text-xs">Emergency/Appointment</span>
@@ -108,28 +117,94 @@ const SahyadriHeader = () => {
                 href="tel:+917897934949"
                 className="text-red-600 font-semibold hover:underline"
               >
-                +91 7897934949
+                +91 78979 34949
+              </a>
+              <a
+                href="tel:+91830321220 "
+                className="text-red-600 font-semibold hover:underline"
+              >
+                +91-83032 12210
               </a>
             </div>
-            <div className="flex items-center justify-center gap-2">
-              <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
-                <Phone className="text-white w-3 h-3" />
-              </div>
-              <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                <MessageSquare className="text-white w-3 h-3" />
-              </div>
-              <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
-                <User className="text-white w-3 h-3" />
-              </div>
+
+            <div className="flex items-center justify-center gap-3">
+              {/* Call */}
+              <a
+                href="tel:+917897934949"
+                className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center"
+              >
+                <FaPhoneAlt className="text-white text-sm" />
+              </a>
+
+              {/* WhatsApp */}
+              <a
+                href="https://wa.me/917897934949"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center"
+              >
+                <FaWhatsapp className="text-white text-sm" />
+              </a>
+
+              {/* Mail */}
+              <a
+                href="mailto:ashaalihospital@gmail.com"
+                className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center"
+              >
+                <FaEnvelope className="text-white text-sm" />
+              </a>
+
+              {/* YouTube */}
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center"
+              >
+                <FaYoutube className="text-white text-sm" />
+              </a>
+
+              {/* LinkedIn */}
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center"
+              >
+                <FaLinkedin className="text-white text-sm" />
+              </a>
+
+              {/* X (Twitter new logo) */}
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 bg-black rounded-full flex items-center justify-center"
+              >
+                <FaXTwitter className="text-white text-sm" />
+              </a>
+
+              {/* Facebook */}
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center"
+              >
+                <FaFacebookF className="text-white text-sm" />
+              </a>
             </div>
-            {/* <div className="flex flex-col sm:flex-row gap-2 justify-center">
-              <button className="px-4 py-1.5 border border-[#18978d] text-[#18978d] rounded-md hover:bg-red-50 transition-colors text-xs">
+            <div className="flex flex-col sm:flex-row gap-2 justify-center">
+              {/* <button className="px-4 py-1.5 border border-[#18978d] text-[#18978d] rounded-md hover:bg-red-50 transition-colors text-xs">
                 Home Care
-              </button>
-              <button className="px-4 py-1.5 bg-[#18978d] text-white rounded-md transition-colors text-xs w-full">
+              </button> */}
+              <Link
+                to="/book-appointment"
+                className="px-4 py-1.5 bg-[#18978d] text-white text-center rounded-md transition-colors text-sm"
+              >
                 Book Appointment
-              </button>
-            </div> */}
+              </Link>
+            </div>
           </div>
 
           {/* Desktop/Tablet Layout */}
@@ -143,28 +218,25 @@ const SahyadriHeader = () => {
                 href="tel:+917897934949"
                 className="text-red-600 font-semibold hover:underline"
               >
-                +91 7897934949
+                +91-78979 34949
               </a>
-              {/* <span className="hidden lg:inline">Second Opinion</span> */}
+                  <a
+                href="tel:+91830321220 "
+                className="text-red-600 font-semibold hover:underline"
+              >
+                +91-83032 12210
+              </a>
             </div>
 
             <div className="flex items-center gap-4">
-              {/* <div className="relative xl:block hidden">
-                <input
-                  type="text"
-                  placeholder="Search doctor here"
-                  className="w-full pl-4 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-sm"
-                />
-                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-              </div> */}
               {/* Emergency Contacts */}
-              <div className="flex items-center gap-2">
-                {/* Email */}
+              <div className="hidden md:flex gap-2">
+                {/* Call */}
                 <a
-                  href="mailto:ashaalihospital@gmail.com"
-                  className="w-7 h-7 bg-red-500 rounded-full flex items-center justify-center"
+                  href="tel:+917897934949"
+                  className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center"
                 >
-                  <User className="text-white w-4 h-4" />
+                  <FaPhoneAlt className="text-white text-sm" />
                 </a>
 
                 {/* WhatsApp */}
@@ -172,28 +244,65 @@ const SahyadriHeader = () => {
                   href="https://wa.me/917897934949"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-7 h-7 bg-green-500 rounded-full flex items-center justify-center"
+                  className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center"
                 >
-                  <MessageSquare className="text-white w-4 h-4" />
+                  <FaWhatsapp className="text-white text-sm" />
                 </a>
 
-                {/* Phone Call */}
+                {/* Mail */}
                 <a
-                  href="tel:+917897934949"
-                  className="w-7 h-7 bg-red-500 rounded-full flex items-center justify-center"
+                  href="mailto:ashaalihospital@gmail.com"
+                  className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center"
                 >
-                  <Phone className="text-white w-4 h-4" />
+                  <FaEnvelope className="text-white text-sm" />
+                </a>
+
+                {/* YouTube */}
+                <a
+                  href="https://youtube.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center"
+                >
+                  <FaYoutube className="text-white text-sm" />
+                </a>
+
+                {/* LinkedIn */}
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center"
+                >
+                  <FaLinkedin className="text-white text-sm" />
+                </a>
+
+                {/* X (Twitter new logo) */}
+                <a
+                  href="https://twitter.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 bg-black rounded-full flex items-center justify-center"
+                >
+                  <FaXTwitter className="text-white text-sm" />
+                </a>
+
+                {/* Facebook */}
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center"
+                >
+                  <FaFacebookF className="text-white text-sm" />
                 </a>
               </div>
 
               {/* Action Buttons */}
               <div className="flex gap-2">
-                {/* <button className="px-4 py-1.5 border border-[#18978d] text-[#18978d] rounded-md hover:bg-red-50 transition-colors text-sm">
-                  Home Care
-                </button> */}
-                {/* <Link className="px-4 py-1.5 bg-[#18978d] lg:block xl:hidden text-white rounded-md transition-colors text-sm">
+                <Link className="px-4 py-1.5 bg-[#18978d] lg:block xl:hidden text-white rounded-md transition-colors text-sm">
                   Book Appointment
-                </Link> */}
+                </Link>
               </div>
             </div>
           </div>
@@ -205,9 +314,13 @@ const SahyadriHeader = () => {
         <div className="container mx-auto  ">
           <div className="flex items-center justify-between lg:px-10 px-6">
             {/* Logo */}
-            <Link to={"/"} className=" w-fit">
-              <div className="lg:w-[20rem]">
-                <img src={logo} alt="Ashaali-hospital" />
+            <Link to={"/"} className="w-fit">
+              <div className="w-[6rem] sm:w-[8rem] md:w-[10rem] lg:w-[14rem]">
+                <img
+                  src={logo}
+                  alt="Ashaali-hospital"
+                  className="w-full h-auto max-h-12 md:max-h-14 lg:max-h-16 object-contain"
+                />
               </div>
             </Link>
 
@@ -343,7 +456,7 @@ const SahyadriHeader = () => {
 
             <Link
               to="/book-appointment"
-              className="px-4 py-1.5 bg-[#18978d] text-white rounded-md transition-colors text-sm"
+              className=" hidden md:block px-4 py-1.5 bg-[#18978d] text-white rounded-md transition-colors text-sm"
             >
               Book Appointment
             </Link>

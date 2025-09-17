@@ -93,7 +93,7 @@ const AshaaliHospitalAbout = () => {
                     Our Vision
                   </h3>
                 </div>
-                <p className="text-gray-700 text-sm sm:text-base leading-relaxed text-justify">
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed text-center md:text-justify">
                   To be the leading healthcare provider in the region, recognized
                   for our commitment to clinical excellence, innovative
                   treatments, and compassionate care...
@@ -108,7 +108,7 @@ const AshaaliHospitalAbout = () => {
                     Our Mission
                   </h3>
                 </div>
-                <p className="text-gray-700 text-sm sm:text-base leading-relaxed text-justify">
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed text-center md:text-justify">
                   To provide comprehensive, patient-centered healthcare services
                   with the highest standards...
                 </p>

@@ -37,10 +37,10 @@ export const bookAppointment = async (req, res) => {
     if (!doctor) return res.status(404).json({ error: "Doctor not found" });
 
     // Convert selected date to IST to avoid day mismatch
-    const [year, month, day] = date.split("-").map(Number);
-    const appointmentDate = new Date(Date.UTC(year, month - 1, day));
-    // appointmentDate.setHours(5, 30, 0, 0); // 00:00 IST
-    appointmentDate.setHours(5, 30, 0, 0); // 00:00 IST
+ // Directly create IST date
+const [year, month, day] = date.split("-").map(Number);
+const appointmentDate = new Date(year, month - 1, day, 0, 0, 0); // Local IST date
+
 
 
     // Check if slot already booked
@@ -111,10 +111,10 @@ export const getAvailableSlotsForDoctorDate = async (req, res) => {
 
     // ✅ Correct IST start & end of day
     const [year, month, dayNum] = date.split("-").map(Number);
-    const startOfDay = new Date(Date.UTC(year, month - 1, dayNum));
-     startOfDay.setUTCHours(0, 0, 0, 0); // day start UTC
-const endOfDay = new Date(startOfDay);
-endOfDay.setUTCHours(23, 59, 59, 999); // day end UTC
+    // Use local IST start and end of day
+const startOfDay = new Date(year, month - 1, dayNum, 0, 0, 0); // 00:00 IST
+const endOfDay = new Date(year, month - 1, dayNum, 23, 59, 59); // 23:59 IST
+
 
 
 

@@ -316,7 +316,7 @@ const SahyadriHeader = () => {
                 <img
                   src={logo}
                   alt="Ashaali-hospital"
-                  className="w-full h-auto max-h-12 md:max-h-14 lg:max-h-16 object-contain"
+                  className="w-full p-2 h-15 max-h-16 md:max-h-14 lg:max-h-16 object-contain"
                 />
               </div>
             </Link>

@@ -1,15 +1,12 @@
- 
-
-import React, { useEffect, useState } from "react";
+ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
 import { useSearchParams } from "react-router-dom";
 
-
 const AppointmentBooking = () => {
-const API_URL = import.meta.env.VITE_API_URL;
+  const API_URL = import.meta.env.VITE_API_URL;
   const [departments, setDepartments] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState("");
@@ -25,31 +22,27 @@ const API_URL = import.meta.env.VITE_API_URL;
 
   const [searchParams] = useSearchParams();
 
-useEffect(() => {
-  const docId = searchParams.get("doctorId");
-  const dep = searchParams.get("department");
-  const docName = searchParams.get("doctorName");
-
-  if (dep) setSelectedDepartment(dep);   // Department dropdown default set hoga
-  if (docId && doctors.length > 0) {
-    handleDoctorSelect(docId);           // Doctor auto select hoga jab doctors load ho jaye
-  }
-}, [searchParams, doctors]);
-
-
-  // Load departments
   useEffect(() => {
-axios.get(`${API_URL}/api/doctors/departments/list`)
-       .then((res) => setDepartments(res.data))
+    const docId = searchParams.get("doctorId");
+    const dep = searchParams.get("department");
+    const docName = searchParams.get("doctorName");
+
+    if (dep) setSelectedDepartment(dep);
+    if (docId && doctors.length > 0) {
+      handleDoctorSelect(docId);
+    }
+  }, [searchParams, doctors]);
+
+  useEffect(() => {
+    axios.get(`${API_URL}/api/doctors/departments/list`)
+      .then((res) => setDepartments(res.data))
       .catch(() => toast.error("Failed to load departments"));
   }, []);
 
-  // Load doctors based on department
   useEffect(() => {
     if (!selectedDepartment) return setDoctors([]);
-      axios.get(`${API_URL}/api/doctors?department=${selectedDepartment}`)
-
-       .then((res) => setDoctors(res.data))
+    axios.get(`${API_URL}/api/doctors?department=${selectedDepartment}`)
+      .then((res) => setDoctors(res.data))
       .catch(() => toast.error("Failed to load doctors"));
   }, [selectedDepartment]);
 
@@ -83,13 +76,12 @@ axios.get(`${API_URL}/api/doctors/departments/list`)
     setLoadingSlots(true);
     try {
       const options = { timeZone: "Asia/Kolkata" };
-      // ✅ Format date in local IST as YYYY-MM-DD
-const year = date.getFullYear();
-const month = String(date.getMonth() + 1).padStart(2, "0");
-const day = String(date.getDate()).padStart(2, "0");
-const formattedDate = `${year}-${month}-${day}`;
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      const formattedDate = `${year}-${month}-${day}`;
 
-       const res = await axios.get(`${API_URL}/api/appointments/available-slots`, {
+      const res = await axios.get(`${API_URL}/api/appointments/available-slots`, {
         params: { doctorId: selectedDoctor._id, date: formattedDate },
       });
       setAvailableSlots(Array.isArray(res.data.slots) ? res.data.slots : []);
@@ -101,7 +93,6 @@ const formattedDate = `${year}-${month}-${day}`;
     }
   };
 
-  // Validate inputs on change
   const validateField = (field, value) => {
     let message = "";
     if (field === "name") {
@@ -144,12 +135,10 @@ const formattedDate = `${year}-${month}-${day}`;
         email: patient.email,
         phone: patient.phone,
         date: `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2,"0")}-${String(selectedDate.getDate()).padStart(2,"0")}`,
-
         slot: selectedSlot,
       };
-      const res = await axios.post(`${API_URL}/api/appointments/book`, payload)
+      const res = await axios.post(`${API_URL}/api/appointments/book`, payload);
 
-      // Set booking details for success message
       setBookingDetails({
         doctorName: selectedDoctor.name,
         department: selectedDepartment,
@@ -161,7 +150,6 @@ const formattedDate = `${year}-${month}-${day}`;
       toast.success(res.data.message || "Appointment booked successfully!");
       setBookingSuccess(true);
 
-      // Reset form
       setSelectedDepartment("");
       setSelectedDoctor(null);
       setSelectedDate(null);
@@ -170,7 +158,6 @@ const formattedDate = `${year}-${month}-${day}`;
       setPatient({ name: "", email: "", phone: "" });
       setErrors({ name: "", email: "", phone: "" });
 
-      // Hide success message after 10 seconds
       setTimeout(() => setBookingSuccess(false), 10000);
     } catch (err) {
       toast.error(err.response?.data?.error || "Booking failed");
@@ -184,14 +171,14 @@ const formattedDate = `${year}-${month}-${day}`;
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-teal-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-teal-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-teal-500 mb-4">
+        <div className="text-center mb-8 sm:mb-10">
+          <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-teal-500 mb-3 sm:mb-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8 text-white"
+              className="h-6 w-6 sm:h-8 sm:w-8 text-white"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -204,10 +191,10 @@ const formattedDate = `${year}-${month}-${day}`;
               />
             </svg>
           </div>
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl mb-3">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-2 sm:mb-3">
             Book Your Appointment
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-2">
             Schedule your visit with our expert healthcare professionals in just
             a few simple steps
           </p>
@@ -215,13 +202,13 @@ const formattedDate = `${year}-${month}-${day}`;
 
         {/* Success Message */}
         {bookingSuccess && bookingDetails && (
-          <div className="mb-8 bg-gradient-to-r from-green-50 to-teal-50 border border-green-200 rounded-2xl shadow-lg overflow-hidden">
-            <div className="p-6 sm:p-8">
+          <div className="mb-6 sm:mb-8 bg-gradient-to-r from-green-50 to-teal-50 border border-green-200 rounded-2xl shadow-lg overflow-hidden">
+            <div className="p-4 sm:p-6 md:p-8">
               <div className="flex flex-col sm:flex-row items-center">
-                <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-4 sm:mb-0 sm:mr-6">
+                <div className="flex-shrink-0 flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 rounded-full bg-green-100 mb-4 sm:mb-0 sm:mr-6">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-8 w-8 text-green-600"
+                    className="h-7 w-7 sm:h-8 sm:w-8 text-green-600"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -234,39 +221,39 @@ const formattedDate = `${year}-${month}-${day}`;
                     />
                   </svg>
                 </div>
-                <div className="text-center sm:text-left">
-                  <h3 className="text-2xl font-bold text-green-800 mb-2">
+                <div className="text-center sm:text-left w-full">
+                  <h3 className="text-xl sm:text-2xl font-bold text-green-800 mb-2">
                     Appointment Confirmed!
                   </h3>
-                  <p className="text-green-700 mb-4">
+                  <p className="text-green-700 mb-3 sm:mb-4 text-sm sm:text-base">
                     Your appointment has been successfully booked. A
                     confirmation email has been sent to your registered email
                     address.
                   </p>
 
-                  <div className="bg-white rounded-xl p-4 shadow-sm border border-green-100">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-green-100">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                       <div>
-                        <p className="text-sm text-gray-500">Patient</p>
-                        <p className="font-medium text-gray-900">
+                        <p className="text-xs sm:text-sm text-gray-500">Patient</p>
+                        <p className="font-medium text-gray-900 text-sm sm:text-base">
                           {bookingDetails.patientName}
                         </p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">Doctor</p>
-                        <p className="font-medium text-gray-900">
+                        <p className="text-xs sm:text-sm text-gray-500">Doctor</p>
+                        <p className="font-medium text-gray-900 text-sm sm:text-base">
                           Dr. {bookingDetails.doctorName}
                         </p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">Department</p>
-                        <p className="font-medium text-gray-900">
+                        <p className="text-xs sm:text-sm text-gray-500">Department</p>
+                        <p className="font-medium text-gray-900 text-sm sm:text-base">
                           {bookingDetails.department}
                         </p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">Date & Time</p>
-                        <p className="font-medium text-gray-900">
+                        <p className="text-xs sm:text-sm text-gray-500">Date & Time</p>
+                        <p className="font-medium text-gray-900 text-sm sm:text-base">
                           {bookingDetails.date.toLocaleDateString("en-US", {
                             weekday: "long",
                             year: "numeric",
@@ -279,14 +266,14 @@ const formattedDate = `${year}-${month}-${day}`;
                     </div>
                   </div>
 
-                  <div className="mt-6 flex flex-col sm:flex-row justify-center sm:justify-start gap-3">
+                  <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row justify-center sm:justify-start gap-2 sm:gap-3">
                     <button
                       onClick={resetBooking}
-                      className="px-5 py-2 bg-white border border-green-300 text-green-700 rounded-lg font-medium hover:bg-green-50 transition-colors duration-200"
+                      className="px-4 py-2 sm:px-5 sm:py-2 bg-white border border-green-300 text-green-700 rounded-lg font-medium text-sm hover:bg-green-50 transition-colors duration-200"
                     >
                       Book Another Appointment
                     </button>
-                    <button className="px-5 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors duration-200">
+                    <button className="px-4 py-2 sm:px-5 sm:py-2 bg-green-600 text-white rounded-lg font-medium text-sm hover:bg-green-700 transition-colors duration-200">
                       Add to Calendar
                     </button>
                   </div>
@@ -299,13 +286,13 @@ const formattedDate = `${year}-${month}-${day}`;
         {/* Main Card */}
         {!bookingSuccess && (
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-            <div className="p-6 sm:p-8">
+            <div className="p-4 sm:p-6 md:p-8">
               {/* Progress Indicator */}
-              <div className="mb-8">
+              <div className="mb-6 sm:mb-8">
                 <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center text-sm font-medium">
+                  <div className="flex items-center text-xs sm:text-sm font-medium">
                     <div
-                      className={`flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full ${
+                      className={`flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center rounded-full text-xs sm:text-sm ${
                         selectedDepartment
                           ? "bg-teal-500 text-white"
                           : "bg-gray-200 text-gray-600"
@@ -314,14 +301,14 @@ const formattedDate = `${year}-${month}-${day}`;
                       1
                     </div>
                     <span
-                      className={`ml-2 ${
+                      className={`ml-1 sm:ml-2 ${
                         selectedDepartment ? "text-teal-600" : "text-gray-500"
                       }`}
                     >
                       Department
                     </span>
                   </div>
-                  <div className="flex-1 h-1 mx-4 bg-gray-200 rounded">
+                  <div className="flex-1 h-1 mx-2 sm:mx-4 bg-gray-200 rounded">
                     <div
                       className={`h-full rounded ${
                         selectedDepartment
@@ -330,9 +317,9 @@ const formattedDate = `${year}-${month}-${day}`;
                       }`}
                     ></div>
                   </div>
-                  <div className="flex items-center text-sm font-medium">
+                  <div className="flex items-center text-xs sm:text-sm font-medium">
                     <div
-                      className={`flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full ${
+                      className={`flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center rounded-full text-xs sm:text-sm ${
                         selectedDoctor
                           ? "bg-teal-500 text-white"
                           : "bg-gray-200 text-gray-600"
@@ -341,14 +328,14 @@ const formattedDate = `${year}-${month}-${day}`;
                       2
                     </div>
                     <span
-                      className={`ml-2 ${
+                      className={`ml-1 sm:ml-2 ${
                         selectedDoctor ? "text-teal-600" : "text-gray-500"
                       }`}
                     >
                       Doctor
                     </span>
                   </div>
-                  <div className="flex-1 h-1 mx-4 bg-gray-200 rounded">
+                  <div className="flex-1 h-1 mx-2 sm:mx-4 bg-gray-200 rounded">
                     <div
                       className={`h-full rounded ${
                         selectedDoctor
@@ -357,9 +344,9 @@ const formattedDate = `${year}-${month}-${day}`;
                       }`}
                     ></div>
                   </div>
-                  <div className="flex items-center text-sm font-medium">
+                  <div className="flex items-center text-xs sm:text-sm font-medium">
                     <div
-                      className={`flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full ${
+                      className={`flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center rounded-full text-xs sm:text-sm ${
                         selectedSlot
                           ? "bg-teal-500 text-white"
                           : "bg-gray-200 text-gray-600"
@@ -368,7 +355,7 @@ const formattedDate = `${year}-${month}-${day}`;
                       3
                     </div>
                     <span
-                      className={`ml-2 ${
+                      className={`ml-1 sm:ml-2 ${
                         selectedSlot ? "text-teal-600" : "text-gray-500"
                       }`}
                     >
@@ -379,15 +366,15 @@ const formattedDate = `${year}-${month}-${day}`;
               </div>
 
               {/* Department Selection */}
-              <div className="mb-6">
-                <label className="block text-lg font-medium text-gray-800 mb-2">
+              <div className="mb-4 sm:mb-6">
+                <label className="block text-base sm:text-lg font-medium text-gray-800 mb-2">
                   Select Department
                 </label>
                 <div className="relative">
                   <select
                     value={selectedDepartment}
                     onChange={(e) => setSelectedDepartment(e.target.value)}
-                    className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200 appearance-none bg-white text-gray-700"
+                    className="w-full p-3 sm:p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200 appearance-none bg-white text-gray-700 text-sm sm:text-base"
                   >
                     <option value="">-- Select Department --</option>
                     {departments.map((d, i) => (
@@ -410,15 +397,15 @@ const formattedDate = `${year}-${month}-${day}`;
 
               {/* Doctor Selection */}
               {selectedDepartment && (
-                <div className="mb-6">
-                  <label className="block text-lg font-medium text-gray-800 mb-2">
+                <div className="mb-4 sm:mb-6">
+                  <label className="block text-base sm:text-lg font-medium text-gray-800 mb-2">
                     Select Doctor
                   </label>
                   <div className="relative">
                     <select
                       value={selectedDoctor?._id || ""}
                       onChange={(e) => handleDoctorSelect(e.target.value)}
-                      className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200 appearance-none bg-white text-gray-700"
+                      className="w-full p-3 sm:p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200 appearance-none bg-white text-gray-700 text-sm sm:text-base"
                     >
                       <option value="">-- Select Doctor --</option>
                       {doctors.map((d) => (
@@ -442,8 +429,8 @@ const formattedDate = `${year}-${month}-${day}`;
 
               {/* Date Selection */}
               {selectedDoctor && (
-                <div className="mb-6">
-                  <label className="block text-lg font-medium text-gray-800 mb-2">
+                <div className="mb-4 sm:mb-6">
+                  <label className="block text-base sm:text-lg font-medium text-gray-800 mb-2">
                     Select Date
                   </label>
                   <div className="relative">
@@ -453,13 +440,13 @@ const formattedDate = `${year}-${month}-${day}`;
                       filterDate={filterDate}
                       minDate={new Date()}
                       placeholderText="Select available date"
-                      className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
+                      className="w-full p-3 sm:p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200 text-sm sm:text-base"
                       dateFormat="PPP"
                     />
                     <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5 text-gray-400"
+                        className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -478,22 +465,22 @@ const formattedDate = `${year}-${month}-${day}`;
 
               {/* Time Slots */}
               {selectedDate && (
-                <div className="mb-6">
-                  <label className="block text-lg font-medium text-gray-800 mb-2">
+                <div className="mb-4 sm:mb-6">
+                  <label className="block text-base sm:text-lg font-medium text-gray-800 mb-2">
                     Available Time Slots
                   </label>
                   {loadingSlots ? (
-                    <div className="flex justify-center items-center py-8">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500"></div>
-                      <span className="ml-3 text-gray-600">
+                    <div className="flex justify-center items-center py-6 sm:py-8">
+                      <div className="animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 border-b-2 border-teal-500"></div>
+                      <span className="ml-3 text-gray-600 text-sm sm:text-base">
                         Loading available slots...
                       </span>
                     </div>
                   ) : availableSlots.length === 0 ? (
-                    <div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center">
+                    <div className="bg-red-50 border border-red-200 rounded-xl p-4 sm:p-6 text-center">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-12 w-12 mx-auto text-red-400 mb-3"
+                        className="h-10 w-10 sm:h-12 sm:w-12 mx-auto text-red-400 mb-3"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -505,60 +492,57 @@ const formattedDate = `${year}-${month}-${day}`;
                           d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                         />
                       </svg>
-                      <p className="text-red-600 font-medium">
+                      <p className="text-red-600 font-medium text-sm sm:text-base">
                         No slots available
                       </p>
-                      <p className="text-red-500 text-sm mt-1">
+                      <p className="text-red-500 text-xs sm:text-sm mt-1">
                         Please try another date
                       </p>
                     </div>
                   ) : (
-                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-  {availableSlots.map((slotObj, i) => {
-    // slotObj: { time: "HH:MM", booked: true/false }
-    const displayTime = new Date(`2000-01-01T${slotObj.time}:00`).toLocaleTimeString("en-IN", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-      timeZone: "Asia/Kolkata",
-    });
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+                      {availableSlots.map((slotObj, i) => {
+                        const displayTime = new Date(`2000-01-01T${slotObj.time}:00`).toLocaleTimeString("en-IN", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: true,
+                          timeZone: "Asia/Kolkata",
+                        });
+                        const isBooked = slotObj.booked;
 
-    const isBooked = slotObj.booked;
-
-    return (
-      <button
-        key={i}
-        disabled={isBooked}
-        onClick={() => setSelectedSlot(slotObj.time)}
-        className={`py-3 px-4 rounded-xl text-sm font-medium transition-all duration-200 transform hover:scale-105
-          ${selectedSlot === slotObj.time && !isBooked
-            ? "bg-teal-500 text-white shadow-md"
-            : "bg-gray-100 hover:bg-gray-200 text-gray-700"
-          }
-          ${isBooked
-            ? "bg-red-100 text-red-500 line-through cursor-not-allowed opacity-70"
-            : ""
-          }`}
-      >
-        {displayTime}
-      </button>
-    );
-  })}
-</div>
-
+                        return (
+                          <button
+                            key={i}
+                            disabled={isBooked}
+                            onClick={() => setSelectedSlot(slotObj.time)}
+                            className={`py-2 px-3 sm:py-3 sm:px-4 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 transform hover:scale-105
+                              ${selectedSlot === slotObj.time && !isBooked
+                                ? "bg-teal-500 text-white shadow-md"
+                                : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+                              }
+                              ${isBooked
+                                ? "bg-red-100 text-red-500 line-through cursor-not-allowed opacity-70"
+                                : ""
+                              }`}
+                          >
+                            {displayTime}
+                          </button>
+                        );
+                      })}
+                    </div>
                   )}
                 </div>
               )}
 
               {/* Patient Details */}
               {selectedSlot && (
-                <div className="bg-gradient-to-r from-teal-50 to-blue-50 border border-teal-100 rounded-2xl p-6 sm:p-8 mt-6 shadow-sm">
-                  <h3 className="text-xl font-bold text-gray-800 mb-5">
+                <div className="bg-gradient-to-r from-teal-50 to-blue-50 border border-teal-100 rounded-2xl p-4 sm:p-6 md:p-8 mt-4 sm:mt-6 shadow-sm">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 sm:mb-5">
                     Your Information
                   </h3>
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
                         Full Name*
                       </label>
                       <div className="relative">
@@ -569,7 +553,7 @@ const formattedDate = `${year}-${month}-${day}`;
                             setPatient({ ...patient, name: e.target.value });
                             validateField("name", e.target.value);
                           }}
-                          className={`w-full p-4 border rounded-xl focus:ring-2 transition duration-200 ${
+                          className={`w-full p-3 sm:p-4 border rounded-xl focus:ring-2 transition duration-200 text-sm sm:text-base ${
                             errors.name
                               ? "border-red-400 ring-red-200"
                               : "border-gray-300 ring-teal-200"
@@ -578,7 +562,7 @@ const formattedDate = `${year}-${month}-${day}`;
                         <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5 text-gray-400"
+                            className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -593,10 +577,10 @@ const formattedDate = `${year}-${month}-${day}`;
                         </div>
                       </div>
                       {errors.name && (
-                        <p className="text-red-500 text-sm mt-1 flex items-center">
+                        <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="h-4 w-4 mr-1"
+                            className="h-3 w-3 sm:h-4 sm:w-4 mr-1"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -613,7 +597,7 @@ const formattedDate = `${year}-${month}-${day}`;
                       )}
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
                         Email Address*
                       </label>
                       <div className="relative">
@@ -624,7 +608,7 @@ const formattedDate = `${year}-${month}-${day}`;
                             setPatient({ ...patient, email: e.target.value });
                             validateField("email", e.target.value);
                           }}
-                          className={`w-full p-4 border rounded-xl focus:ring-2 transition duration-200 ${
+                          className={`w-full p-3 sm:p-4 border rounded-xl focus:ring-2 transition duration-200 text-sm sm:text-base ${
                             errors.email
                               ? "border-red-400 ring-red-200"
                               : "border-gray-300 ring-teal-200"
@@ -633,7 +617,7 @@ const formattedDate = `${year}-${month}-${day}`;
                         <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5 text-gray-400"
+                            className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -648,10 +632,10 @@ const formattedDate = `${year}-${month}-${day}`;
                         </div>
                       </div>
                       {errors.email && (
-                        <p className="text-red-500 text-sm mt-1 flex items-center">
+                        <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="h-4 w-4 mr-1"
+                            className="h-3 w-3 sm:h-4 sm:w-4 mr-1"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -668,7 +652,7 @@ const formattedDate = `${year}-${month}-${day}`;
                       )}
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
                         Phone Number*
                       </label>
                       <div className="relative">
@@ -679,7 +663,7 @@ const formattedDate = `${year}-${month}-${day}`;
                             setPatient({ ...patient, phone: e.target.value });
                             validateField("phone", e.target.value);
                           }}
-                          className={`w-full p-4 border rounded-xl focus:ring-2 transition duration-200 ${
+                          className={`w-full p-3 sm:p-4 border rounded-xl focus:ring-2 transition duration-200 text-sm sm:text-base ${
                             errors.phone
                               ? "border-red-400 ring-red-200"
                               : "border-gray-300 ring-teal-200"
@@ -688,7 +672,7 @@ const formattedDate = `${year}-${month}-${day}`;
                         <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5 text-gray-400"
+                            className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -703,10 +687,10 @@ const formattedDate = `${year}-${month}-${day}`;
                         </div>
                       </div>
                       {errors.phone && (
-                        <p className="text-red-500 text-sm mt-1 flex items-center">
+                        <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="h-4 w-4 mr-1"
+                            className="h-3 w-3 sm:h-4 sm:w-4 mr-1"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -725,7 +709,7 @@ const formattedDate = `${year}-${month}-${day}`;
                     <button
                       onClick={handleBooking}
                       disabled={!validateInput()}
-                      className={`w-full py-4 px-6 rounded-xl text-white font-semibold text-lg transition-all duration-300 transform hover:scale-[1.02] ${
+                      className={`w-full py-3 px-4 sm:py-4 sm:px-6 rounded-xl text-white font-semibold text-base sm:text-lg transition-all duration-300 transform hover:scale-[1.02] ${
                         validateInput()
                           ? "bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 shadow-lg"
                           : "bg-gray-400 cursor-not-allowed"
@@ -739,34 +723,23 @@ const formattedDate = `${year}-${month}-${day}`;
             </div>
 
             {/* Footer */}
-            <div className="bg-gray-50 px-6 py-4 sm:px-8 border-t border-gray-200">
+            <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:py-4 border-t border-gray-200">
               <div className="flex flex-col sm:flex-row items-center justify-between">
-                <p className="text-sm text-gray-600">
+                <p className="text-xs sm:text-sm text-gray-600 text-center sm:text-left">
                   Need help? Call us at{" "}
                   <span className="font-medium text-teal-600">
-                     <a
-                href="tel:+917897934949"
-               
-              >
-                +91-78979 34949
-              </a>
+                    <a
+                      href="tel:+917897934949"
+                      className="hover:underline"
+                    >
+                      +91-78979 34949
+                    </a>
                   </span>
                 </p>
-                {/* <div className="mt-2 sm:mt-0 flex space-x-4">
-                  <a href="#" className="text-gray-400 hover:text-teal-500">
-                    <span className="sr-only">Privacy Policy</span>
-                    Privacy
-                  </a>
-                  <a href="#" className="text-gray-400 hover:text-teal-500">
-                    <span className="sr-only">Terms</span>
-                    Terms
-                  </a>
-                </div> */}
               </div>
             </div>
           </div>
         )}
- 
       </div>
     </div>
   );

@@ -156,8 +156,8 @@ const Footer = () => {
         </div>
 
         {/* Footer Bottom */}
-      <div className="border-t border-gray-700 mt-6 pt-4 flex items-center justify-center flex-wrap gap-4">
-  <p className="text-sm text-white whitespace-nowrap">
+      <div className="border-t border-gray-700 mt-6 pt-4 flex flex-col sm:flex-row items-center justify-center flex-wrap gap-2 sm:gap-4 text-center sm:text-left">
+  <p className="text-sm text-white whitespace-normal sm:whitespace-nowrap">
     Copyright © 2025 <span className="font-semibold">Ashaali Hospital</span> || All Rights Reserved ||
   </p>
   <a

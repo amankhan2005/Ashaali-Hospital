@@ -1,9 +1,10 @@
- import React, { useEffect, useState } from "react";
+ import React, { useEffect, useState, lazy, Suspense } from "react";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import ServiceBreadcums from "../service/ServiceBrad";
- import BreadCrumb from '../../components/Breadcrumb'; // updated import
 
+// ✅ Lazy import
+const BreadCrumb = lazy(() => import("../../components/Breadcrumb"));
 
 const API_URL = import.meta.env.VITE_API_URL || "https://ashaali-hospital-2.onrender.com";
 
@@ -49,7 +50,7 @@ const BlogPage = () => {
   ];
   return (
     <div className="min-h-screen bg-gray-50">
-      <BreadCrumb items={breadcrumbItems} title=" Ashaali Hospitals" />
+      <BreadCrumb items={breadcrumbItems} title=" Ashaali Hospital" />
 
       <div className="container mx-auto xl:px-10 lg:px-6 px-2 py-12">
         {blogs.length === 0 ? (

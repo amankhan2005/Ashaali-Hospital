@@ -83,8 +83,13 @@ axios.get(`${API_URL}/api/doctors/departments/list`)
     setLoadingSlots(true);
     try {
       const options = { timeZone: "Asia/Kolkata" };
-      const formattedDate = date.toLocaleDateString("en-CA", options);
-      const res = await axios.get(`${API_URL}/api/appointments/available-slots`, {
+      // ✅ Format date in local IST as YYYY-MM-DD
+const year = date.getFullYear();
+const month = String(date.getMonth() + 1).padStart(2, "0");
+const day = String(date.getDate()).padStart(2, "0");
+const formattedDate = `${year}-${month}-${day}`;
+
+       const res = await axios.get(`${API_URL}/api/appointments/available-slots`, {
         params: { doctorId: selectedDoctor._id, date: formattedDate },
       });
       setAvailableSlots(Array.isArray(res.data.slots) ? res.data.slots : []);
@@ -138,7 +143,8 @@ axios.get(`${API_URL}/api/doctors/departments/list`)
         patientName: patient.name,
         email: patient.email,
         phone: patient.phone,
-        date: selectedDate.toISOString().split("T")[0],
+        date: `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2,"0")}-${String(selectedDate.getDate()).padStart(2,"0")}`,
+
         slot: selectedSlot,
       };
       const res = await axios.post(`${API_URL}/api/appointments/book`, payload)

@@ -1463,9 +1463,14 @@ const FacilitiesComponent = () => {
                 For immediate medical assistance
               </p>
               <div className="flex items-center justify-between bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <span className="text-white font-bold text-xl">
-                  +91 7897934949
-                </span>
+                 
+                 <a
+                      href="tel:+917897934949
+"
+                      className="sora-400  text-white font-bold text-xl"
+                    >
+                      +91-78979 34949
+                    </a>
                 <div className="p-2 bg-white/20 rounded-lg">
                   <Phone className="w-5 h-5" />
                 </div>

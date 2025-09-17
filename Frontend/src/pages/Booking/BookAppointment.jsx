@@ -513,34 +513,34 @@ const formattedDate = `${year}-${month}-${day}`;
                       </p>
                     </div>
                   ) : (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-  {availableSlots.map((slot, i) => {
-    // Convert backend "HH:MM" to IST (Kolkata) readable format
-    const displayTime = new Date(`2000-01-01T${slot.time}:00`).toLocaleTimeString("en-IN", {
+                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+  {availableSlots.map((slotObj, i) => {
+    // slotObj: { time: "HH:MM", booked: true/false }
+    const displayTime = new Date(`2000-01-01T${slotObj.time}:00`).toLocaleTimeString("en-IN", {
       hour: "2-digit",
       minute: "2-digit",
       hour12: true,
-      timeZone: "Asia/Kolkata", // ✅ Force IST (Kolkata)
+      timeZone: "Asia/Kolkata",
     });
+
+    const isBooked = slotObj.booked;
 
     return (
       <button
         key={i}
-        disabled={slot.booked}
-        onClick={() => setSelectedSlot(slot.time)} // raw "HH:MM" save for backend
+        disabled={isBooked}
+        onClick={() => setSelectedSlot(slotObj.time)}
         className={`py-3 px-4 rounded-xl text-sm font-medium transition-all duration-200 transform hover:scale-105
-          ${
-            selectedSlot === slot.time
-              ? "bg-teal-500 text-white shadow-md"
-              : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+          ${selectedSlot === slotObj.time && !isBooked
+            ? "bg-teal-500 text-white shadow-md"
+            : "bg-gray-100 hover:bg-gray-200 text-gray-700"
           }
-          ${
-            slot.booked
-              ? "bg-red-100 text-red-500 line-through cursor-not-allowed opacity-70"
-              : ""
+          ${isBooked
+            ? "bg-red-100 text-red-500 line-through cursor-not-allowed opacity-70"
+            : ""
           }`}
       >
-        {displayTime} {/* ✅ User ko dikhane ke liye formatted time */}
+        {displayTime}
       </button>
     );
   })}

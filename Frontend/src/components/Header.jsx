@@ -156,7 +156,7 @@ const SahyadriHeader = () => {
 
               {/* YouTube */}
               <a
-                href="https://youtube.com"
+                href="www.youtube.com/@AshaaliHospital"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center"
@@ -166,7 +166,7 @@ const SahyadriHeader = () => {
 
               {/* LinkedIn */}
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/company/ashaali-hospital/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center"
@@ -186,7 +186,7 @@ const SahyadriHeader = () => {
 
               {/* Facebook */}
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/profile.php?id=61555497311285"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center"
@@ -259,7 +259,7 @@ const SahyadriHeader = () => {
 
                 {/* YouTube */}
                 <a
-                  href="https://youtube.com"
+                  href="www.youtube.com/@AshaaliHospital"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center"
@@ -269,7 +269,7 @@ const SahyadriHeader = () => {
 
                 {/* LinkedIn */}
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/company/ashaali-hospital/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center"
@@ -289,7 +289,7 @@ const SahyadriHeader = () => {
 
                 {/* Facebook */}
                 <a
-                  href="https://facebook.com"
+                  href=" https://www.facebook.com/profile.php?id=61555497311285"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center"

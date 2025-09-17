@@ -198,12 +198,15 @@ const SahyadriHeader = () => {
               {/* <button className="px-4 py-1.5 border border-[#18978d] text-[#18978d] rounded-md hover:bg-red-50 transition-colors text-xs">
                 Home Care
               </button> */}
-              <Link
-                to="/book-appointment"
-                className="px-4 py-1.5 bg-[#18978d] text-white text-center rounded-md transition-colors text-sm"
-              >
-                Book Appointment
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-2 justify-center">
+  <Link
+    to="/book-appointment"
+    className="px-10 py-1.5 bg-[#18978d] text-white text-center rounded-xl transition-colors text-xs w-fit mx-auto"
+  >
+    Book Appointment
+  </Link>
+</div>
+
             </div>
           </div>
 

@@ -64,9 +64,8 @@ const SpecialistSection = () => {
           </div>
 
           {/* Main SEO heading */}
-          <h1 className="text-sm md:text-3xl lg:text-4xl xl:text-5xl font-bold">
-            Explore advanced treatment across all major medical departments
-            under one roof
+          <h1 className="text-medium md:text-3xl lg:text-4xl xl:text-5xl font-bold">
+           Advanced care across all major departments under one roof.
           </h1>
         </div>
 

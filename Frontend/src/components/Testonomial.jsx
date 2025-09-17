@@ -29,14 +29,14 @@ const Testinomial = () => {
                                 backgroundColor: `${primaryColor}10` // Light background
                             }}
                         >
-                           What Our Patients Say
+                      Voices of Trust, Care, and Healing
                         </span>
                     </div>
 
                     {/* Main SEO heading */}
-                    <h1 className=" text-lg md:text-xl lg:text-3xl xl:text-5xl font-bold " >
+                    {/* <h1 className=" text-lg md:text-xl lg:text-3xl xl:text-5xl font-bold " >
                       Voices of Trust, Care, and Healing
-                    </h1>
+                    </h1> */}
 
 
                 </div>

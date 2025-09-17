@@ -75,7 +75,7 @@ const YouTubeChannelShowcase = () => {
                             Watch Our Story in Motion
                         </span>
                     </div>
-                    <h1 className="text-lg md:text-2xl lg:text-3xl xl:text-5xl font-bold">
+                    <h1 className="text-medium md:text-2xl lg:text-3xl xl:text-5xl font-bold">
                         Real Stories, Real Care — Discover Ashaali Through Videos
                     </h1>
                 </div>

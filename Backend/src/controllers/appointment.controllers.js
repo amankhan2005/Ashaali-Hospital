@@ -36,12 +36,9 @@ export const bookAppointment = async (req, res) => {
     const doctor = await Doctor.findById(doctorId);
     if (!doctor) return res.status(404).json({ error: "Doctor not found" });
 
-    // Convert selected date to IST to avoid day mismatch
- // Directly create IST date
-const [year, month, day] = date.split("-").map(Number);
-const appointmentDate = new Date(year, month - 1, day, 0, 0, 0); // Local IST date
-
-
+    // Convert selected date to IST
+    const [year, month, day] = date.split("-").map(Number);
+    const appointmentDate = new Date(year, month - 1, day, 0, 0, 0);
 
     // Check if slot already booked
     const existing = await Appointment.findOne({
@@ -66,17 +63,53 @@ const appointmentDate = new Date(year, month - 1, day, 0, 0, 0); // Local IST da
 
     await appointment.save();
 
-    // Email to admin
-    await transporter.sendMail({
-      from: process.env.ADMIN_EMAIL,
-      to: process.env.ADMIN_EMAIL,
-      subject: "New Appointment Request",
-      html: `<p>New appointment requested:</p>
-             <p><strong>Patient:</strong> ${patientName}</p>
-             <p><strong>Doctor:</strong> ${doctor.name}</p>
-             <p><strong>Date:</strong> ${formatDateIST(appointmentDate)}</p>
-             <p><strong>Time Slot:</strong> ${slot}</p>`,
-    });
+    // ✅ Mail to Admin
+    try {
+      await transporter.sendMail({
+        from: `"Ashaali Hospital Website" <${process.env.ADMIN_EMAIL}>`,
+        to: process.env.ADMIN_EMAIL,
+        subject: "📩 New Appointment Request - Ashaali Hospital",
+        html: `
+          <p>Dear Admin,</p>
+          <p>You have received a new appointment inquiry:</p>
+          <p><strong>Patient Name:</strong> ${patientName}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone:</strong> ${phone}</p>
+          <p><strong>Doctor:</strong>  ${doctor.name} (${doctor.department})</p>
+          <p><strong>Date:</strong> ${formatDateIST(appointmentDate)}</p>
+          <p><strong>Time Slot:</strong> ${slot}</p>
+          <br/>
+          <p>Please follow up with the patient as soon as possible.</p>
+          <p>Thank you,<br/>Ashaali Hospital - Best Orthopedic Surgeon, Eye Care, Obstetrician And Gynecologist, Neuro-spine Brain Hospital In Lucknow</p>
+        `,
+      });
+    } catch (err) {
+      console.error("❌ Admin mail error:", err.message);
+    }
+
+    // ✅ Mail to Patient
+    try {
+      await transporter.sendMail({
+        from: `"Ashaali Hospital" <${process.env.ADMIN_EMAIL}>`,
+        to: email,
+        replyTo: process.env.ADMIN_EMAIL,
+        subject: "✅ Appointment Request Received - Ashaali Hospital",
+        html: `
+          <p>Dear ${patientName},</p>
+          <p>Thank you for booking your appointment at <strong>Ashaali Hospital - Best Orthopedic Surgeon, Eye Care, Obstetrician And Gynecologist, Neuro-spine Brain Hospital In Lucknow</strong>.</p>
+          <p>We have received your request with the following details:</p>
+          <p><strong>Doctor:</strong>  ${doctor.name} (${doctor.department})</p>
+          <p><strong>Date:</strong> ${formatDateIST(appointmentDate)}</p>
+          <p><strong>Time Slot:</strong> ${slot}</p>
+          <br/>
+          <p>Our team will confirm your appointment shortly. Please keep an eye on your email.</p>
+          <p>Regards,<br/>Ashaali Hospital</p>
+        `,
+      });
+      console.log("✅ Patient mail sent:", email);
+    } catch (err) {
+      console.error("❌ Patient mail error:", err.message);
+    }
 
     res.status(201).json({ success: true, message: "Appointment requested!", appointment });
   } catch (err) {
@@ -109,15 +142,9 @@ export const getAvailableSlotsForDoctorDate = async (req, res) => {
       10
     );
 
-    // ✅ Correct IST start & end of day
     const [year, month, dayNum] = date.split("-").map(Number);
-    // Use local IST start and end of day
-const startOfDay = new Date(year, month - 1, dayNum, 0, 0, 0); // 00:00 IST
-const endOfDay = new Date(year, month - 1, dayNum, 23, 59, 59); // 23:59 IST
-
-
-
-
+    const startOfDay = new Date(year, month - 1, dayNum, 0, 0, 0);
+    const endOfDay = new Date(year, month - 1, dayNum, 23, 59, 59);
 
     const bookedAppointments = await Appointment.find({
       doctor: doctorId,
@@ -148,16 +175,43 @@ export const approveAppointment = async (req, res) => {
     appointment.status = "approved";
     await appointment.save();
 
-    await transporter.sendMail({
-      from: process.env.ADMIN_EMAIL,
-      to: appointment.email,
-      subject: "Appointment Confirmed",
-      html: `<p>Dear ${appointment.patientName},</p>
-             <p>Your appointment with Dr. ${appointment.doctor.name} (${appointment.doctor.department}) is approved.</p>
-             <p><strong>Date:</strong> ${formatDateIST(appointment.date)}</p>
-             <p><strong>Time:</strong> ${appointment.slot}</p>
-             <p>Please arrive 15 minutes early.</p>`,
-    });
+    // Mail to Patient
+    try {
+      await transporter.sendMail({
+        from: `"Ashaali Hospital" <${process.env.ADMIN_EMAIL}>`,
+        to: appointment.email,
+        subject: "✅ Appointment Confirmed - Ashaali Hospital",
+        html: `
+          <p>Dear ${appointment.patientName},</p>
+          <p>Your appointment with Dr. ${appointment.doctor.name} (${appointment.doctor.department}) is <strong>approved</strong>.</p>
+          <p><strong>Date:</strong> ${formatDateIST(appointment.date)}</p>
+          <p><strong>Time:</strong> ${appointment.slot}</p>
+          <p>Please arrive 15 minutes early.</p>
+          <p>Regards,<br/>Ashaali Hospital</p>
+        `,
+      });
+    } catch (err) {
+      console.error("❌ Patient mail (approve) error:", err.message);
+    }
+
+    // Mail to Admin
+    try {
+      await transporter.sendMail({
+        from: `"Ashaali Hospital Website" <${process.env.ADMIN_EMAIL}>`,
+        to: process.env.ADMIN_EMAIL,
+        subject: "✅ Appointment Approved - Ashaali Hospital",
+        html: `
+          <p>Dear Admin,</p>
+          <p>The following appointment has been <strong>approved</strong>:</p>
+          <p><strong>Patient:</strong> ${appointment.patientName}</p>
+          <p><strong>Doctor:</strong> Dr. ${appointment.doctor.name} (${appointment.doctor.department})</p>
+          <p><strong>Date:</strong> ${formatDateIST(appointment.date)}</p>
+          <p><strong>Time:</strong> ${appointment.slot}</p>
+        `,
+      });
+    } catch (err) {
+      console.error("❌ Admin mail (approve) error:", err.message);
+    }
 
     res.json({ success: true, message: "Appointment approved", appointment });
   } catch (err) {
@@ -175,15 +229,42 @@ export const rejectAppointment = async (req, res) => {
     appointment.status = "rejected";
     await appointment.save();
 
-    await transporter.sendMail({
-      from: process.env.ADMIN_EMAIL,
-      to: appointment.email,
-      subject: "Appointment Rejected",
-      html: `<p>Dear ${appointment.patientName},</p>
-             <p>Your appointment with Dr. ${appointment.doctor.name} on ${formatDateIST(
-        appointment.date
-      )} at ${appointment.slot} has been rejected.</p>`,
-    });
+    // Mail to Patient
+    try {
+      await transporter.sendMail({
+        from: `"Ashaali Hospital" <${process.env.ADMIN_EMAIL}>`,
+        to: appointment.email,
+        subject: "❌ Appointment Rejected - Ashaali Hospital",
+        html: `
+          <p>Dear ${appointment.patientName},</p>
+          <p>We regret to inform you that your appointment with Dr. ${appointment.doctor.name} on 
+          ${formatDateIST(appointment.date)} at ${appointment.slot} has been <strong>rejected</strong>.</p>
+          <p>Please book another slot.</p>
+          <p>Regards,<br/>Ashaali Hospital</p>
+        `,
+      });
+    } catch (err) {
+      console.error("❌ Patient mail (reject) error:", err.message);
+    }
+
+    // Mail to Admin
+    try {
+      await transporter.sendMail({
+        from: `"Ashaali Hospital Website" <${process.env.ADMIN_EMAIL}>`,
+        to: process.env.ADMIN_EMAIL,
+        subject: "❌ Appointment Rejected - Ashaali Hospital",
+        html: `
+          <p>Dear Admin,</p>
+          <p>The following appointment has been <strong>rejected</strong>:</p>
+          <p><strong>Patient:</strong> ${appointment.patientName}</p>
+          <p><strong>Doctor:</strong> Dr. ${appointment.doctor.name} (${appointment.doctor.department})</p>
+          <p><strong>Date:</strong> ${formatDateIST(appointment.date)}</p>
+          <p><strong>Time:</strong> ${appointment.slot}</p>
+        `,
+      });
+    } catch (err) {
+      console.error("❌ Admin mail (reject) error:", err.message);
+    }
 
     res.json({ success: true, message: "Appointment rejected", appointment });
   } catch (err) {

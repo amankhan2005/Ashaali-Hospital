@@ -63,7 +63,7 @@ const DoctorCarouselBackend = () => {
               Trusted Professionals Committed to Your Care and Recovery
             </span>
           </div>
-          <h1 className="text-xl md:text-3xl lg:text-4xl xl:text-5xl font-bold">
+          <h1 className="text-medium md:text-3xl lg:text-4xl xl:text-5xl font-bold">
             Meet Our Team of Expert Doctors
           </h1>
         </div>

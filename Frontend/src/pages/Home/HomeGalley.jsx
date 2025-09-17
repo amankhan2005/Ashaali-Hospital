@@ -72,7 +72,7 @@ const HomeGallery = () => {
               Explore Our Gallery
             </span>
           </div>
-          <h1 className="text-lg md:text-3xl lg:text-4xl xl:text-5xl font-bold">
+          <h1 className="text-medium md:text-3xl lg:text-4xl xl:text-5xl font-bold">
             A Glimpse Into Ashaali Hospital’s World-Class Facilities and Care
           </h1>
         </div>

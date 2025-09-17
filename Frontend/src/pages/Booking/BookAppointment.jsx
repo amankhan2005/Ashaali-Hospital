@@ -744,7 +744,12 @@ const formattedDate = `${year}-${month}-${day}`;
                 <p className="text-sm text-gray-600">
                   Need help? Call us at{" "}
                   <span className="font-medium text-teal-600">
-                    +1 (800) 123-4567
+                     <a
+                href="tel:+917897934949"
+               
+              >
+                +91-78979 34949
+              </a>
                   </span>
                 </p>
                 {/* <div className="mt-2 sm:mt-0 flex space-x-4">
@@ -761,13 +766,7 @@ const formattedDate = `${year}-${month}-${day}`;
             </div>
           </div>
         )}
-
-        {/* Additional Info */}
-        <div className="mt-8 text-center text-sm text-gray-500">
-          <p>
-            © {new Date().getFullYear()} Healthcare Center. All rights reserved.
-          </p>
-        </div>
+ 
       </div>
     </div>
   );

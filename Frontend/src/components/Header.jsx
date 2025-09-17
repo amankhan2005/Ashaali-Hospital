@@ -121,7 +121,7 @@ const SahyadriHeader = () => {
               </a>
               <a
                 href="tel:+91830321220 "
-                className="text-red-600 font-semibold hover:underline"
+                className="hidden md:block text-red-600 font-semibold hover:underline"
               >
                 +91-83032 12210
               </a>
@@ -129,12 +129,12 @@ const SahyadriHeader = () => {
 
             <div className="flex items-center justify-center gap-3">
               {/* Call */}
-              <a
+              {/* <a
                 href="tel:+917897934949"
-                className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center"
+                className="   w-8 h-8 bg-red-500 rounded-full items-center justify-center"
               >
                 <FaPhoneAlt className="text-white text-sm" />
-              </a>
+              </a> */}
 
               {/* WhatsApp */}
               <a
@@ -222,7 +222,7 @@ const SahyadriHeader = () => {
               </a>
                   <a
                 href="tel:+91830321220 "
-                className="text-red-600 font-semibold hover:underline"
+                className="text-red-600 font-semibold hover:underline "
               >
                 +91-83032 12210
               </a>
@@ -231,13 +231,7 @@ const SahyadriHeader = () => {
             <div className="flex items-center gap-4">
               {/* Emergency Contacts */}
               <div className="hidden md:flex gap-2">
-                {/* Call */}
-                <a
-                  href="tel:+917897934949"
-                  className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center"
-                >
-                  <FaPhoneAlt className="text-white text-sm" />
-                </a>
+               
 
                 {/* WhatsApp */}
                 <a

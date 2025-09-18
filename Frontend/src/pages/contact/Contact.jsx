@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaYoutube,
-  FaWhatsapp,
-  FaPhoneAlt,
-} from "react-icons/fa";
+ import { 
+  FaInstagram, 
+  FaWhatsapp, 
+  FaPhoneAlt, 
+  FaYoutube, 
+  FaFacebookF, 
+  FaLinkedin, 
+  FaXTwitter, 
+  FaEnvelope 
+} from "react-icons/fa6";
 import { MdContactPhone, MdEmail } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import Swal from "sweetalert2";
@@ -14,31 +17,50 @@ import axios from "axios";
 import BreadCrumb from "../../components/Breadcrumb"; // updated import
 
 const Contact = () => {
-  const socialLinks = [
-    {
-      icon: <FaInstagram />,
-      url: "https://www.instagram.com/drmonikagynae/",
-      color: "bg-gradient-to-r from-pink-500 to-yellow-500",
-    },
-    {
-      icon: <FaWhatsapp />,
-      url: `https://wa.me/919277163686?text=${encodeURIComponent(
-        "Hello, I need help!"
-      )}`,
-      color: "bg-green-500",
-    },
-    { icon: <FaPhoneAlt />, url: "tel:+919277163686", color: "bg-indigo-600" },
-    {
-      icon: <FaYoutube />,
-      url: "https://www.youtube.com",
-      color: "bg-red-600",
-    },
-    {
-      icon: <FaFacebookF />,
-      url: "https://www.facebook.com/",
-      color: "bg-blue-600",
-    },
-  ];
+   const socialLinks = [
+  {
+    icon: <FaInstagram />,
+    url: "www.youtube.com/@AshaaliHospital",
+    color: "bg-gradient-to-r from-pink-500 to-yellow-500",
+  },
+  {
+    icon: <FaWhatsapp />,
+    url: `https://wa.me/+917897934949?text=${encodeURIComponent(
+      "Hello, I need help!"
+    )}`,
+    color: "bg-green-500",
+  },
+  {
+    icon: <FaPhoneAlt />,
+    url: "tel:+917897934949",
+    color: "bg-indigo-600",
+  },
+  {
+    icon: <FaYoutube />,
+    url: "https://www.youtube.com/@AshaaliHospital",
+    color: "bg-red-600",
+  },
+  {
+    icon: <FaFacebookF />,
+    url: "https://www.facebook.com/people/Ashaali-Hospital/61555497311285/",
+    color: "bg-blue-600",
+  },
+  {
+    icon: <FaLinkedin />,
+    url: "https://www.linkedin.com/company/ashaali-hospital/",
+    color: "bg-blue-700",
+  },
+  {
+    icon: <FaXTwitter />,
+    url: "https://twitter.com/ashaali_hospital",
+    color: "bg-black",
+  },
+  {
+    icon: <FaEnvelope />,
+    url: "mailto:ashaalihospital@gmail.com",
+    color: "bg-gradient-to-r from-[#18978d] to-[#ed8022]",
+  },
+];
 
   const [formData, setFormData] = useState({
     name: "",

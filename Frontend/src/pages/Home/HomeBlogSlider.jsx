@@ -85,7 +85,7 @@ const HomeBlogSlider = () => {
               📝 Health Insights & Updates
             </span>
           </div>
-          <h1 className="text-medium md:text-2xl lg:text-2xl xl:text-4xl font-bold">
+          <h1 className="text-medium md:text-2xl lg:text-2xl xl:text-4xl px-3 font-bold">
             Expert Advice, Wellness Tips, and the Latest from Ashaali Hospital
           </h1>
         </div>

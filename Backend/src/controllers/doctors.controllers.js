@@ -81,9 +81,32 @@ export const getDepartments = async (req, res) => {
 };
 
 // Update doctor
+// export const updateDoctor = async (req, res) => {
+//   try {
+//     const data = { ...req.body };
+//     parseJsonField(data, "availableSlots");
+
+//     if (req.file) {
+//       const result = await cloudinary.uploader.upload(req.file.path, {
+//         folder: "doctors",
+//       });
+//       data.photo = result.secure_url;
+//     }
+
+//     const doctor = await Doctor.findByIdAndUpdate(req.params.id, data, { new: true });
+//     if (!doctor) return res.status(404).json({ error: "Doctor not found" });
+
+//     res.json({ success: true, message: "Doctor updated", data: doctor });
+//   } catch (err) {
+//     console.error("Error updating doctor:", err);
+//     res.status(500).json({ error: err.message });
+//   }
+// };
+
 export const updateDoctor = async (req, res) => {
   try {
     const data = { ...req.body };
+    console.log("Update request:", req.params.id, data); // ✅ debug log
     parseJsonField(data, "availableSlots");
 
     if (req.file) {
@@ -102,6 +125,7 @@ export const updateDoctor = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 // Delete doctor
 export const deleteDoctor = async (req, res) => {

@@ -19,6 +19,18 @@ const allowedOrigins = [
   "https://ashaali-hospital-lko.netlify.app","http://localhost:5174","https://ashaali-adminpage.netlify.app"
 ];
 
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     if (!origin || allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   methods: ["GET", "POST", "PATCH", "DELETE"],
+//   credentials: true
+// }));
+
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -27,9 +39,10 @@ app.use(cors({
       callback(new Error("Not allowed by CORS"));
     }
   },
-  methods: ["GET", "POST", "PATCH", "DELETE"],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // ✅ added PUT
   credentials: true
 }));
+
 
 // ✅ Parse request body
 app.use(express.json());

@@ -199,14 +199,13 @@ const SahyadriHeader = () => {
                 Home Care
               </button> */}
               <div className="flex flex-col sm:flex-row gap-2 justify-center">
-  <Link
-    to="/book-appointment"
-    className="px-10 py-1.5 bg-[#18978d] text-white text-center rounded-xl transition-colors text-xs w-fit mx-auto"
-  >
-    Book Appointment
-  </Link>
-</div>
-
+                <Link
+                  to="/book-appointment"
+                  className="px-10 py-1.5 bg-[#18978d] text-white text-center rounded-xl transition-colors text-xs w-fit mx-auto"
+                >
+                  Book Appointment
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -223,7 +222,7 @@ const SahyadriHeader = () => {
               >
                 +91-78979 34949
               </a>
-                  <a
+              <a
                 href="tel:+91830321220 "
                 className="text-red-600 font-semibold hover:underline "
               >
@@ -234,8 +233,6 @@ const SahyadriHeader = () => {
             <div className="flex items-center gap-4">
               {/* Emergency Contacts */}
               <div className="hidden md:flex gap-2">
-               
-
                 {/* WhatsApp */}
                 <a
                   href="https://wa.me/917897934949"
@@ -312,11 +309,11 @@ const SahyadriHeader = () => {
           <div className="flex items-center justify-between lg:px-10 px-6">
             {/* Logo */}
             <Link to={"/"} className="w-fit">
-              <div className="w-[6rem] sm:w-[8rem] md:w-[10rem] lg:w-[14rem]">
+              <div className="w-[8rem] sm:w-[10rem] md:w-[14rem] lg:w-[14rem] xl:w-[18rem]">
                 <img
                   src={logo}
                   alt="Ashaali-hospital"
-                  className="w-full p-2 h-15 max-h-16 md:max-h-14 lg:max-h-16 object-contain"
+                  className="w-full h-auto p-2 object-contain"
                 />
               </div>
             </Link>

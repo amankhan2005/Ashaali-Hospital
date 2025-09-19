@@ -183,7 +183,7 @@ export const approveAppointment = async (req, res) => {
         subject: "✅ Appointment Confirmed - Ashaali Hospital",
         html: `
           <p>Dear ${appointment.patientName},</p>
-          <p>Your appointment with Dr. ${appointment.doctor.name} (${appointment.doctor.department}) is <strong>approved</strong>.</p>
+          <p>Your appointment with  ${appointment.doctor.name} (${appointment.doctor.department}) is <strong>approved</strong>.</p>
           <p><strong>Date:</strong> ${formatDateIST(appointment.date)}</p>
           <p><strong>Time:</strong> ${appointment.slot}</p>
           <p>Please arrive 15 minutes early.</p>
@@ -204,7 +204,7 @@ export const approveAppointment = async (req, res) => {
           <p>Dear Admin,</p>
           <p>The following appointment has been <strong>approved</strong>:</p>
           <p><strong>Patient:</strong> ${appointment.patientName}</p>
-          <p><strong>Doctor:</strong> Dr. ${appointment.doctor.name} (${appointment.doctor.department})</p>
+          <p><strong>Doctor:</strong> ${appointment.doctor.name} (${appointment.doctor.department})</p>
           <p><strong>Date:</strong> ${formatDateIST(appointment.date)}</p>
           <p><strong>Time:</strong> ${appointment.slot}</p>
         `,
@@ -237,7 +237,7 @@ export const rejectAppointment = async (req, res) => {
         subject: "❌ Appointment Rejected - Ashaali Hospital",
         html: `
           <p>Dear ${appointment.patientName},</p>
-          <p>We regret to inform you that your appointment with Dr. ${appointment.doctor.name} on 
+          <p>We regret to inform you that your appointment with  ${appointment.doctor.name} on 
           ${formatDateIST(appointment.date)} at ${appointment.slot} has been <strong>rejected</strong>.</p>
           <p>Please book another slot.</p>
           <p>Regards,<br/>Ashaali Hospital</p>
@@ -257,7 +257,7 @@ export const rejectAppointment = async (req, res) => {
           <p>Dear Admin,</p>
           <p>The following appointment has been <strong>rejected</strong>:</p>
           <p><strong>Patient:</strong> ${appointment.patientName}</p>
-          <p><strong>Doctor:</strong> Dr. ${appointment.doctor.name} (${appointment.doctor.department})</p>
+          <p><strong>Doctor:</strong>  ${appointment.doctor.name} (${appointment.doctor.department})</p>
           <p><strong>Date:</strong> ${formatDateIST(appointment.date)}</p>
           <p><strong>Time:</strong> ${appointment.slot}</p>
         `,

@@ -10,7 +10,7 @@ const HomeBlogSlider = () => {
 
   const primaryColor = "#18978d";
 
-  // Fetch blogs from API
+  // ✅ Fetch blogs from API
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
@@ -24,7 +24,7 @@ const HomeBlogSlider = () => {
     fetchBlogs();
   }, []);
 
-  // Slides per view based on screen size
+  // ✅ Slides per view based on screen size
   const getSlidesPerView = () => {
     if (typeof window !== 'undefined') {
       if (window.innerWidth < 768) return 1;
@@ -57,7 +57,7 @@ const HomeBlogSlider = () => {
   const nextSlide = () => setCurrentSlide(prev => prev >= maxSlide ? 0 : prev + 1);
   const prevSlide = () => setCurrentSlide(prev => prev <= 0 ? maxSlide : prev - 1);
 
-  // Auto-slide
+  // ✅ Auto-slide
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
@@ -72,6 +72,8 @@ const HomeBlogSlider = () => {
   return (
     <section className='bg-gray-100'>
       <div className="lg:px-12 px-0 sm:px-6 md:px-8 py-10 sm:py-12 md:py-14 lg:py-16 bg-gray-100 container mx-auto">
+        
+        {/* ✅ Heading Section */}
         <div className="text-center mb-10 md:mb-12 max-w-5xl mx-auto">
           <div className="mb-3 md:mb-4">
             <span
@@ -85,11 +87,12 @@ const HomeBlogSlider = () => {
               📝 Health Insights & Updates
             </span>
           </div>
-          <h1 className="text-medium md:text-2xl lg:text-2xl xl:text-4xl px-3 font-bold">
+          <h1 className="text-lg md:text-2xl lg:text-3xl xl:text-4xl px-3 font-bold leading-snug">
             Expert Advice, Wellness Tips, and the Latest from Ashaali Hospital
           </h1>
         </div>
 
+        {/* ✅ Blog Slider */}
         <div className="relative">
           <div className="overflow-hidden">
             <div
@@ -102,8 +105,12 @@ const HomeBlogSlider = () => {
                   className="flex-shrink-0 px-3"
                   style={{ width: `${100 / slidesPerView}%` }}
                 >
-                  <div className="group">
-                    <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full">
+                  <div className="group h-full">
+                    <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl 
+                                    transition-all duration-300 transform hover:-translate-y-2 
+                                    flex flex-col h-full">
+                      
+                      {/* ✅ Image Section */}
                       <div className="relative h-48 overflow-hidden">
                         <img
                           src={post.image}
@@ -112,18 +119,24 @@ const HomeBlogSlider = () => {
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                       </div>
+
+                      {/* ✅ Content Section */}
                       <div className="p-6 flex flex-col flex-grow">
-                        <h3 className="text-xl font-bold text-gray-800 mb-1 leading-tight flex items-start">
+                        <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-2 leading-tight line-clamp-2">
                           {post.title}
                         </h3>
-                        <div className="flex-grow mb-2">
-                          <p className="text-gray-600 text-sm leading-relaxed min-h-[4.5rem]">
+
+                        <div className="flex-grow mb-4">
+                          <p className="text-gray-600 text-sm md:text-base leading-relaxed line-clamp-3">
                             {truncateText(post.excerpt, 120)}
                           </p>
                         </div>
+
+                        {/* ✅ Button always bottom aligned */}
                         <button
                           onClick={() => handleReadMore(post.slug)}
-                          className="w-full py-3 px-4 rounded-lg font-semibold text-white transition-all duration-300 hover:shadow-lg transform hover:scale-105 mt-auto"
+                          className="w-full py-2.5 md:py-3 px-4 rounded-lg font-semibold text-white 
+                                     transition-all duration-300 hover:shadow-lg transform hover:scale-105 mt-auto"
                           style={{
                             backgroundColor: primaryColor,
                             boxShadow: `0 4px 15px ${primaryColor}40`
@@ -139,7 +152,7 @@ const HomeBlogSlider = () => {
             </div>
           </div>
 
-          {/* ✅ Arrow Buttons inside screen with 50% white opacity */}
+          {/* ✅ Arrow Buttons */}
           {totalSlides > 1 && (
             <>
               <button
@@ -159,6 +172,7 @@ const HomeBlogSlider = () => {
             </>
           )}
 
+          {/* ✅ Dots */}
           {totalSlides > 1 && (
             <div className="flex justify-center mt-8 gap-2">
               {Array.from({ length: totalSlides }).map((_, index) => (

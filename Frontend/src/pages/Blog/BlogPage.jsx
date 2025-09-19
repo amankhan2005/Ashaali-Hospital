@@ -50,7 +50,7 @@ const BlogPage = () => {
   ];
   return (
     <div className="min-h-screen bg-gray-50">
-      <BreadCrumb items={breadcrumbItems} title=" Ashaali Hospital" />
+      <BreadCrumb items={breadcrumbItems} title=" Blogs" />
 
       <div className="container mx-auto xl:px-10 lg:px-6 px-2 py-12">
         {blogs.length === 0 ? (

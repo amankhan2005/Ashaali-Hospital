@@ -32,6 +32,7 @@ import {
   FaAllergies,
   FaNotesMedical,
   FaPhoneAlt,
+    FaInstagram,
   FaWhatsapp,
   FaEnvelope,
   FaYoutube,
@@ -174,15 +175,15 @@ const SahyadriHeader = () => {
                 <FaLinkedin className="text-white text-sm" />
               </a>
 
-              {/* X (Twitter new logo) */}
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 bg-black rounded-full flex items-center justify-center"
-              >
-                <FaXTwitter className="text-white text-sm" />
-              </a>
+              {/* X insta */}
+             <a
+  href="https://www.instagram.com/ashaalihospital"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="w-8 h-8 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 rounded-full flex items-center justify-center"
+>
+  <FaInstagram className="text-white text-sm" />
+</a>
 
               {/* Facebook */}
               <a
@@ -271,15 +272,16 @@ const SahyadriHeader = () => {
                   <FaLinkedin className="text-white text-sm" />
                 </a>
 
-                {/* X (Twitter new logo) */}
-                <a
-                  href="https://twitter.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-8 h-8 bg-black rounded-full flex items-center justify-center"
-                >
-                  <FaXTwitter className="text-white text-sm" />
-                </a>
+                {/* Insta */}
+            <a
+  href="https://www.instagram.com/ashaalihospital"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="w-8 h-8 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 rounded-full flex items-center justify-center"
+>
+  <FaInstagram className="text-white text-sm" />
+</a>
+
 
                 {/* Facebook */}
                 <a

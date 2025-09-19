@@ -327,7 +327,7 @@ const Team = () => {
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-2xl shadow-md p-6 mb-16">
+        {/* <div className="bg-white rounded-2xl shadow-md p-6 mb-16">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center text-gray-700 font-medium">
               <FaFilter className="mr-2 text-[#18978d]" />
@@ -353,7 +353,7 @@ const Team = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {loading ? (
           <div className="flex justify-center items-center h-64">
@@ -387,12 +387,12 @@ const Team = () => {
                         <h3 className="text-3xl font-bold text-gray-900 mt-3 mb-2">
                           {mainDoctor.name}
                         </h3>
-                        <p className="text-xl text-[#18978d] font-medium mb-4">
+                        <p className="text-xl text-[#18978d] font-medium ">
                           {mainDoctor.specialty}
                         </p>
                       </div>
 
-                      <div className="mt-auto">
+                      <div className="">
                         <button
                           onClick={() => handleBookClick(mainDoctor)}
                           className="px-8 py-4 rounded-xl font-bold text-lg shadow-lg transition-all duration-300 transform hover:scale-105 bg-[#18978d] text-white hover:bg-[#147a71] hover:shadow-xl"

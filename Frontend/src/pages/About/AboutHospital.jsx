@@ -31,7 +31,7 @@ const AshaaliHospitalAbout = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Breadcrumb */}
-      <BreadCrumb items={breadcrumbItems} title=" Ashaali Hospital" />
+      <BreadCrumb items={breadcrumbItems} title="About Us" />
 
       <AboutSection />
 

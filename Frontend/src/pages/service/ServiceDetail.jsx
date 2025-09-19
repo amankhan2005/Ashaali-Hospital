@@ -2839,7 +2839,7 @@ const OrthopaedicDepartment = () => {
                     <p className="text-red-700 text-sm mb-4">24/7 Emergency Cardiac Care</p>
                     <div className="bg-white rounded-lg p-4 shadow-sm">
                       <a href="tel:+917897934949" className="hover:underline">
-                        +91-7897934949
+                        +91-78979 34949
                       </a>
                     </div>
                   </div>

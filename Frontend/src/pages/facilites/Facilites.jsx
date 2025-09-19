@@ -1186,7 +1186,7 @@ const FacilitiesComponent = () => {
 
   return (
     <div className=" bg-gray-50">
-      <BreadCrumb items={breadcrumbItems} title=" Ashaali Hospital" />
+      <BreadCrumb items={breadcrumbItems} title=" Facilities" />
 
     
       <div className="container lg:px-12 px-2 sm:px-6 md:px-8  mx-auto  py-2   ">

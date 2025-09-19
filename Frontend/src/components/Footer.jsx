@@ -39,9 +39,16 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-2">
                 <TbDeviceLandlinePhone />
-                <a href="tel:+917897934949" className="hover:underline">
-                  0522-3503390, 3503566
-                </a>
+              <div>
+  <a href="tel:05223503390" className="hover:underline">
+    0522-3503390
+  </a>
+  ,{" "}
+  <a href="tel:05223503566" className="hover:underline">
+    0522-3503566
+  </a>
+</div>
+
               </div>
 
               {/* Email */}

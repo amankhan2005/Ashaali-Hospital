@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Search,
   User,
@@ -32,7 +32,7 @@ import {
   FaAllergies,
   FaNotesMedical,
   FaPhoneAlt,
-    FaInstagram,
+  FaInstagram,
   FaWhatsapp,
   FaEnvelope,
   FaYoutube,
@@ -105,6 +105,13 @@ const SahyadriHeader = () => {
     ],
   ];
 
+  useEffect(()=>{
+if(!isMobileMenuOpen){
+  setIsSpecialtiesOpen(false)
+  setIsFacility(false)
+}
+  },[isMobileMenuOpen])
+
   return (
     <div className="w-full">
       {/* Top Bar */}
@@ -176,14 +183,14 @@ const SahyadriHeader = () => {
               </a>
 
               {/* X insta */}
-             <a
-  href="https://www.instagram.com/ashaalihospital"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="w-8 h-8 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 rounded-full flex items-center justify-center"
->
-  <FaInstagram className="text-white text-sm" />
-</a>
+              <a
+                href="https://www.instagram.com/ashaalihospital"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 rounded-full flex items-center justify-center"
+              >
+                <FaInstagram className="text-white text-sm" />
+              </a>
 
               {/* Facebook */}
               <a
@@ -202,7 +209,7 @@ const SahyadriHeader = () => {
               <div className="flex flex-col sm:flex-row gap-2 justify-center">
                 <Link
                   to="/book-appointment"
-                  className="px-10 py-1.5 bg-[#18978d] text-white text-center rounded-xl transition-colors text-xs w-fit mx-auto"
+                  className="px-20 py-1.5 bg-[#18978d] text-white text-center rounded-xl transition-colors text-xs w-fit mx-auto"
                 >
                   Book Appointment
                 </Link>
@@ -273,15 +280,14 @@ const SahyadriHeader = () => {
                 </a>
 
                 {/* Insta */}
-            <a
-  href="https://www.instagram.com/ashaalihospital"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="w-8 h-8 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 rounded-full flex items-center justify-center"
->
-  <FaInstagram className="text-white text-sm" />
-</a>
-
+                <a
+                  href="https://www.instagram.com/ashaalihospital"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 rounded-full flex items-center justify-center"
+                >
+                  <FaInstagram className="text-white text-sm" />
+                </a>
 
                 {/* Facebook */}
                 <a
@@ -308,10 +314,10 @@ const SahyadriHeader = () => {
       {/* Main Header */}
       <div className="bg-white shadow-sm">
         <div className="container mx-auto  ">
-          <div className="flex items-center justify-between lg:px-10 px-6">
+          <div className="flex items-center justify-between lg:px-10 md:pr-0 pr-6">
             {/* Logo */}
             <Link to={"/"} className="w-fit">
-              <div className="w-[8rem] sm:w-[10rem] md:w-[14rem] lg:w-[14rem] xl:w-[18rem]">
+              <div className="w-[14rem] md:w-[16rem] lg:w-[14rem] xl:w-[18rem]">
                 <img
                   src={logo}
                   alt="Ashaali-hospital"
@@ -509,14 +515,14 @@ const SahyadriHeader = () => {
                       <Link
                         to="/about/ashaali-hospitals"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className="block py-1 text-gray-600 hover:text-teal-600"
+                        className="block  border-b border-gray-200 mb-2 text-[15px] py-1 text-gray-600 hover:text-teal-600"
                       >
                         About Ashaali Hospital
                       </Link>
                       <Link
                         to="/about/team"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className="block py-1 text-gray-600 hover:text-teal-600"
+                        className="block border-b border-gray-200 mb-2 text-[15px] py-1 text-gray-600 hover:text-teal-600"
                       >
                         Find A Doctor
                       </Link>
@@ -542,7 +548,7 @@ const SahyadriHeader = () => {
                             .toLowerCase()
                             .replace(/\s+/g, "-")}`}
                           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                          className="block text-sm text-gray-600 hover:text-teal-600"
+                          className="block border-b border-gray-200 mb-2 text-[15px] text-gray-600 hover:text-teal-600"
                         >
                           {specialty.name}
                         </Link>
@@ -569,7 +575,7 @@ const SahyadriHeader = () => {
                             .toLowerCase()
                             .replace(/\s+/g, "-")}`}
                           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                          className="block text-sm text-gray-600 hover:text-teal-600"
+                          className="block border-b border-gray-200 mb-2 text-[15px]  text-sm text-gray-600 hover:text-teal-600"
                         >
                           {facility.name}
                         </Link>

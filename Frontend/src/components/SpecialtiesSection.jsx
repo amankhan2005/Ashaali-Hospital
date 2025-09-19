@@ -64,7 +64,7 @@ const SpecialistSection = () => {
           </div>
 
           {/* Main SEO heading */}
-          <h1 className="text-medium md:text-3xl lg:text-3xl xl:text-5xl font-bold">
+          <h1 className="text-xl md:text-3xl lg:text-3xl xl:text-5xl font-bold">
             {/* Advanced care across all major departments under one roof. */}
            Every Specialty, One Place
           </h1>
@@ -81,7 +81,7 @@ const SpecialistSection = () => {
               className="h-full"
             >
               <div
-                className="bg-white rounded-xl p-4 md:py-3 md:px-2 text-center shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer group border border-gray-100 hover:border-opacity-0 transform hover:-translate-y-2 h-full flex flex-col justify-between aspect-square"
+                className="bg-white rounded-xl p-4 md:py-12 md:px-2 text-center shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer group border border-gray-100 hover:border-opacity-0 transform hover:-translate-y-2 h-full flex flex-col justify-around aspect-square"
                 style={{
                   '--hover-shadow': `0 20px 40px rgba(24, 151, 141, 0.15)`,
                 }}
@@ -94,7 +94,7 @@ const SpecialistSection = () => {
                 }}
               >
                 {/* Image Container */}
-                <div className="flex justify-center mb-3 md:mb-4">
+                <div className="flex justify-center mb-3 md:mb-2">
                   <div
                     className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
                     style={{
@@ -112,7 +112,7 @@ const SpecialistSection = () => {
 
                 {/* Specialist Name */}
                 <h3
-                  className="text-xs md:text-sm lg:text-base font-semibold leading-tight transition-colors duration-300 group-hover:font-bold"
+                  className="text-[0.85rem] md:text-sm lg:text-base font-semibold leading-tight transition-colors duration-300 group-hover:font-bold"
                   style={{
                     color: '#374151',
                   }}

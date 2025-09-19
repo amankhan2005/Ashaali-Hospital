@@ -33,8 +33,8 @@ const TruestedAshaali = () => {
 
     return (
         <div className='bg-gray-100  py-10'>
-        <div className="   mx-auto">
-                  <div className="text-center mb-6 md:mb-8  max-w-5xl mx-auto">
+        <div className="   container">
+                  <div className="text-center mb-6 md:mb-8 px-4   ">
                     {/* Small colored heading at top */}
                     <div className="mb-3 md:mb-4">
                         <span
@@ -50,8 +50,8 @@ const TruestedAshaali = () => {
                     </div>
 
                     {/* Main SEO heading */}
-                    <h1 className="text-medium md:text-xl lg:text-3xl xl:text-5xl font-bold  " >
-                  You Deserve Care That’s Advanced, Accessible, and Always Compassionate
+                    <h1 className="text-xl md:text-xl lg:text-3xl xl:text-5xl font-bold  " >
+                  You Deserve Care That’s Advanced, Accessible,<br /> and   Always Compassionate
                     </h1>
 
 

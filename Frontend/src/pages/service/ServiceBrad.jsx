@@ -21,18 +21,18 @@ const ServiceBreadcums = ({ items, headText, image: propImage }) => {
       }}
     >
       {/* Light overlay for better image visibility */}
-      {/* <div className="absolute inset-0 bg-gray-200  bg-opacity-80 z-10"></div> */}
+      <div className="absolute inset-0 bg-black  z-10" style={{opacity:0.4}}></div>
 
       
 
-<div className="absolute bottom-6 left-8 text-white max-w-3xl">
+<div className="absolute z-50 bottom-6 left-8 text-white max-w-3xl">
   <h1 className="lg:text-4xl text-2xl md:text-3xl font-bold tracking-tight">
     {headText}
   </h1>
 
   {/* Breadcrumb Navigation */}
   {items && (
-    <ul className="mt-4 flex items-center text-sm lg:text-base text-gray-200">
+    <ul className="mt-4 flex z-50 items-center text-sm lg:text-base text-gray-200">
       {items.map((item, index) => (
         <li key={index} className="flex items-center">
           <Link

@@ -30,7 +30,7 @@ const StatsComponent = () => {
       <div className=" mx-auto container">
         {/* Main Heading */}
         <h2 
-          className=" text-medium md:text-2xl lg:text-3xl xl:text-5xl font-bold text-center mb-4 sm:mb-6 text-gray-800"
+          className=" text-xl md:text-2xl lg:text-3xl xl:text-5xl font-bold text-center mb-4 sm:mb-6 text-gray-800"
          >
           We Are The Best At What We Do
         </h2>

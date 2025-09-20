@@ -82,7 +82,7 @@ export const bookAppointment = async (req, res) => {
           <p>Please follow up with the patient as soon as possible.</p>
           <p>Thank you,<br/>Ashaali Hospital - Best Orthopedic Surgeon, Eye Care, Obstetrician And Gynecologist, Neuro-spine Brain Hospital In Lucknow</p>
         `,
-      });
+      });f
     } catch (err) {
       console.error("❌ Admin mail error:", err.message);
     }

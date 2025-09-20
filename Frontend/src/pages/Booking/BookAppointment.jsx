@@ -191,7 +191,7 @@ const AppointmentBooking = () => {
               />
             </svg>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-2 sm:mb-3">
+          <h1 className="text-xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-2 sm:mb-3">
             Book Your Appointment
           </h1>
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-2">

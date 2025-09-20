@@ -356,12 +356,12 @@ const OrthopaedicDepartment = () => {
             "Minimally invasive procedure for joint problems using small incisions",
         },
         {
-          name: "Spinal Fusion",
+          name: "Spinal & Conical Surgery",
           description:
             "Surgical procedure to treat spinal instability and disc problems",
         },
         {
-          name: "ACL Reconstruction",
+          name: "ACL & PCL Reconstruction",
           description:
             "Surgical repair of torn anterior cruciate ligament in the knee",
         },
@@ -2981,7 +2981,7 @@ const OrthopaedicDepartment = () => {
   ];
 
   return (
-    <div className=" bg-gray-50">
+    <div className=" bg-gray-50  ">
       <ServiceBreadcums
         items={breadcrumbItems}
         headText={activeService?.departmentTitle}
@@ -3269,7 +3269,7 @@ const OrthopaedicDepartment = () => {
                       <Phone className="w-8 h-8 text-white" />
                     </div>
                     <h3 className="text-xl font-bold text-red-800 mb-2">
-                      Cardiac Emergency
+                      Trauma Emergency
                     </h3>
                     <p className="text-red-700 text-sm mb-4">
                       24/7 Emergency Cardiac Care
@@ -3277,6 +3277,11 @@ const OrthopaedicDepartment = () => {
                     <div className="bg-white rounded-lg p-4 shadow-sm">
                       <a href="tel:+917897934949" className="hover:underline">
                         +91-78979 34949
+                      </a>
+                      <span className="mx-2">|</span>{" "}
+                      {/* separator with spacing */}
+                      <a href="tel:05223503390" className="hover:underline">
+                        0522-3503390
                       </a>
                     </div>
                   </div>

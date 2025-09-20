@@ -1,4 +1,4 @@
- import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -34,14 +34,16 @@ const AppointmentBooking = () => {
   }, [searchParams, doctors]);
 
   useEffect(() => {
-    axios.get(`${API_URL}/api/doctors/departments/list`)
+    axios
+      .get(`${API_URL}/api/doctors/departments/list`)
       .then((res) => setDepartments(res.data))
       .catch(() => toast.error("Failed to load departments"));
   }, []);
 
   useEffect(() => {
     if (!selectedDepartment) return setDoctors([]);
-    axios.get(`${API_URL}/api/doctors?department=${selectedDepartment}`)
+    axios
+      .get(`${API_URL}/api/doctors?department=${selectedDepartment}`)
       .then((res) => setDoctors(res.data))
       .catch(() => toast.error("Failed to load doctors"));
   }, [selectedDepartment]);
@@ -81,9 +83,12 @@ const AppointmentBooking = () => {
       const day = String(date.getDate()).padStart(2, "0");
       const formattedDate = `${year}-${month}-${day}`;
 
-      const res = await axios.get(`${API_URL}/api/appointments/available-slots`, {
-        params: { doctorId: selectedDoctor._id, date: formattedDate },
-      });
+      const res = await axios.get(
+        `${API_URL}/api/appointments/available-slots`,
+        {
+          params: { doctorId: selectedDoctor._id, date: formattedDate },
+        }
+      );
       setAvailableSlots(Array.isArray(res.data.slots) ? res.data.slots : []);
     } catch (err) {
       toast.error("Failed to load slots");
@@ -134,7 +139,9 @@ const AppointmentBooking = () => {
         patientName: patient.name,
         email: patient.email,
         phone: patient.phone,
-        date: `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2,"0")}-${String(selectedDate.getDate()).padStart(2,"0")}`,
+        date: `${selectedDate.getFullYear()}-${String(
+          selectedDate.getMonth() + 1
+        ).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(2, "0")}`,
         slot: selectedSlot,
       };
       const res = await axios.post(`${API_URL}/api/appointments/book`, payload);
@@ -234,25 +241,33 @@ const AppointmentBooking = () => {
                   <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-green-100">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                       <div>
-                        <p className="text-xs sm:text-sm text-gray-500">Patient</p>
+                        <p className="text-xs sm:text-sm text-gray-500">
+                          Patient
+                        </p>
                         <p className="font-medium text-gray-900 text-sm sm:text-base">
                           {bookingDetails.patientName}
                         </p>
                       </div>
                       <div>
-                        <p className="text-xs sm:text-sm text-gray-500">Doctor</p>
+                        <p className="text-xs sm:text-sm text-gray-500">
+                          Doctor
+                        </p>
                         <p className="font-medium text-gray-900 text-sm sm:text-base">
-                           {bookingDetails.doctorName}
+                          {bookingDetails.doctorName}
                         </p>
                       </div>
                       <div>
-                        <p className="text-xs sm:text-sm text-gray-500">Department</p>
+                        <p className="text-xs sm:text-sm text-gray-500">
+                          Department
+                        </p>
                         <p className="font-medium text-gray-900 text-sm sm:text-base">
                           {bookingDetails.department}
                         </p>
                       </div>
                       <div>
-                        <p className="text-xs sm:text-sm text-gray-500">Date & Time</p>
+                        <p className="text-xs sm:text-sm text-gray-500">
+                          Date & Time
+                        </p>
                         <p className="font-medium text-gray-900 text-sm sm:text-base">
                           {bookingDetails.date.toLocaleDateString("en-US", {
                             weekday: "long",
@@ -410,7 +425,7 @@ const AppointmentBooking = () => {
                       <option value="">-- Select Doctor --</option>
                       {doctors.map((d) => (
                         <option key={d._id} value={d._id}>
-                           {d.name} ({d.specialty})
+                          {d.name} ({d.specialty})
                         </option>
                       ))}
                     </select>
@@ -430,34 +445,36 @@ const AppointmentBooking = () => {
               {/* Date Selection */}
               {selectedDoctor && (
                 <div className="mb-4 sm:mb-6">
-                  <label className="block text-base sm:text-lg font-medium text-gray-800 mb-2">
+                  <label className="flex text-base  items-center justify-center  sm:text-lg font-medium text-gray-800 mb-2">
                     Select Date
                   </label>
-                  <div className="relative">
-                    <DatePicker
-                      selected={selectedDate}
-                      onChange={handleDateChange}
-                      filterDate={filterDate}
-                      minDate={new Date()}
-                      placeholderText="Select available date"
-                      className="w-full p-3 sm:p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200 text-sm sm:text-base"
-                      dateFormat="PPP"
-                    />
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        />
-                      </svg>
+                  <div className="flex justify-center items-center w-full">
+                    <div className="relative w-full max-w-sm">
+                      <DatePicker
+                        selected={selectedDate}
+                        onChange={handleDateChange}
+                        filterDate={filterDate}
+                        minDate={new Date()}
+                        placeholderText="Select available date"
+                        className="w-full p-2 px-22 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200 text-sm sm:text-base"
+                        dateFormat="PPP"
+                      />
+                      <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          />
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -502,7 +519,9 @@ const AppointmentBooking = () => {
                   ) : (
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
                       {availableSlots.map((slotObj, i) => {
-                        const displayTime = new Date(`2000-01-01T${slotObj.time}:00`).toLocaleTimeString("en-IN", {
+                        const displayTime = new Date(
+                          `2000-01-01T${slotObj.time}:00`
+                        ).toLocaleTimeString("en-IN", {
                           hour: "2-digit",
                           minute: "2-digit",
                           hour12: true,
@@ -516,13 +535,15 @@ const AppointmentBooking = () => {
                             disabled={isBooked}
                             onClick={() => setSelectedSlot(slotObj.time)}
                             className={`py-2 px-3 sm:py-3 sm:px-4 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 transform hover:scale-105
-                              ${selectedSlot === slotObj.time && !isBooked
-                                ? "bg-teal-500 text-white shadow-md"
-                                : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+                              ${
+                                selectedSlot === slotObj.time && !isBooked
+                                  ? "bg-teal-500 text-white shadow-md"
+                                  : "bg-gray-100 hover:bg-gray-200 text-gray-700"
                               }
-                              ${isBooked
-                                ? "bg-red-100 text-red-500 line-through cursor-not-allowed opacity-70"
-                                : ""
+                              ${
+                                isBooked
+                                  ? "bg-red-100 text-red-500 line-through cursor-not-allowed opacity-70"
+                                  : ""
                               }`}
                           >
                             {displayTime}
@@ -724,15 +745,17 @@ const AppointmentBooking = () => {
 
             {/* Footer */}
             <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:py-4 border-t border-gray-200">
-              <div className="flex flex-col sm:flex-row items-center justify-between">
+              <div className="flex flex-col sm:flex-row items-center justify-center">
                 <p className="text-xs sm:text-sm text-gray-600 text-center sm:text-left">
                   Need help? Call us at{" "}
                   <span className="font-medium text-teal-600">
-                    <a
-                      href="tel:+917897934949"
-                      className="hover:underline"
-                    >
+                    <a href="tel:+917897934949" className="hover:underline">
                       +91-78979 34949
+                    </a>
+                    <span className="mx-2">|</span>{" "}
+                    {/* separator with spacing */}
+                    <a href="tel:05223503390" className="hover:underline">
+                      0522-3503390
                     </a>
                   </span>
                 </p>

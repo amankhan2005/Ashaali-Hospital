@@ -395,7 +395,7 @@ const Team = () => {
                       <div className="">
                         <button
                           onClick={() => handleBookClick(mainDoctor)}
-                          className="px-8 py-4 rounded-xl font-bold text-lg shadow-lg transition-all duration-300 transform hover:scale-105 bg-[#18978d] text-white hover:bg-[#147a71] hover:shadow-xl"
+                          className="px-14  py-4 rounded-xl font-bold text-lg shadow-lg transition-all duration-300 transform hover:scale-105 bg-[#18978d] text-white hover:bg-[#147a71] hover:shadow-xl"
                         >
                           Book Appointment 
                         </button>

@@ -122,16 +122,15 @@ if(!isMobileMenuOpen){
             <div className="flex items-center justify-center gap-2 text-gray-600">
               <span className="text-xs">Emergency/Appointment</span>
               <a
-                href="tel:+917897934949"
+                href="tel:+91830321220"
                 className="text-red-600 font-semibold hover:underline"
               >
-                +91 78979 34949
-              </a>
++91-83032 12210              </a>
               <a
-                href="tel:+91830321220 "
+                href="tel:05223503390 "
                 className="hidden md:block text-red-600 font-semibold hover:underline"
               >
-                +91-83032 12210
+                05223503390
               </a>
             </div>
 
@@ -225,16 +224,16 @@ if(!isMobileMenuOpen){
               </span>
               <span className="lg:hidden">Emergency</span>
               <a
-                href="tel:+917897934949"
+                href="tel:+91830321220"
                 className="text-red-600 font-semibold hover:underline"
               >
-                +91-78979 34949
+                 +91-83032 12210
               </a>
               <a
-                href="tel:+91830321220 "
+                href="tel:05223503390 "
                 className="text-red-600 font-semibold hover:underline "
               >
-                +91-83032 12210
+                 0522-3503390
               </a>
             </div>
 

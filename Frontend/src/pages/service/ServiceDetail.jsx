@@ -363,8 +363,7 @@ const OrthopaedicDepartment = () => {
         {
           name: "ACL & PCL Reconstruction",
           description:
-            "Surgical repair of torn anterior cruciate ligament in the knee",
-        },
+ "Surgical reconstruction of torn anterior cruciate ligament (ACL) or posterior cruciate ligament (PCL) to restore knee stability."        },
       ],
       treatments: [
         {

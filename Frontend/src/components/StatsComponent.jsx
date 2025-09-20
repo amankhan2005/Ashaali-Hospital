@@ -16,7 +16,7 @@ const StatsComponent = () => {
       subtitle: "Performed"
     },
     {
-      number: "150+",
+      number: "20+",
       title: "Awards &",
       subtitle: "Recognitions"
     }

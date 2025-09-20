@@ -45,11 +45,10 @@ const SpecialistSection = () => {
   ];
 
   return (
-    <div className="bg-gray-50 py-6 md:py-16 lg:px-12 px-4 sm:px-6 md:px-8">
-      <div className="container mx-auto">
+    <div className="bg-gray-50 py-6 md:py-16">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
         {/* Header */}
         <div className="text-center mb-6 md:mb-12 px-4">
-          {/* Small colored heading at top */}
           <div className="mb-3 md:mb-4">
             <span
               className="text-sm md:text-base lg:text-lg font-semibold uppercase tracking-wider inline-block px-3 py-1 rounded-full border-2"
@@ -63,10 +62,8 @@ const SpecialistSection = () => {
             </span>
           </div>
 
-          {/* Main SEO heading */}
           <h1 className="text-xl md:text-3xl lg:text-3xl xl:text-5xl font-bold">
-            {/* Advanced care across all major departments under one roof. */}
-           Every Specialty, One Place
+            Every Specialty, One Place
           </h1>
         </div>
 
@@ -96,7 +93,7 @@ const SpecialistSection = () => {
                 {/* Image Container */}
                 <div className="flex justify-center mb-3 md:mb-2">
                   <div
-                    className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                    className="w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
                     style={{
                       backgroundColor: `${primaryColor}15`,
                       border: `2px solid ${primaryColor}30`,
@@ -105,7 +102,7 @@ const SpecialistSection = () => {
                     <img
                       src={specialist.image}
                       alt={specialist.name}
-                      className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
+                      className="w-12 h-12 md:w-14 md:h-14 rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
                     />
                   </div>
                 </div>

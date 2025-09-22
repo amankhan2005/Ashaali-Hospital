@@ -1,4 +1,4 @@
- import Appointment from "../models/appointment.models.js";
+import Appointment from "../models/appointment.models.js";
 import Doctor from "../models/doctors.models.js";
 import nodemailer from "nodemailer";
 import { format } from "date-fns"; // For pretty formatting
@@ -48,7 +48,8 @@ export const bookAppointment = async (req, res) => {
       status: { $in: ["pending", "approved"] },
     });
 
-    if (existing) return res.status(400).json({ error: "This slot is already booked!" });
+    if (existing)
+      return res.status(400).json({ error: "This slot is already booked!" });
 
     const appointment = new Appointment({
       patientName,
@@ -82,7 +83,8 @@ export const bookAppointment = async (req, res) => {
           <p>Please follow up with the patient as soon as possible.</p>
           <p>Thank you,<br/>Ashaali Hospital - Best Orthopedic Surgeon, Eye Care, Obstetrician And Gynecologist, Neuro-spine Brain Hospital In Lucknow</p>
         `,
-      });f
+      });
+      f;
     } catch (err) {
       console.error("❌ Admin mail error:", err.message);
     }
@@ -111,7 +113,9 @@ export const bookAppointment = async (req, res) => {
       console.error("❌ Patient mail error:", err.message);
     }
 
-    res.status(201).json({ success: true, message: "Appointment requested!", appointment });
+    res
+      .status(201)
+      .json({ success: true, message: "Appointment requested!", appointment });
   } catch (err) {
     console.error("Appointment booking error:", err.message);
     res.status(500).json({ error: err.message });
@@ -122,18 +126,24 @@ export const bookAppointment = async (req, res) => {
 export const getAvailableSlotsForDoctorDate = async (req, res) => {
   try {
     const { doctorId, date } = req.query;
-    if (!doctorId || !date) return res.status(400).json({ error: "Doctor ID and Date are required" });
+    if (!doctorId || !date)
+      return res.status(400).json({ error: "Doctor ID and Date are required" });
 
     const doctor = await Doctor.findById(doctorId);
     if (!doctor) return res.status(404).json({ error: "Doctor not found" });
 
-    const dayName = new Date(date).toLocaleDateString("en-IN", { weekday: "long" });
+    const dayName = new Date(date).toLocaleDateString("en-IN", {
+      weekday: "long",
+    });
     const doctorDailyAvailability = doctor.availableSlots.find(
       (slot) => slot.day === dayName
     );
 
     if (!doctorDailyAvailability) {
-      return res.json({ slots: [], message: "Doctor not available on this day." });
+      return res.json({
+        slots: [],
+        message: "Doctor not available on this day.",
+      });
     }
 
     const allPossibleSlots = generateTimeSlots(
@@ -154,10 +164,26 @@ export const getAvailableSlotsForDoctorDate = async (req, res) => {
 
     const bookedTimes = bookedAppointments.map((a) => a.slot);
 
-    const finalSlots = allPossibleSlots.map((slotTime) => ({
-      time: slotTime,
-      booked: bookedTimes.includes(slotTime),
-    }));
+    // const finalSlots = allPossibleSlots.map((slotTime) => ({
+    //   time: slotTime,
+    //   booked: bookedTimes.includes(slotTime),
+    // }));
+
+    // below code are for past time block if it not work uncmnt upr code and comment this
+    const now = new Date();
+
+    const finalSlots = allPossibleSlots.map((slotTime) => {
+      const [hours, minutes] = slotTime.split(":").map(Number);
+      const slotDateTime = new Date(year, month - 1, dayNum, hours, minutes);
+
+      return {
+        time: slotTime,
+        booked: bookedTimes.includes(slotTime),
+        expired: slotDateTime < now,
+      };
+    });
+
+    //  end time block code
 
     res.json({ slots: finalSlots });
   } catch (err) {
@@ -169,8 +195,11 @@ export const getAvailableSlotsForDoctorDate = async (req, res) => {
 // ✅ Approve Appointment
 export const approveAppointment = async (req, res) => {
   try {
-    const appointment = await Appointment.findById(req.params.id).populate("doctor");
-    if (!appointment) return res.status(404).json({ error: "Appointment not found" });
+    const appointment = await Appointment.findById(req.params.id).populate(
+      "doctor"
+    );
+    if (!appointment)
+      return res.status(404).json({ error: "Appointment not found" });
 
     appointment.status = "approved";
     await appointment.save();
@@ -183,7 +212,9 @@ export const approveAppointment = async (req, res) => {
         subject: "✅ Appointment Confirmed - Ashaali Hospital",
         html: `
           <p>Dear ${appointment.patientName},</p>
-          <p>Your appointment with  ${appointment.doctor.name} (${appointment.doctor.department}) is <strong>approved</strong>.</p>
+          <p>Your appointment with  ${appointment.doctor.name} (${
+          appointment.doctor.department
+        }) is <strong>approved</strong>.</p>
           <p><strong>Date:</strong> ${formatDateIST(appointment.date)}</p>
           <p><strong>Time:</strong> ${appointment.slot}</p>
           <p>Please arrive 15 minutes early.</p>
@@ -204,7 +235,9 @@ export const approveAppointment = async (req, res) => {
           <p>Dear Admin,</p>
           <p>The following appointment has been <strong>approved</strong>:</p>
           <p><strong>Patient:</strong> ${appointment.patientName}</p>
-          <p><strong>Doctor:</strong> ${appointment.doctor.name} (${appointment.doctor.department})</p>
+          <p><strong>Doctor:</strong> ${appointment.doctor.name} (${
+          appointment.doctor.department
+        })</p>
           <p><strong>Date:</strong> ${formatDateIST(appointment.date)}</p>
           <p><strong>Time:</strong> ${appointment.slot}</p>
         `,
@@ -223,8 +256,11 @@ export const approveAppointment = async (req, res) => {
 // ✅ Reject Appointment
 export const rejectAppointment = async (req, res) => {
   try {
-    const appointment = await Appointment.findById(req.params.id).populate("doctor");
-    if (!appointment) return res.status(404).json({ error: "Appointment not found" });
+    const appointment = await Appointment.findById(req.params.id).populate(
+      "doctor"
+    );
+    if (!appointment)
+      return res.status(404).json({ error: "Appointment not found" });
 
     appointment.status = "rejected";
     await appointment.save();
@@ -237,8 +273,12 @@ export const rejectAppointment = async (req, res) => {
         subject: "❌ Appointment Rejected - Ashaali Hospital",
         html: `
           <p>Dear ${appointment.patientName},</p>
-          <p>We regret to inform you that your appointment with  ${appointment.doctor.name} on 
-          ${formatDateIST(appointment.date)} at ${appointment.slot} has been <strong>rejected</strong>.</p>
+          <p>We regret to inform you that your appointment with  ${
+            appointment.doctor.name
+          } on 
+          ${formatDateIST(appointment.date)} at ${
+          appointment.slot
+        } has been <strong>rejected</strong>.</p>
           <p>Please book another slot.</p>
           <p>Regards,<br/>Ashaali Hospital</p>
         `,
@@ -257,7 +297,9 @@ export const rejectAppointment = async (req, res) => {
           <p>Dear Admin,</p>
           <p>The following appointment has been <strong>rejected</strong>:</p>
           <p><strong>Patient:</strong> ${appointment.patientName}</p>
-          <p><strong>Doctor:</strong>  ${appointment.doctor.name} (${appointment.doctor.department})</p>
+          <p><strong>Doctor:</strong>  ${appointment.doctor.name} (${
+          appointment.doctor.department
+        })</p>
           <p><strong>Date:</strong> ${formatDateIST(appointment.date)}</p>
           <p><strong>Time:</strong> ${appointment.slot}</p>
         `,
@@ -277,7 +319,8 @@ export const rejectAppointment = async (req, res) => {
 export const deleteAppointment = async (req, res) => {
   try {
     const appointment = await Appointment.findByIdAndDelete(req.params.id);
-    if (!appointment) return res.status(404).json({ error: "Appointment not found" });
+    if (!appointment)
+      return res.status(404).json({ error: "Appointment not found" });
 
     res.json({ success: true, message: "Appointment deleted" });
   } catch (err) {

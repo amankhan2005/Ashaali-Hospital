@@ -554,37 +554,33 @@ const AppointmentBooking = () => {
 
                     // below code are for blocking past slot ( if it does'nt work uncomment upper code and comment this)
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                      {availableSlots.map((slotObj, i) => {
-                        const displayTime = new Date(
-                          `2000-01-01T${slotObj.time}:00`
-                        ).toLocaleTimeString("en-IN", {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                          hour12: true,
-                          timeZone: "Asia/Kolkata",
-                        });
+  {availableSlots.map((slotObj, i) => {
+    const displayTime = new Date(
+      `2000-01-01T${slotObj.time}:00`
+    ).toLocaleTimeString("en-IN", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: "Asia/Kolkata",
+    });
 
-                        const isBooked = slotObj.booked;
+    const isBooked = slotObj.booked;
 
-                        // ✅ Check current time vs slot time
-                        const now = new Date();
-                        const selectedDay = new Date(selectedDate);
-                        const slotDateTime = new Date(
-                          `${selectedDay.getFullYear()}-${String(
-                            selectedDay.getMonth() + 1
-                          ).padStart(2, "0")}-${String(
-                            selectedDay.getDate()
-                          ).padStart(2, "0")}T${slotObj.time}:00`
-                        );
+    // ✅ Check current time vs slot time
+    const now = new Date();
+    const selectedDay = new Date(selectedDate);
+    const slotDateTime = new Date(
+      `${selectedDay.getFullYear()}-${String(selectedDay.getMonth() + 1).padStart(2, "0")}-${String(selectedDay.getDate()).padStart(2, "0")}T${slotObj.time}:00`
+    );
 
-                        const isPast = slotDateTime < now; // agar slot nikal gaya hai
+    const isPast = slotDateTime < now; // agar slot nikal gaya hai
 
-                        return (
-                          <button
-                            key={i}
-                            disabled={isBooked || isPast}
-                            onClick={() => setSelectedSlot(slotObj.time)}
-                            className={`py-2 px-3 sm:py-3 sm:px-4 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 transform hover:scale-105
+    return (
+      <button
+        key={i}
+        disabled={isBooked || isPast}
+        onClick={() => setSelectedSlot(slotObj.time)}
+        className={`py-2 px-3 sm:py-3 sm:px-4 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 transform hover:scale-105
           ${
             selectedSlot === slotObj.time && !isBooked && !isPast
               ? "bg-teal-500 text-white shadow-md"
@@ -595,13 +591,13 @@ const AppointmentBooking = () => {
               ? "bg-red-100 text-red-500 line-through cursor-not-allowed opacity-70"
               : ""
           }`}
-                          >
-                            {displayTime}
-                          </button>
-                        );
-                      })}
-                    </div>
-                    // end here past time block code
+      >
+        {displayTime}
+      </button>
+    );
+  })}
+</div>
+// end here time 
                   )}
                 </div>
               )}

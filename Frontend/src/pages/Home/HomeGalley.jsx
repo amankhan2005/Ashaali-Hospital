@@ -156,7 +156,7 @@ const HomeGallery = () => {
           </div>
         )}
 
-        <style jsx global>{`
+        {/* <style jsx global>{`
           .gallery-carousel .slick-dots { bottom: -40px; }
           .gallery-carousel .slick-dots li button:before { font-size: 12px; color: #18978d; opacity: 0.5; }
           .gallery-carousel .slick-dots li.slick-active button:before { color: #18978d; opacity: 1; }
@@ -168,7 +168,8 @@ const HomeGallery = () => {
           .gallery-carousel .slick-prev:before, .gallery-carousel .slick-next:before {
             font-size: 24px; color: #fff; opacity: 0.5;
           }
-        `}</style>
+        `}</style> */}
+        
       </div>
     </div>
   );

@@ -1,71 +1,4 @@
-//  import React from "react";
-// import { NavLink } from "react-router-dom";
-// import { 
-//   FaTachometerAlt, 
-//   FaUserMd, 
-//   FaCalendarAlt, 
-//   FaBlog, 
-//   FaImages, 
-//   FaQuestionCircle 
-// } from "react-icons/fa";
-
-// const Sidebar = () => {
-//   const links = [
-//     { name: "Dashboard", path: "/admin/dashboard", icon: <FaTachometerAlt /> },
-//     { name: "Doctors", path: "/admin/doctors", icon: <FaUserMd /> },
-//     { name: "Appointments", path: "/admin/appointments", icon: <FaCalendarAlt /> },
-//     { name: "Blogs", path: "/admin/blogs", icon: <FaBlog /> },
-//     { name: "Gallery", path: "/admin/gallery", icon: <FaImages /> },
-//     { name: "Inquiries", path: "/admin/inquiries", icon: <FaQuestionCircle /> },
-//   ];
-
-//   return (
-//     <div className="bg-gradient-to-b from-slate-800 to-slate-900 text-white w-64 min-h-screen shadow-xl flex flex-col">
-//       {/* Header */}
-//       <div className="p-6 border-b border-slate-700">
-//         <div className="flex items-center mb-1">
-//           <div className="bg-teal-500 rounded-lg p-2 mr-3">
-//             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-//               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-//             </svg>
-//           </div>
-//           <h2 className="font-bold text-2xl">Admin</h2>
-//         </div>
-//         <p className="text-slate-400 text-sm">Healthcare Management</p>
-//       </div>
-      
-//       {/* Navigation */}
-//       <nav className="flex-1 mt-6 px-4">
-//         <ul className="space-y-1">
-//           {links.map((link) => (
-//             <li key={link.name}>
-//               <NavLink
-//                 to={link.path}
-//                 className={({ isActive }) =>
-//                   isActive 
-//                     ? "flex items-center p-3 bg-teal-600 text-white rounded-lg transition-all duration-300" 
-//                     : "flex items-center p-3 text-slate-300 hover:bg-slate-700/50 hover:text-white rounded-lg transition-all duration-300"
-//                 }
-//               >
-//                 <span className="text-lg mr-3 text-teal-400">{link.icon}</span>
-//                 <span className="font-medium">{link.name}</span>
-//               </NavLink>
-//             </li>
-//           ))}
-//         </ul>
-//       </nav>
-      
-//       {/* Footer */}
-//       <div className="p-4 text-center text-slate-500 text-sm border-t border-slate-800">
-//         © 2025 Admin Panel
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Sidebar;
-
- import React, { useState } from "react";
+ import React, { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { 
   FaTachometerAlt, 
@@ -75,71 +8,97 @@ import {
   FaImages, 
   FaQuestionCircle,
   FaTimes,
-  FaBars
+  FaBars,
+  FaHospital,
+  FaHeartbeat,
+  FaUserNurse,
+  FaProcedures
 } from "react-icons/fa";
+import Logo from "../assets/logo.png1.png"; // Import your logo
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  
+  const [isExpanded, setIsExpanded] = useState(true);
+  const sidebarRef = useRef(null);
+
   const links = [
     { name: "Dashboard", path: "/admin/dashboard", icon: <FaTachometerAlt /> },
     { name: "Doctors", path: "/admin/doctors", icon: <FaUserMd /> },
     { name: "Appointments", path: "/admin/appointments", icon: <FaCalendarAlt /> },
+  
     { name: "Blogs", path: "/admin/blogs", icon: <FaBlog /> },
     { name: "Gallery", path: "/admin/gallery", icon: <FaImages /> },
     { name: "Inquiries", path: "/admin/inquiries", icon: <FaQuestionCircle /> },
   ];
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleSidebar = () => setIsOpen(!isOpen);
+
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === 'Escape' && isOpen) setIsOpen(false);
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen]);
 
   return (
     <>
-      {/* Mobile Menu Button */}
-      <button 
-        className="lg:hidden fixed top-4 left-4 z-50 p-3 rounded-full bg-white   backdrop-blur-sm bg-opacity-80 border border-gray-200"
+      {/* Mobile Toggle Button */}
+      <button
+        className="lg:hidden fixed top-4 left-4 z-50 p-3 rounded-full bg-white text-teal-600 shadow-lg hover:scale-110 transition-transform"
         onClick={toggleSidebar}
+        aria-label="Toggle sidebar"
+        aria-expanded={isOpen}
       >
-        <FaBars className="text-teal-500 text-medium" />
+        <FaBars className="text-2xl" />
       </button>
 
       {/* Mobile Overlay */}
       {isOpen && (
-        <div 
-          className="lg:hidden fixed inset-0 bg-black bg-opacity-30 z-40 transition-opacity duration-300 backdrop-blur-sm"
+        <div
+          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40 backdrop-blur-sm transition-opacity duration-300"
           onClick={toggleSidebar}
-        ></div>
+          aria-hidden="true"
+        />
       )}
 
       {/* Sidebar */}
-      <div 
-        className={`bg-white bg-opacity-80 backdrop-blur-xl w-64 min-h-screen shadow-lg flex flex-col fixed lg:static inset-y-0 left-0 z-50 transform transition-transform duration-300 ease-in-out border-r border-gray-200 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-        }`}
+      <div
+        ref={sidebarRef}
+        className={`bg-gradient-to-b from-teal-700 to-teal-800 min-h-screen shadow-2xl flex flex-col fixed lg:static inset-y-0 left-0 z-50 transform transition-all duration-300 ease-in-out
+        ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+        ${isExpanded ? 'w-64' : 'w-20'}`}
+        role="navigation"
+        aria-label="Admin navigation"
+        onMouseEnter={() => setIsExpanded(true)}
+        onMouseLeave={() => setIsExpanded(false)}
       >
         {/* Header */}
-        <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-white bg-opacity-90 backdrop-blur-sm">
+        <div className={`p-4 border-b border-teal-500 flex justify-between items-center ${isExpanded ? '' : 'justify-center'}`}>
           <div className="flex items-center">
-            <div className="bg-gradient-to-r from-teal-500 to-teal-400 rounded-xl p-3 mr-3 shadow-md">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
+            <div className="bg-white rounded-full p-2 shadow-lg flex items-center justify-center w-16 h-16 hover:scale-105 transition-transform">
+              <img src={Logo} alt="Ashali Hospital Logo" className="w-12 h-12 object-contain" />
             </div>
-            <h2 className="font-bold text-2xl text-gray-800">Admin Panel</h2>
+            {isExpanded && (
+              <div className="ml-3">
+                <h2 className="font-bold text-xl text-white tracking-wide">Ashali Hospital</h2>
+                <p className="text-teal-200 text-xs">Admin Portal</p>
+              </div>
+            )}
           </div>
-          
+
           {/* Close Button for Mobile */}
-          <button 
-            className="lg:hidden text-gray-400 hover:text-gray-600 transition-colors"
+          <button
+            className="lg:hidden text-white hover:text-gray-200 transition-colors"
             onClick={toggleSidebar}
+            aria-label="Close sidebar"
           >
-            <FaTimes className="text-medium" />
+            <FaTimes className="text-xl" />
           </button>
         </div>
-        
+
         {/* Navigation */}
-        <nav className="flex-1 mt-6 px-4 overflow-y-auto">
+        <nav className="flex-1 mt-4 px-2 overflow-y-auto">
           <ul className="space-y-2">
             {links.map((link) => (
               <li key={link.name}>
@@ -147,25 +106,31 @@ const Sidebar = () => {
                   to={link.path}
                   onClick={() => setIsOpen(false)}
                   className={({ isActive }) =>
-                    isActive 
-                      ? "flex items-center p-2 bg-gradient-to-r from-teal-500 to-teal-400 text-white rounded-xl transition-all duration-300 shadow-md" 
-                      : "flex items-center p-2 text-gray-700 hover:bg-gray-100 hover:text-teal-500 rounded-xl transition-all duration-300"
+                    isActive
+                      ? `flex items-center p-3 rounded-lg justify-start bg-white text-teal-700 shadow-md transform scale-[1.02] transition-all duration-200 font-medium`
+                      : `flex items-center p-3 rounded-lg justify-start text-teal-100 hover:bg-teal-600 hover:text-white hover:shadow-md transition-all duration-200`
                   }
+                  title={isExpanded ? '' : link.name}
                 >
-                  <span className={`text-lg mr-3 ${({ isActive }) => isActive ? 'text-white' : 'text-teal-500'}`}>
+                  <span
+                    className={`text-xl ${isExpanded ? 'mr-3' : ''} transition-transform duration-200 hover:scale-110`}
+                  >
                     {link.icon}
                   </span>
-                  <span className="font-medium">{link.name}</span>
+                  {isExpanded && <span className="font-medium">{link.name}</span>}
                 </NavLink>
               </li>
             ))}
           </ul>
         </nav>
-        
+
         {/* Footer */}
-        <div className="p-4 text-center text-gray-500 text-sm border-t border-gray-100 bg-white bg-opacity-70 backdrop-blur-sm">
-          © 2025 Admin Panel
-        </div>
+        {isExpanded && (
+          <div className="p-3 text-center text-teal-200 text-xs border-t border-teal-600 mt-auto">
+            <p>© 2025 Ashali Hospital</p>
+            <p className="mt-1">Admin Management System</p>
+          </div>
+        )}
       </div>
     </>
   );

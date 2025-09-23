@@ -603,7 +603,7 @@ const DoctorsAdmin = () => {
                 >
                   <div className="p-5 flex flex-col flex-1">
                     <div className="flex items-center mb-4">
-                      <div className="bg-gradient-to-r from-teal-500 to-cyan-500 p-3 rounded-full mr-4 shadow-md flex-shrink-0">
+                      <div className="bg-gradient-to-r from-teal-500 to-cyan-500 p-1 rounded-full mr-4 shadow-md flex-shrink-0">
                         {doctor.photo ? (
                           <img 
                             src={doctor.photo} 

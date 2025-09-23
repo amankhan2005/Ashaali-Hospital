@@ -1,6 +1,6 @@
  import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Building2, SquarePen, Plus, Trash2, Save, X } from "lucide-react";
+import { Building2, SquarePen, Plus, Trash2, Save, X, AlertTriangle } from "lucide-react";
 import toast from "react-hot-toast";
 
 const AdminDepartment = () => {
@@ -12,6 +12,8 @@ const AdminDepartment = () => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [showDuplicateAlert, setShowDuplicateAlert] = useState(false);
+  const [duplicateMessage, setDuplicateMessage] = useState("");
 
   // Fetch
   const fetchDepartments = async () => {
@@ -31,6 +33,17 @@ const AdminDepartment = () => {
   // Add
   const handleAdd = async () => {
     if (!newDept.trim()) return toast.error("Department name required");
+    
+    // Check for duplicate department (case insensitive)
+    const isDuplicate = departments.some(
+      dept => dept.name.toLowerCase() === newDept.trim().toLowerCase()
+    );
+    
+    if (isDuplicate) {
+      setDuplicateMessage(`"${newDept.trim()}" already exists in the department list.`);
+      setShowDuplicateAlert(true);
+      return;
+    }
 
     try {
       const res = await axios.post(`${API_URL}/api/departments`, { name: newDept });
@@ -71,6 +84,17 @@ const AdminDepartment = () => {
   // Edit save
   const handleEditSave = async () => {
     if (!editDeptName.trim()) return toast.error("Name required");
+    
+    // Check for duplicate department (case insensitive), excluding the current department being edited
+    const isDuplicate = departments.some(
+      dept => dept._id !== editDeptId && dept.name.toLowerCase() === editDeptName.trim().toLowerCase()
+    );
+    
+    if (isDuplicate) {
+      setDuplicateMessage(`"${editDeptName.trim()}" already exists in the department list.`);
+      setShowDuplicateAlert(true);
+      return;
+    }
 
     try {
       const res = await axios.put(`${API_URL}/api/departments/${editDeptId}`, {
@@ -270,6 +294,31 @@ const AdminDepartment = () => {
                 className="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700"
               >
                 Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Duplicate Alert Modal */}
+      {showDuplicateAlert && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[11000] p-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6">
+            <div className="flex justify-center mb-4">
+              <div className="bg-yellow-100 p-3 rounded-full">
+                <AlertTriangle size={24} className="text-yellow-500" />
+              </div>
+            </div>
+            <h2 className="text-xl font-bold text-gray-800 text-center mb-2">Duplicate Department</h2>
+            <p className="text-gray-600 text-center mb-6">
+              {duplicateMessage}
+            </p>
+            <div className="flex justify-center">
+              <button
+                onClick={() => setShowDuplicateAlert(false)}
+                className="px-4 py-2 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white rounded-lg hover:from-yellow-600 hover:to-yellow-700"
+              >
+                OK
               </button>
             </div>
           </div>

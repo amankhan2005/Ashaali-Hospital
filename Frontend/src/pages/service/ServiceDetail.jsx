@@ -3274,12 +3274,12 @@ const OrthopaedicDepartment = () => {
                       24/7 Emergency Cardiac Care
                     </p>
                     <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <a href="tel:+917897934949" className="hover:underline">
-                        +91-78979 34949
+                      <a href="tel:+918303212210" className="hover:text-gray-800 hover:font-bold">
+                        +91-83032 12210
                       </a>
                       <span className="mx-2">|</span>{" "}
                       {/* separator with spacing */}
-                      <a href="tel:05223503390" className="hover:underline">
+                      <a href="tel:05223503390" className="hover:text-gray-800 hover:font-bold">
                         0522-3503390
                       </a>
                     </div>

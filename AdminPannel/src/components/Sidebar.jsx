@@ -23,9 +23,10 @@ const Sidebar = () => {
 
   const links = [
     { name: "Dashboard", path: "/admin/dashboard", icon: <FaTachometerAlt /> },
+        { name: "Departments", path: "/admin/departments", icon: <FaHospital /> },  
+
     { name: "Doctors", path: "/admin/doctors", icon: <FaUserMd /> },
-    { name: "Appointments", path: "/admin/appointments", icon: <FaCalendarAlt /> },
-  
+     { name: "Appointments", path: "/admin/appointments", icon: <FaCalendarAlt /> },
     { name: "Blogs", path: "/admin/blogs", icon: <FaBlog /> },
     { name: "Gallery", path: "/admin/gallery", icon: <FaImages /> },
     { name: "Inquiries", path: "/admin/inquiries", icon: <FaQuestionCircle /> },

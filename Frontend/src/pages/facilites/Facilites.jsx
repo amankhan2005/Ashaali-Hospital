@@ -1465,11 +1465,11 @@ const FacilitiesComponent = () => {
               <div className="flex items-center justify-between bg-white/10 backdrop-blur-sm rounded-xl p-4">
                  
                  <a
-                      href="tel:+917897934949
+                      href="tel:+918303212210
 "
-                      className="sora-400  text-white font-bold text-xl"
+                      className="sora-400  text-white font-semibold text-xl"
                     >
-                      +91-78979 34949
+                      +91-83032 12210
                     </a>
                 <div className="p-2 bg-white/20 rounded-lg">
                   <Phone className="w-5 h-5" />

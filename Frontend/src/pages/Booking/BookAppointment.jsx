@@ -721,11 +721,12 @@ const AppointmentBooking = () => {
                     </div>
                     <div>
                       <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
-                        Phone Number*
+                        WhatsApp Number*
+
                       </label>
                       <div className="relative">
                         <input
-                          placeholder="Your Phone Number"
+                          placeholder="Your WhatsApp Number"
                           value={patient.phone}
                           onChange={(e) => {
                             setPatient({ ...patient, phone: e.target.value });

@@ -11,12 +11,15 @@ import img8 from '../assets/department/obstetrics.png';
 import img9 from '../assets/department/urology.png';
 import img10 from '../assets/department/nephrology.png';
 import img11 from '../assets/department/dental-implant.png';
-import img12 from '../assets/department/rheumatology.png';
+import img12 from '../assets/department/hematology.png';
 import img13 from '../assets/department/pulmonology.png';
 import img14 from '../assets/department/skin.png';
 import img15 from '../assets/department/human-brain.png';
 import img16 from '../assets/department/oncology.png';
 import img17 from '../assets/department/icu.png';
+import img18 from '../assets/department/neurosurgery.png';
+import img19 from '../assets/department/gastroenterology.png';
+import img20 from '../assets/department/endocrinology.png';
 import { Link } from 'react-router-dom';
 
 const SpecialistSection = () => {
@@ -36,9 +39,12 @@ const SpecialistSection = () => {
     { name: 'Urology & Andrology', image: img9 },
     { name: 'Nephrology', image: img10 },
     { name: 'Dental', image: img11 },
-    { name: 'Rheumatology', image: img12 },
+    { name: 'Hematology', image: img12 },
     { name: 'Pulmonology', image: img13 },
     { name: 'Dermatology', image: img14 },
+    { name: ' Neurosurgery', image: img18 }, // img add
+     { name: ' Gastroenterology', image: img19 }, //Gastroenterology
+      { name: '  Endocrinology', image: img20 }, //add
     { name: 'Psychiatry', image: img15 },
     { name: 'Oncology', image: img16 },
     { name: 'ICU and Critical Care', image: img17 },
@@ -69,7 +75,7 @@ const SpecialistSection = () => {
 
         {/* Specialists Grid */}
        
-       <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
+       <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
   {specialists.map((specialist, index) => (
     <Link
       key={index}

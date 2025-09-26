@@ -166,9 +166,9 @@ const Footer = () => {
         {/* Footer Bottom */}
       <div className="border-t border-gray-700 mt-6 pt-4 flex flex-col sm:flex-row items-center justify-center flex-wrap gap-2 sm:gap-4 text-center sm:text-left">
   <p className="text-sm text-white whitespace-normal sm:whitespace-nowrap">
-    Copyright © 2025 <span className="font-semibold">Ashaali Hospital</span> || All Rights Reserved ||
+    Copyright © 2025 <span className="font-semibold">Ashaali Hospital</span> || All Rights Reserved 
   </p>
-  <a
+  {/* <a
     href="https://www.codecrafter.co.in/"
     target="_blank"
     rel="noopener noreferrer"
@@ -180,7 +180,7 @@ const Footer = () => {
       alt="Code Crafter Web Solutions"
       className="w-24 h-auto object-contain ml-2"
     />
-  </a>
+  </a> */}
 </div>
 
 

@@ -46,7 +46,7 @@ const Sidebar = () => {
     <>
       {/* Mobile Toggle Button */}
       <button
-        className="lg:hidden fixed top-4 left-4 z-50 p-3 rounded-full bg-white text-teal-600 shadow-lg hover:scale-110 transition-transform"
+        className="lg:hidden fixed top-4 left-4 z-50 p-3 rounded-full bg-white text-teal-600  hover:scale-110 transition-transform"
         onClick={toggleSidebar}
         aria-label="Toggle sidebar"
         aria-expanded={isOpen}
@@ -75,7 +75,7 @@ const Sidebar = () => {
         onMouseLeave={() => setIsExpanded(false)}
       >
         {/* Header */}
-        <div className={`p-4 border-b border-teal-500 flex justify-between items-center ${isExpanded ? '' : 'justify-center'}`}>
+        <div className={`p-4  flex justify-between items-center ${isExpanded ? '' : 'justify-center'}`}>
           <div className="flex items-center">
             <div className="bg-white rounded-full p-2 shadow-lg flex items-center justify-center w-16 h-16 hover:scale-105 transition-transform">
               <img src={Logo} alt="Ashali Hospital Logo" className="w-12 h-12 object-contain" />

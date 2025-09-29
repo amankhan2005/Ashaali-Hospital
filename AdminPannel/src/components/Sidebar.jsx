@@ -82,7 +82,7 @@ const Sidebar = () => {
             </div>
             {isExpanded && (
               <div className="ml-3">
-                <h2 className="font-bold text-xl text-white tracking-wide">Ashali Hospital</h2>
+                <h2 className="font-bold text-xl text-white tracking-wide">Ashaali Hospital</h2>
                 <p className="text-teal-200 text-xs">Admin Portal</p>
               </div>
             )}
@@ -128,7 +128,7 @@ const Sidebar = () => {
         {/* Footer */}
         {isExpanded && (
           <div className="p-3 text-center text-teal-200 text-xs border-t border-teal-600 mt-auto">
-            <p>© 2025 Ashali Hospital</p>
+            <p>© 2025 Ashaali Hospital</p>
             <p className="mt-1">Admin Management System</p>
           </div>
         )}

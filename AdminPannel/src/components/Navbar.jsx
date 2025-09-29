@@ -24,7 +24,7 @@ const Navbar = () => {
         {/* Title and Tagline */}
         <div>
           <h1 className="font-bold text-white text-xl sm:text-2xl md:text-3xl tracking-wide">
-            Ashali Hospital
+            Ashaali Hospital
           </h1>
           <p className="text-teal-100 text-sm hidden md:block">
             Admin Management System

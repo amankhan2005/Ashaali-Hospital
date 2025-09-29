@@ -48,7 +48,7 @@ const AdminAppointments = () => {
     setStats({
       total: data.length,
       last24: data.filter((a) => new Date(a.date) >= last24h).length,
-      rescheduled: data.filter((a) => a.isRescheduled).length,
+rescheduled: data.filter((a) => a.rescheduleInfo?.isRescheduled).length,
     });
   };
 
@@ -86,11 +86,20 @@ const AdminAppointments = () => {
       });
 
       // Update local state
-      const updatedAppointments = appointments.map((a) =>
-        a._id === selectedAppointment._id
-          ? { ...a, date: newDate, slot: newSlot, isRescheduled: true }
-          : a
-      );
+     const updatedAppointments = appointments.map((a) =>
+  a._id === selectedAppointment._id
+    ? {
+        ...a,
+        date: newDate,
+        slot: newSlot,
+        rescheduleInfo: {
+          ...(a.rescheduleInfo || {}),
+          isRescheduled: true,
+        },
+      }
+    : a
+);
+
       setAppointments(updatedAppointments);
       calculateStats(updatedAppointments);
 
@@ -121,7 +130,7 @@ const AdminAppointments = () => {
       `Department: ${selectedAppointment.department}\n` +
       `Appointment Date: ${new Date(selectedAppointment.date).toLocaleDateString()}\n` +
       `Time Slot: ${selectedAppointment.slot}\n` +
-      `Status: ${selectedAppointment.isRescheduled ? 'Rescheduled' : 'Confirmed'}`;
+`Status: ${selectedAppointment.rescheduleInfo?.isRescheduled ? 'Rescheduled' : 'Confirmed'}`
     
     const blob = new Blob([content], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
@@ -301,12 +310,13 @@ const AdminAppointments = () => {
                     <td className="px-6 py-4 text-center">
                       <span
                         className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                          app.isRescheduled
-                            ? "bg-orange-100 text-orange-800"
-                            : "bg-teal-100 text-teal-800"
+                         app.rescheduleInfo?.isRescheduled
+  ? "bg-orange-100 text-orange-800"
+  : "bg-teal-100 text-teal-800"
+
                         }`}
                       >
-                        {app.isRescheduled ? "Rescheduled" : "Confirmed"}
+{app.rescheduleInfo?.isRescheduled ? "Rescheduled" : "Confirmed"}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right">
@@ -316,10 +326,11 @@ const AdminAppointments = () => {
                           setShowRescheduleModal(true);
                         }}
                         className={`inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg shadow transition-all duration-300 transform hover:scale-105 ${
-                          app.isRescheduled
-                            ? "bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white"
-                            : "bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white"
-                        }`}
+                           app.rescheduleInfo?.isRescheduled
+  ? "bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white"
+  : "bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white"
+
+                         }`}
                       >
                         <FaCalendarAlt className="mr-2" />
                         {rescheduling && selectedAppointment?._id === app._id ? "Processing..." : "Reschedule"}

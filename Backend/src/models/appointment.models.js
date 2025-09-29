@@ -1,21 +1,4 @@
-//  import mongoose from "mongoose";
-
-// const appointmentSchema = new mongoose.Schema({
-//   patientName: { type: String, required: true },
-//   email: { type: String },
-//   phone: { type: String },
-//   date: { type: Date, required: true },
-//   slot: { type: String, required: true },
-//   doctor: { type: mongoose.Schema.Types.ObjectId, ref: "Doctor", required: true },
-//   department: { type: String, required: true },
-//   status: { type: String, default: "pending" }, // pending / approved / rejected
-// }, { timestamps: true });
-
-// const Appointment = mongoose.model("Appointment", appointmentSchema);
-// export default Appointment;
-
-
-import mongoose from "mongoose";
+ import mongoose from "mongoose";
 
 const appointmentSchema = new mongoose.Schema(
   {
@@ -31,18 +14,18 @@ const appointmentSchema = new mongoose.Schema(
     },
     department: { type: String, required: true },
 
-    // status ab basic rakho
     status: {
       type: String,
       enum: ["pending", "confirmed", "rescheduled", "cancelled"],
       default: "pending",
     },
 
-    // reschedule ke liye naya object
+    isRescheduled: { type: Boolean, default: false }, // ✅ सही जगह
+
     rescheduleInfo: {
       previousDate: { type: Date },
       previousSlot: { type: String },
-      rescheduledBy: { type: String }, // admin/doctor
+      rescheduledBy: { type: String },
       rescheduledAt: { type: Date },
     },
   },

@@ -262,12 +262,20 @@ export const rescheduleAppointment = async (req, res) => {
       return res.status(404).json({ error: "Appointment not found" });
 
     // Save previous info
+    // appointment.rescheduleInfo = {
+    //   previousDate: appointment.date,
+    //   previousSlot: appointment.slot,
+    //   rescheduledBy: "admin",
+    //   rescheduledAt: new Date(),
     appointment.rescheduleInfo = {
-      previousDate: appointment.date,
-      previousSlot: appointment.slot,
-      rescheduledBy: "admin",
-      rescheduledAt: new Date(),
-    };
+  previousDate: appointment.date,
+  previousSlot: appointment.slot,
+  rescheduledBy: "admin",
+  rescheduledAt: new Date(),
+  isRescheduled: true,   // ✅ add this line
+};
+
+  
 
     const [year, month, day] = newDate.split("-").map(Number);
     const appointmentDate = new Date(year, month - 1, day, 0, 0, 0);

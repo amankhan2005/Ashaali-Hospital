@@ -14,13 +14,14 @@ const appointmentSchema = new mongoose.Schema(
     },
     department: { type: String, required: true },
 
-    status: {
-      type: String,
-      enum: ["pending", "confirmed", "rescheduled", "cancelled"],
-      default: "pending",
-    },
+   status: {
+  type: String,
+  enum: ["pending", "confirmed", "rescheduled", "cancelled"],
+  default: "confirmed",   
+},
 
-    isRescheduled: { type: Boolean, default: false }, // ✅ सही जगह
+
+    isRescheduled: { type: Boolean, default: false }, 
 
     rescheduleInfo: {
       previousDate: { type: Date },

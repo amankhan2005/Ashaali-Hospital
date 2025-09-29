@@ -48,8 +48,9 @@ const AdminAppointments = () => {
     setStats({
       total: data.length,
       last24: data.filter((a) => new Date(a.date) >= last24h).length,
-rescheduled: data.filter((a) => a.rescheduleInfo?.isRescheduled).length,
-    });
+      rescheduled: data.filter((a) => a.status === "rescheduled").length,
+
+     });
   };
 
   useEffect(() => {
@@ -90,12 +91,13 @@ rescheduled: data.filter((a) => a.rescheduleInfo?.isRescheduled).length,
   a._id === selectedAppointment._id
     ? {
         ...a,
-        date: newDate,
-        slot: newSlot,
-        rescheduleInfo: {
-          ...(a.rescheduleInfo || {}),
-          isRescheduled: true,
-        },
+       date: newDate,
+slot: newSlot,
+status: "rescheduled",
+rescheduleInfo: {
+  ...(a.rescheduleInfo || {}),
+  isRescheduled: true,
+},
       }
     : a
 );
@@ -309,15 +311,20 @@ rescheduled: data.filter((a) => a.rescheduleInfo?.isRescheduled).length,
                     </td>
                     <td className="px-6 py-4 text-center">
                       <span
-                        className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                         app.rescheduleInfo?.isRescheduled
-  ? "bg-orange-100 text-orange-800"
-  : "bg-teal-100 text-teal-800"
+  className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
+    app.status === "rescheduled"
+      ? "bg-orange-100 text-orange-800"
+      : app.status === "confirmed"
+      ? "bg-teal-100 text-teal-800"
+      : app.status === "pending"
+      ? "bg-gray-100 text-gray-800"
+      : "bg-red-100 text-red-800"
+  }`}
+>
+  {app.status === "pending" ? "Confirmed" : app.status.charAt(0).toUpperCase() + app.status.slice(1)}
 
-                        }`}
-                      >
-{app.rescheduleInfo?.isRescheduled ? "Rescheduled" : "Confirmed"}
-                      </span>
+ </span>
+
                     </td>
                     <td className="px-6 py-4 text-right">
                       <button

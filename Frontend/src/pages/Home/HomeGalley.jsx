@@ -59,7 +59,9 @@ const HomeGallery = () => {
   };
 
   return (
-    <div className='w-full py-8 md:py-10 lg:py-12'>
+    <div className='w-full py-8 md:py-10 lg:py-12 bg-gray-100
+     ' style={{ backgroundColor: '#e8f4f8' }}
+     >
       <div className="container mx-auto lg:px-12 px-4 sm:px-6 md:px-8">
 
         {/* Heading */}

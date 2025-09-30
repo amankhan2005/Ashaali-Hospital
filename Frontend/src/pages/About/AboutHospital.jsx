@@ -31,7 +31,7 @@ const AshaaliHospitalAbout = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Breadcrumb */}
-      <BreadCrumb items={breadcrumbItems} title="About Us" />
+      <BreadCrumb items={breadcrumbItems} title="Best Super Speciality Hospitals in Lucknow" />
 
       <AboutSection />
 
@@ -93,7 +93,7 @@ const AshaaliHospitalAbout = () => {
                     Our Vision
                   </h3>
                 </div>
-                <p className="text-gray-700 text-sm sm:text-base leading-relaxed text-center md:text-justify">
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed text-center ">
                   To be the leading healthcare provider in the region, recognized
                   for our commitment to clinical excellence, innovative
                   treatments, and compassionate care...
@@ -108,7 +108,7 @@ const AshaaliHospitalAbout = () => {
                     Our Mission
                   </h3>
                 </div>
-                <p className="text-gray-700 text-sm sm:text-base leading-relaxed text-center md:text-justify">
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed text-center ">
                   To provide comprehensive, patient-centered healthcare services
                   with the highest standards...
                 </p>

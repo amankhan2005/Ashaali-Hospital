@@ -78,8 +78,7 @@ const SahyadriHeader = () => {
       { name: "Cardiology", icon: <FaHeartbeat /> },
       { name: "Oncology", icon: <FaNotesMedical /> },
       { name: "ICU and Critical Care", icon: <FaHospitalAlt /> },
-      { name: "Rheumatology", icon: <FaUserMd /> },
-      { name: "Endocrinology", icon: <FaUserMd /> },
+       { name: "Endocrinology", icon: <FaUserMd /> },
     ],
   ];
 
@@ -346,12 +345,12 @@ if(!isMobileMenuOpen){
                 {isOpen && (
                   <div className="absolute left-0 mt-0 w-48 bg-white border border-gray-200 shadow-lg rounded-md z-10">
                     <ul className="py-2 text-sm text-gray-700">
-                      <li className="px-4 py-2 hover:bg-teal-100 cursor-pointer">
+                      <li className="px-4 py-2 cursor-pointer">
                         <Link to="/about/ashaali-hospitals">
                           About Ashaali Hospital
                         </Link>
                       </li>
-                      <li className="px-4 py-2 hover:bg-teal-100 cursor-pointer">
+                      <li className="px-4 py-2 cursor-pointer">
                         <Link to="/about/team">Find A Doctor</Link>
                       </li>
                     </ul>
@@ -514,14 +513,14 @@ if(!isMobileMenuOpen){
                       <Link
                         to="/about/ashaali-hospitals"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className="block  border-b border-gray-200 mb-2 text-[15px] py-1 text-gray-600 hover:text-teal-600"
+                        className="block  border-b border-gray-200 mb-2 text-[15px] py-1 text-gray-600 "
                       >
                         About Ashaali Hospital
                       </Link>
                       <Link
                         to="/about/team"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className="block border-b border-gray-200 mb-2 text-[15px] py-1 text-gray-600 hover:text-teal-600"
+                        className="block border-b border-gray-200 mb-2 text-[15px] py-1 text-gray-600"
                       >
                         Find A Doctor
                       </Link>

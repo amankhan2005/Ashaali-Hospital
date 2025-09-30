@@ -18,7 +18,8 @@ const Testinomial = () => {
 
   return (
     <div className=''>
-                <div className="text-center mb-4 md:mb-6 p= max-w-7xl mx-auto">
+                <div className="text-center mb-4 md:mb-6 p= max-w-7xl mx-auto"
+                >
                     {/* Small colored heading at top */}
                     <div className="mb-3 md:mb-4">
                         <span

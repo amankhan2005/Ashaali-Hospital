@@ -4,55 +4,55 @@ const HospitalJourney = () => {
   const milestones = [
     {
       year: 1995,
-      title: "Ashalli Medical Centre",
+      title: "Ashaali Medical Centre",
       subtitle: "The first medical centre in Lucknow for General Medicine & Emergency Care",
       position: "right"
     },
     {
       year: 2001,
-      title: "Ashalli Laboratory & Diagnostic Centre",
+      title: "Ashaali Laboratory & Diagnostic Centre",
       subtitle: "Advanced diagnostic services for better healthcare",
       position: "left"
     },
     {
       year: 2005,
-      title: "Ashalli Super Speciality Hospital",
+      title: "Ashaali Super Speciality Hospital",
       subtitle: "Gomti Nagar, Lucknow",
       position: "right"
     },
     {
       year: 2007,
-      title: "Ashalli Hospital",
+      title: "Ashaali Hospital",
       subtitle: "Alambagh, Lucknow", 
       position: "left"
     },
     {
       year: 2010,
-      title: "Ashalli Multi-Speciality Expansion",
+      title: "Ashaali Multi-Speciality Expansion",
       subtitle: "Aliganj & Indira Nagar, Lucknow",
       position: "right"
     },
     {
       year: 2014,
-      title: "Ashalli Super Speciality Hospital",
+      title: "Ashaali Super Speciality Hospital",
       subtitle: "Mahanagar, Lucknow",
       position: "left"
     },
     {
       year: 2016,
-      title: "Ashalli Super Speciality Hospital",
+      title: "Ashaali Super Speciality Hospital",
       subtitle: "Chinhat, Lucknow",
       position: "right"
     },
     {
       year: 2019,
-      title: "Ashalli Super Speciality Hospital",
+      title: "Ashaali Super Speciality Hospital",
       subtitle: "Rajajipuram, Lucknow",
       position: "left"
     },
     {
       year: 2022,
-      title: "Ashalli Super Speciality Hospital",
+      title: "Ashaali Super Speciality Hospital",
       subtitle: "Kanpur Road, Lucknow",
       position: "right"
     },

@@ -195,7 +195,8 @@ const MedicalFacilities = () => {
   };
 
   return (
-    <div className="py-8 md:py-10 lg:py-12 bg-gray-100 lg:px-12 px-4 sm:px-6 md:px-8">
+    <div className="py-8 md:py-10 lg:py-12  lg:px-12 px-4 sm:px-6 md:px-8"
+     style={{ backgroundColor: '#e8f4f8' }}>
       <div className="container mx-auto">
         {/* Section Heading */}
         <div className="text-center mb-4 md:mb-6 mx-auto">

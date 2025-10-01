@@ -24,7 +24,7 @@ const StatsComponent = () => {
 
   return (
     <div 
-      className="w-full py-6 lg:px-12 px-4 sm:px-6 md:px-8"
+      className="w-full py-6 lg:py-12 lg:px-12 px-4 sm:px-6 md:px-8"
       style={{ backgroundColor: '#e8f4f8' }}
     >
       <div className=" mx-auto container">

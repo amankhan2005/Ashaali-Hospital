@@ -51,7 +51,7 @@ const SpecialistSection = () => {
   ];
 
   return (
-    <div className="bg-gray-50 py-6 md:py-16">
+    <div className="bg-gray-50 py-6 lg:py-12">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
         {/* Header */}
         <div className="text-center mb-6 md:mb-12 px-4">

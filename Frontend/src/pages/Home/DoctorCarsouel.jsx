@@ -47,7 +47,7 @@ const DoctorCarouselBackend = () => {
   }
 
   return (
-    <div className="bg-gray-100  md:py-8 lg:px-12 px-4 sm:px-6 md:px-8">
+    <div className="bg-gray-100  md:py-12 lg:px-12 px-4 sm:px-6 md:px-8">
       <div className="container mx-auto">
         {/* Heading */}
         <div className="text-center mb-6">

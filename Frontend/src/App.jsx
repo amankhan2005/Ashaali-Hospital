@@ -18,7 +18,10 @@ import BookAppointment from './pages/Booking/BookAppointment';
 export default function App() {
   return (
     <div className='overflow-x-hidden'>
+      <div className='h-32'>
+
       <Header />
+      </div>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about/ashaali-hospitals' element={<AshaaliHospitalAbout />} />

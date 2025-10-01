@@ -6,7 +6,7 @@ const AboutSection = () => {
 
   return (
     <div
-      className="py-8 sm:py-12 lg:py-14 px-4 sm:px-6 md:px-8 lg:px-12"
+      className="py-8 sm:py-12 lg:py-12 px-4 sm:px-6 md:px-8 lg:px-12"
       style={{ backgroundColor: '#e8f4f8' }}
     >
       <div className="container mx-auto ">

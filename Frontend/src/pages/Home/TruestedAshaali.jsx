@@ -32,7 +32,7 @@ const TruestedAshaali = () => {
   ];
 
   return (
-    <div className="bg-gray-100 py-12 md:py-16">
+    <div className="bg-gray-100 py-12 lg:py-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-12">
         
         {/* Header */}

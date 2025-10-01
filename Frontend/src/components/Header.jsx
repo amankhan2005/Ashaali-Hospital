@@ -112,7 +112,7 @@ if(!isMobileMenuOpen){
   },[isMobileMenuOpen])
 
   return (
-    <div className="w-full">
+    <div className="w-full fixed top-0 z-50">
       {/* Top Bar */}
       <div className="bg-gray-100  py-[0.3rem] text-sm">
         <div className="container mx-auto ">

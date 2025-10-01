@@ -60,7 +60,7 @@ const YouTubeChannelShowcase = () => {
     const totalSlides = maxSlide + 1;
 
     return (
-        <div className="py-8 sm:py-12 lg:py-16 overflow-x-hidden"
+        <div className="py-8 sm:py-12 lg:py-12 overflow-x-hidden"
         >
             <div className="container mx-auto lg:px-12 px-4 sm:px-6 md:px-8">
                 <div className="text-center mb-6 md:mb-8 px-4 max-w-5xl mx-auto">

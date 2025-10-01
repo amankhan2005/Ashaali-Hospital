@@ -71,7 +71,7 @@ const HomeBlogSlider = () => {
 
   return (
     <section className='bg-gray-100'>
-      <div className="lg:px-12 px-0 sm:px-6 md:px-8 py-10 sm:py-12 md:py-14 lg:py-16  container mx-auto"
+      <div className="lg:px-12 px-0 sm:px-6  py-10 sm:py-12 md:py-12 lg:py-12  container mx-auto"
        style={{ backgroundColor: '#e8f4f8' }}>
         
         {/* ✅ Heading Section */}

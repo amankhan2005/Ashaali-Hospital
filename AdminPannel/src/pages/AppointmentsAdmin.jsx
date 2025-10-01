@@ -1,6 +1,8 @@
  import React, { useEffect, useState } from "react";
 import { FaCalendarAlt, FaUser, FaFilter, FaChevronDown, FaSearch, FaCheckCircle, FaDownload, FaTimes } from "react-icons/fa";
 import axios from "axios";
+import jsPDF from "jspdf";
+
 
 const AdminAppointments = () => {
   const API = axios.create({ baseURL: import.meta.env.VITE_API_URL });
@@ -30,7 +32,28 @@ const AdminAppointments = () => {
     rescheduled: 0,
   });
 
-  // Fetch appointments and calculate stats
+  // Helper to load image as base64 from public folder
+const loadImageAsBase64 = (url) => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+      const dataURL = canvas.toDataURL("image/png");
+      resolve(dataURL);
+    };
+    img.onerror = (err) => reject(err);
+    img.src = url;
+  });
+};
+
+
+  // Fetch appointments and calcu
+  // late stats
   const fetchAppointments = async () => {
     try {
       const { data } = await API.get("/api/appointments");
@@ -121,29 +144,102 @@ rescheduleInfo: {
   };
 
   // Download patient details
-  const downloadPatientDetails = () => {
-    if (!selectedAppointment) return;
+//   const downloadPatientDetails = () => {
+//     if (!selectedAppointment) return;
     
-    const content = `PATIENT DETAILS\n\n` +
-      `Name: ${selectedAppointment.patientName}\n` +
-      `Email: ${selectedAppointment.email || 'N/A'}\n` +
-      `Phone: ${selectedAppointment.phone || 'N/A'}\n` +
-      `Doctor: ${selectedAppointment.doctor?.name || 'N/A'}\n` +
-      `Department: ${selectedAppointment.department}\n` +
-      `Appointment Date: ${new Date(selectedAppointment.date).toLocaleDateString()}\n` +
-      `Time Slot: ${selectedAppointment.slot}\n` +
-`Status: ${selectedAppointment.rescheduleInfo?.isRescheduled ? 'Rescheduled' : 'Confirmed'}`
+//     const content = `PATIENT DETAILS\n\n` +
+//       `Name: ${selectedAppointment.patientName}\n` +
+//       `Email: ${selectedAppointment.email || 'N/A'}\n` +
+//       `Phone: ${selectedAppointment.phone || 'N/A'}\n` +
+//       `Doctor: ${selectedAppointment.doctor?.name || 'N/A'}\n` +
+//       `Department: ${selectedAppointment.department}\n` +
+//       `Appointment Date: ${new Date(selectedAppointment.date).toLocaleDateString()}\n` +
+//       `Time Slot: ${selectedAppointment.slot}\n` +
+// `Status: ${selectedAppointment.rescheduleInfo?.isRescheduled ? 'Rescheduled' : 'Confirmed'}`
     
-    const blob = new Blob([content], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `patient-details-${selectedAppointment.patientName.replace(/\s+/g, '-').toLowerCase()}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
+//     const blob = new Blob([content], { type: 'text/plain' });
+//     const url = URL.createObjectURL(blob);
+//     const a = document.createElement('a');
+//     a.href = url;
+//     a.download = `patient-details-${selectedAppointment.patientName.replace(/\s+/g, '-').toLowerCase()}.txt`;
+//     document.body.appendChild(a);
+//     a.click();
+//     document.body.removeChild(a);
+//     URL.revokeObjectURL(url);
+//   };
+
+ const downloadPatientDetails = async () => {
+  if (!selectedAppointment) return;
+
+  const doc = new jsPDF("p", "mm", "a4");
+
+  try {
+    const headerBase64 = await loadImageAsBase64("/header.png");
+    const footerBase64 = await loadImageAsBase64("/footer.png");
+
+    // 🔹 Header Image
+    doc.addImage(headerBase64, "PNG", 0, 0, 210, 35);
+
+    let y = 50; // top margin for details
+    let leftX = 14;
+    let rightX = 120;
+
+    // ✅ Professional Font
+    doc.setFont("times", "normal");
+    doc.setFontSize(12);
+
+    // ===== Row 1 =====
+    doc.text(`Patient Name: ${selectedAppointment.patientName}`, leftX, y);
+    doc.text(`Date: ${new Date(selectedAppointment.date).toLocaleDateString()}`, rightX, y);
+    y += 7;
+
+    // ===== Row 2 =====
+    doc.text(`Phone: ${selectedAppointment.phone || "N/A"}`, leftX, y);
+    doc.text(`Email: ${selectedAppointment.email || "N/A"}`, rightX, y);
+    y += 7;
+
+    // ===== Row 3 =====
+    // doc.text(
+    //   `Age/Gender: ${selectedAppointment.age || "N/A"} / ${selectedAppointment.gender || "N/A"}`,
+    //   leftX,
+    //   y
+    // );
+    doc.text(`Doctor: ${selectedAppointment.doctor?.name || "N/A"}`, rightX, y);
+    y += 7;
+
+    // ===== Row 4 =====
+    doc.text(`Department: ${selectedAppointment.department}`, leftX, y);
+    doc.text(`Slot: ${selectedAppointment.slot}`, rightX, y);
+    y += 7;
+
+    // ===== Row 5 =====
+    doc.text(
+      `Status: ${selectedAppointment.rescheduleInfo?.isRescheduled ? "Rescheduled" : "Confirmed"}`,
+      leftX,
+      y
+    );
+    doc.text(
+      `Appointment Date: ${new Date(selectedAppointment.date).toLocaleDateString()}`,
+      rightX,
+      y
+    );
+
+    // 🔹 Footer Image
+    doc.addImage(footerBase64, "PNG", 0, 270, 210, 25);
+
+    // Save PDF
+    doc.save(
+      `patient-details-${selectedAppointment.patientName.replace(/\s+/g, "-").toLowerCase()}.pdf`
+    );
+  } catch (err) {
+    console.error("Error generating PDF:", err);
+  }
+};
+
+
+
+
+
 
   // Filtered appointments
   const filteredAppointments = appointments.filter((a) => {
@@ -375,6 +471,8 @@ rescheduleInfo: {
                     <span className="text-gray-500">Email</span>
                     <span className="font-medium text-gray-800">{selectedAppointment.email || "N/A"}</span>
                   </div>
+                 
+
                   <div className="flex items-center justify-between pb-3 border-b border-gray-200">
                     <span className="text-gray-500">Phone</span>
                     <span className="font-medium text-gray-800">{selectedAppointment.phone || "N/A"}</span>
@@ -399,12 +497,13 @@ rescheduleInfo: {
                   </div>
                 </div>
                 <div className="flex justify-between mt-8">
-                  <button
-                    onClick={downloadPatientDetails}
-                    className="px-6 py-3 bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 rounded-xl font-medium hover:from-gray-200 hover:to-gray-300 transition-all duration-300 flex items-center shadow-md"
-                  >
-                    <FaDownload className="mr-2" /> Download Details
-                  </button>
+                {/* <button
+  onClick={downloadPatientDetails}
+  className="px-6 py-3 bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 rounded-xl font-medium hover:from-gray-200 hover:to-gray-300 transition-all duration-300 flex items-center shadow-md"
+>
+  <FaDownload className="mr-2" /> Download Details
+</button> */}
+
                   <button
                     onClick={() => setShowPatientModal(false)}
                     className="px-6 py-3 bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 rounded-xl font-medium hover:from-gray-200 hover:to-gray-300 transition-all duration-300 shadow-md"

@@ -26,11 +26,15 @@ import mongoose from "mongoose";
 const doctorSchema = new mongoose.Schema({
   name: { type: String, required: true },
   title: { type: String },
-  department: { type: String, required: true }, // Can also be ObjectId ref for stricter link
+  department: { type: String, required: true },  
   specialty: { type: String },
   qualification: { type: String },
   experience: { type: String },
   photo: { type: String },
+   phone: { type: String },  
+  email: { type: String },
+    password: { type: String  }, // 🔑 
+
   availableSlots: [
     {
       day: { type: String, enum:["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"] },

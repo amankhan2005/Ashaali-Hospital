@@ -92,7 +92,7 @@ const DepartmentPage = () => {
   ];
 
   return (
-    <div className="bg-gray-50">
+    <div className="bg-gray-50 ">
       <ServiceBreadcums
         items={breadcrumbItems}
         headText={activeService?.departmentTitle}

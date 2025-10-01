@@ -632,7 +632,7 @@ const AppointmentBooking = () => {
               )}
 
               {/* Patient Details */}
-              {selectedSlot && (
+              {/* {selectedSlot && (
                 <div className="bg-gradient-to-r from-teal-50 to-blue-50 border border-teal-100 rounded-2xl p-4 sm:p-6 md:p-8 mt-4 sm:mt-6 shadow-sm">
                   <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 sm:mb-5">
                     Your Information
@@ -809,7 +809,92 @@ const AppointmentBooking = () => {
                     />
                   </div>
                 </div>
-              )}
+              )} */}
+
+   {selectedSlot && (
+  <div className="bg-gradient-to-r from-teal-50 to-blue-50 border border-teal-100 rounded-2xl p-4 sm:p-6 md:p-8 mt-4 sm:mt-6 shadow-sm">
+    <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 sm:mb-5">
+      Your Information
+    </h3>
+    <div className="space-y-3 sm:space-y-4">
+
+      {/* Full Name */}
+      <div>
+        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+          Full Name*
+        </label>
+        <input
+          type="text"
+          placeholder="Enter your name"
+          value={patient.name}
+          onChange={(e) => {
+            setPatient({ ...patient, name: e.target.value });
+            validateField("name", e.target.value);
+          }}
+          className={`w-full p-3 sm:p-4 border rounded-xl text-sm sm:text-base 
+            ${errors.name ? "border-red-400 focus:ring-red-200" : "border-gray-300 focus:ring-teal-200"} 
+            focus:ring-2 outline-none transition duration-200`}
+        />
+        {errors.name && (
+          <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.name}</p>
+        )}
+      </div>
+
+
+      {/* Email */}
+      <div>
+        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+          Email Address*
+        </label>
+        <input
+          type="email"
+          placeholder="Enter your email"
+          value={patient.email}
+          onChange={(e) => {
+            setPatient({ ...patient, email: e.target.value });
+            validateField("email", e.target.value);
+          }}
+          className={`w-full p-3 sm:p-4 border rounded-xl text-sm sm:text-base 
+            ${errors.email ? "border-red-400 focus:ring-red-200" : "border-gray-300 focus:ring-teal-200"} 
+            focus:ring-2 outline-none transition duration-200`}
+        />
+        {errors.email && (
+          <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.email}</p>
+        )}
+      </div>
+
+      {/* Phone Number */}
+      <div>
+        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+          WhatsApp Number*
+        </label>
+        <input
+          type="tel"
+          placeholder="10 digit mobile number"
+          value={patient.phone}
+          onChange={(e) => {
+            setPatient({ ...patient, phone: e.target.value });
+            validateField("phone", e.target.value);
+          }}
+          className={`w-full p-3 sm:p-4 border rounded-xl text-sm sm:text-base 
+            ${errors.phone ? "border-red-400 focus:ring-red-200" : "border-gray-300 focus:ring-teal-200"} 
+            focus:ring-2 outline-none transition duration-200`}
+        />
+        {errors.phone && (
+          <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.phone}</p>
+        )}
+      </div>
+
+      {/* Submit Button */}
+      <BookingButton 
+        handleBooking={handleBooking} 
+        validateInput={validateInput} 
+      />
+    </div>
+  </div>
+)}
+
+
             </div>
 
             {/* Footer */}

@@ -10,6 +10,7 @@ import BlogsAdmin from "./BlogsAdmin";
 import GalleryAdmin from "./GalleryAdmin";
 import InquiriesAdmin from "./InquiriesAdmin";
 import AdminDepartment from "./AdminDepartment";
+import Footer from "../components/Footer";
 
 import {
   FaUserMd,
@@ -916,11 +917,8 @@ const Dashboard = () => {
                   </div>
 
                   {/* Footer */}
-                  <div className="text-center text-gray-500 text-sm py-8">
-                    <div className="inline-flex items-center space-x-2 bg-white/50 backdrop-blur-sm rounded-full px-4 py-2 border border-white/20">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                      <span>© 2025 Ashali Hospital Admin Portal. All rights reserved.</span>
-                    </div>
+                  <div className="container flex justify-center fixed bottom-0 left-0 text-white ">
+                    <Footer />
                   </div>
                 </div>
               }
@@ -976,6 +974,7 @@ const Dashboard = () => {
           </div>
         </div>
       )}
+     
     </div>
   );
 };

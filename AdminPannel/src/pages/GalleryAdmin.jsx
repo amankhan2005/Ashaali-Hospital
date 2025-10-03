@@ -640,6 +640,8 @@ import {
   FiGrid,
   FiRefreshCw
 } from "react-icons/fi";
+import Footer from "../components/Footer";
+
 
 const GalleryAdmin = () => {
   const [images, setImages] = useState([]);
@@ -949,6 +951,10 @@ const GalleryAdmin = () => {
           )}
         </div>
       </div>
+          {/* Footer */}
+                        <div className="container flex justify-center fixed bottom-0 left-0 text-white ">
+                          <Footer />
+                        </div>
     </div>
   );
 };

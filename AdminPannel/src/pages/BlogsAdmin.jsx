@@ -3,6 +3,8 @@ import API from "../api/axios";
 import { FaEdit, FaTrash, FaSave, FaTimes, FaPlus, FaImage, FaPen, FaUser, FaTag, FaFileAlt, FaHeading, FaExpand, FaCompress, FaEye, FaCalendar } from "react-icons/fa";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import Footer from "../components/Footer";
+
 
 // Memoized blog card component to prevent unnecessary re-renders
 const BlogCard = ({ blog, onEdit, onDelete }) => {
@@ -578,9 +580,15 @@ const BlogsAdmin = () => {
                 />
               ))}
             </div>
+            
           )}
         </div>
+            {/* Footer */}
+                          <div className="container flex justify-center fixed bottom-0 left-0 text-white ">
+                            <Footer />
+                          </div>
       </div>
+      
     </div>
   );
 };

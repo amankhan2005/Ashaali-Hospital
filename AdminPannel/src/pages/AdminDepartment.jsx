@@ -1,7 +1,16 @@
- import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Building2, SquarePen, Plus, Trash2, Save, X, AlertTriangle } from "lucide-react";
+import {
+  Building2,
+  SquarePen,
+  Plus,
+  Trash2,
+  Save,
+  X,
+  AlertTriangle,
+} from "lucide-react";
 import toast from "react-hot-toast";
+import Footer from "../components/Footer";
 
 const AdminDepartment = () => {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -33,20 +42,24 @@ const AdminDepartment = () => {
   // Add
   const handleAdd = async () => {
     if (!newDept.trim()) return toast.error("Department name required");
-    
+
     // Check for duplicate department (case insensitive)
     const isDuplicate = departments.some(
-      dept => dept.name.toLowerCase() === newDept.trim().toLowerCase()
+      (dept) => dept.name.toLowerCase() === newDept.trim().toLowerCase()
     );
-    
+
     if (isDuplicate) {
-      setDuplicateMessage(`"${newDept.trim()}" already exists in the department list.`);
+      setDuplicateMessage(
+        `"${newDept.trim()}" already exists in the department list.`
+      );
       setShowDuplicateAlert(true);
       return;
     }
 
     try {
-      const res = await axios.post(`${API_URL}/api/departments`, { name: newDept });
+      const res = await axios.post(`${API_URL}/api/departments`, {
+        name: newDept,
+      });
       setDepartments([res.data.data, ...departments]);
       setNewDept("");
       setShowAddModal(false);
@@ -84,14 +97,18 @@ const AdminDepartment = () => {
   // Edit save
   const handleEditSave = async () => {
     if (!editDeptName.trim()) return toast.error("Name required");
-    
+
     // Check for duplicate department (case insensitive), excluding the current department being edited
     const isDuplicate = departments.some(
-      dept => dept._id !== editDeptId && dept.name.toLowerCase() === editDeptName.trim().toLowerCase()
+      (dept) =>
+        dept._id !== editDeptId &&
+        dept.name.toLowerCase() === editDeptName.trim().toLowerCase()
     );
-    
+
     if (isDuplicate) {
-      setDuplicateMessage(`"${editDeptName.trim()}" already exists in the department list.`);
+      setDuplicateMessage(
+        `"${editDeptName.trim()}" already exists in the department list.`
+      );
       setShowDuplicateAlert(true);
       return;
     }
@@ -114,14 +131,14 @@ const AdminDepartment = () => {
 
   // Handle Enter key for edit input
   const handleEditKeyDown = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleEditSave();
     }
   };
 
   // Handle Enter key for add modal
   const handleAddKeyDown = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleAdd();
     }
   };
@@ -130,7 +147,9 @@ const AdminDepartment = () => {
     <div className="p-6 bg-gray-50 min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between bg-white px-6 py-4 rounded-xl shadow-md mb-8">
-        <h1 className="text-2xl font-bold text-gray-800">Department Management</h1>
+        <h1 className="text-2xl font-bold text-gray-800">
+          Department Management
+        </h1>
         <button
           onClick={() => setShowAddModal(true)}
           className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-lg hover:from-teal-600 hover:to-teal-700 transition-all shadow-md hover:shadow-lg"
@@ -161,8 +180,12 @@ const AdminDepartment = () => {
                 />
               ) : (
                 <div>
-                  <div className="font-semibold text-gray-800 text-lg">{dept.name}</div>
-                  <div className="text-sm text-gray-500 mt-1">ID: {dept._id}</div>
+                  <div className="font-semibold text-gray-800 text-lg">
+                    {dept.name}
+                  </div>
+                  <div className="text-sm text-gray-500 mt-1">
+                    ID: {dept._id}
+                  </div>
                 </div>
               )}
             </div>
@@ -225,7 +248,9 @@ const AdminDepartment = () => {
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[11000] p-4">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text-gray-800">Add New Department</h2>
+              <h2 className="text-xl font-bold text-gray-800">
+                Add New Department
+              </h2>
               <button
                 onClick={() => {
                   setShowAddModal(false);
@@ -237,7 +262,9 @@ const AdminDepartment = () => {
               </button>
             </div>
             <div className="mb-6">
-              <label className="block text-gray-700 mb-2">Department Name</label>
+              <label className="block text-gray-700 mb-2">
+                Department Name
+              </label>
               <input
                 type="text"
                 value={newDept}
@@ -278,9 +305,12 @@ const AdminDepartment = () => {
                 <Trash2 size={24} className="text-red-500" />
               </div>
             </div>
-            <h2 className="text-xl font-bold text-gray-800 text-center mb-2">Delete Department</h2>
+            <h2 className="text-xl font-bold text-gray-800 text-center mb-2">
+              Delete Department
+            </h2>
             <p className="text-gray-600 text-center mb-6">
-              Are you sure you want to delete this department? This action cannot be undone.
+              Are you sure you want to delete this department? This action
+              cannot be undone.
             </p>
             <div className="flex justify-center gap-3">
               <button
@@ -309,10 +339,10 @@ const AdminDepartment = () => {
                 <AlertTriangle size={24} className="text-yellow-500" />
               </div>
             </div>
-            <h2 className="text-xl font-bold text-gray-800 text-center mb-2">Duplicate Department</h2>
-            <p className="text-gray-600 text-center mb-6">
-              {duplicateMessage}
-            </p>
+            <h2 className="text-xl font-bold text-gray-800 text-center mb-2">
+              Duplicate Department
+            </h2>
+            <p className="text-gray-600 text-center mb-6">{duplicateMessage}</p>
             <div className="flex justify-center">
               <button
                 onClick={() => setShowDuplicateAlert(false)}
@@ -324,6 +354,10 @@ const AdminDepartment = () => {
           </div>
         </div>
       )}
+      {/* Footer */}
+      <div className="container flex justify-center fixed bottom-0 left-0 text-white ">
+        <Footer />
+      </div>
     </div>
   );
 };

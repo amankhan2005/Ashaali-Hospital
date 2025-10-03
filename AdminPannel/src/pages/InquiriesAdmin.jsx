@@ -557,6 +557,8 @@ import {
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Footer from "../components/Footer";
+
 
 const InquiriesAdmin = () => {
   const [inquiries, setInquiries] = useState([]);
@@ -811,6 +813,10 @@ const InquiriesAdmin = () => {
           </div>
         )}
       </div>
+          {/* Footer */}
+                        <div className="container flex justify-center fixed bottom-0 left-0 text-white ">
+                          <Footer />
+                        </div>
     </div>
   );
 };

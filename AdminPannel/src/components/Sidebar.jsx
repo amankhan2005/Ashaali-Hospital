@@ -57,7 +57,7 @@ const Sidebar = () => {
       {/* Mobile Overlay */}
       {isOpen && (
         <div
-          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40 backdrop-blur-sm transition-opacity duration-300"
+          className="lg:hidden fixed inset-0  bg-opacity-50 z-40 backdrop-blur-sm transition-opacity duration-300"
           onClick={toggleSidebar}
           aria-hidden="true"
         />

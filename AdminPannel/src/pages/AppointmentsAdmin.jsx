@@ -2,6 +2,8 @@
 import { FaCalendarAlt, FaUser, FaFilter, FaChevronDown, FaSearch, FaCheckCircle, FaDownload, FaTimes } from "react-icons/fa";
 import axios from "axios";
 import jsPDF from "jspdf";
+import Footer from "../components/Footer";
+
 
 
 const AdminAppointments = () => {
@@ -609,6 +611,10 @@ rescheduleInfo: {
           </div>
         )}
       </div>
+          {/* Footer */}
+                        <div className="container flex justify-center fixed bottom-0 left-0 text-white ">
+                          <Footer />
+                        </div>
     </div>
   );
 };

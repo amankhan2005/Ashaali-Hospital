@@ -6,6 +6,8 @@ import {
   FaUsers, FaBuilding, FaStar, FaPhone, FaEnvelope, FaMapMarkerAlt, 
   FaChevronDown, FaChevronUp, FaIdCard, FaTimesCircle, FaCheck
 } from "react-icons/fa";
+import Footer from "../components/Footer";
+
 
 const API_URL = `${import.meta.env.VITE_API_URL}/api/doctors`;
 const DEPARTMENTS_API_URL = `${import.meta.env.VITE_API_URL}/api/departments`;
@@ -581,6 +583,7 @@ const DoctorsAdmin = () => {
                 </select>
               </div>
             </div>
+            
           </div>
 
           {isDataLoading ? (
@@ -802,6 +805,10 @@ const DoctorsAdmin = () => {
           </div>
         </div>
       )}
+          {/* Footer */}
+                        <div className="container flex justify-center fixed bottom-0 left-0 text-white ">
+                          <Footer />
+                        </div>
     </div>
   );
 };

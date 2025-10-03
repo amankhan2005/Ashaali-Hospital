@@ -138,7 +138,7 @@
 
 //   return (
 //     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 md:p-8">
-//       <div className="max-w-7xl mx-auto">
+//       <div className="container mx-auto">
 //         <div className="mb-8 text-center">
 //           <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Gallery Management</h1>
 //           <p className="text-gray-600">Upload, edit, and manage your gallery images</p>
@@ -449,7 +449,7 @@
 
 //   return (
 //     <div className="min-h-screen bg-gradient-to-br from-slate-800 to-slate-900 py-8 px-4 sm:px-6 lg:px-8">
-//       <div className="max-w-7xl mx-auto">
+//       <div className="container mx-auto">
 //         {/* Header */}
 //         <div className="text-center mb-10">
 //           <div className="inline-flex items-center justify-center p-4 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-full mb-4 shadow-xl">
@@ -778,8 +778,8 @@ const GalleryAdmin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto">
         {/* Header */}
         <div className="text-center mb-10">
           <div className="inline-flex items-center justify-center p-4 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-full mb-4 shadow-xl">
@@ -794,7 +794,7 @@ const GalleryAdmin = () => {
         </div>
 
         {/* Upload Form */}
-        <div className="bg-white bg-opacity-80 backdrop-blur-xl rounded-2xl shadow-lg p-6 mb-8 border border-gray-200 transition-all duration-300 hover:shadow-xl">
+        <div className="bg-white bg-opacity-80 backdrop-blur-xl rounded-2xl  p-6 mb-8 border border-gray-200 transition-all duration-300 hover:shadow-xl">
           <div className="flex items-center mb-6">
             <div className="h-1 w-12 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-full mr-4"></div>
             <h2 className="text-2xl font-bold text-gray-800 flex items-center">
@@ -887,7 +887,7 @@ const GalleryAdmin = () => {
         </div>
 
         {/* Gallery Grid */}
-        <div className="bg-white bg-opacity-80 backdrop-blur-xl rounded-2xl shadow-lg p-6 border border-gray-200">
+        <div className="bg-white bg-opacity-80 backdrop-blur-xl rounded-2xl  p-6 border border-gray-200">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6">
             <div className="flex items-center mb-4 sm:mb-0">
               <div className="h-1 w-12 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-full mr-4"></div>
@@ -951,10 +951,12 @@ const GalleryAdmin = () => {
           )}
         </div>
       </div>
-          {/* Footer */}
-                        <div className="container flex justify-center fixed bottom-0 left-0 text-white ">
-                          <Footer />
-                        </div>
+            <div className="mt-12">
+        {/* Footer */}
+	      <div className="container  flex justify-center fixed bottom-0 left-0  text-white ">
+        <Footer />
+      </div>
+     </div>
     </div>
   );
 };

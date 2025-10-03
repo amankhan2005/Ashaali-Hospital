@@ -144,9 +144,9 @@ const AdminDepartment = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className="  p-6 bg-gray-50 min-h-screen">
       {/* Header */}
-      <div className="flex items-center justify-between bg-white px-6 py-4 rounded-xl shadow-md mb-8">
+      <div className="flex border-l-4 border-teal-500 items-center justify-between bg-white px-6 py-4 rounded-xl shadow-md mb-8">
         <h1 className="text-2xl font-bold text-gray-800">
           Department Management
         </h1>
@@ -354,9 +354,11 @@ const AdminDepartment = () => {
           </div>
         </div>
       )}
-      {/* Footer */}
-      <div className="container flex justify-center fixed bottom-0 left-0 text-white ">
+      <div className="mt-12">
+         {/* Footer */}
+      <div className="container  flex justify-center fixed bottom-0 left-0  text-white ">
         <Footer />
+      </div>
       </div>
     </div>
   );

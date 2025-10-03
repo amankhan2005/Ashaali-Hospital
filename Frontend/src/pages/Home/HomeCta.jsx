@@ -49,7 +49,7 @@ const HospitalDoctorsCTA = () => {
       <div className="absolute inset-0 bg-black opacity-80"></div>
       
       {/* Main Content Container */}
-      <div className="relative max-w-7xl mx-auto px-6 z-10 text-center">
+      <div className="relative container mx-auto px-6 z-10 text-center">
         
         {/* Header Section */}
         <div className="mb-8">

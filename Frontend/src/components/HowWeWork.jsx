@@ -62,7 +62,7 @@ export default function HowWeWork() {
 
   return (
     <div className="bg-gray-100 py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="container mx-auto">
         {/* Header */}
         <div className="lg:mb-16 mb-10 text-center">
           <h2

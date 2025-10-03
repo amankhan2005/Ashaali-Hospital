@@ -52,7 +52,7 @@ const Gallery = () => {
       <BreadCrumb items={breadcrumbItems} title="Gallery" />
 
       <div className="min-h-screen bg-gray-100 lg:p-8 p-4">
-        <div className="max-w-7xl mx-auto">
+        <div className="container mx-auto">
 
           {/* Gallery Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

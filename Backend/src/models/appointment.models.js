@@ -3,8 +3,8 @@
 const appointmentSchema = new mongoose.Schema(
   {
     patientName: { type: String, required: true },
-     age: { type: Number, required: true },   // ✅ add
-    gender: { type: String, enum: ["Male", "Female", "Other"], required: true }, // ✅ add
+    //  age: { type: Number, required: true },   // ✅ add
+    // gender: { type: String, enum: ["Male", "Female", "Other"], required: true }, // ✅ add
 
     email: { type: String },
     phone: { type: String },

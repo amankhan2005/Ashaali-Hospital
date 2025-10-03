@@ -57,7 +57,7 @@ const Sidebar = () => {
       {/* Mobile Overlay */}
       {isOpen && (
         <div
-          className="lg:hidden fixed inset-0  bg-opacity-50 z-40 backdrop-blur-sm transition-opacity duration-300"
+          className="lg:hidden fixed inset-0  z-40 backdrop-blur-sm transition-opacity duration-300"
           onClick={toggleSidebar}
           aria-hidden="true"
         />
@@ -66,7 +66,7 @@ const Sidebar = () => {
       {/* Sidebar */}
       <div
         ref={sidebarRef}
-        className={`bg-gradient-to-b from-teal-700 to-teal-800 min-h-screen shadow-2xl flex flex-col fixed lg:static inset-y-0 left-0 z-50 transform transition-all duration-300 ease-in-out
+        className={`bg-teal-700 min-h-screen  flex flex-col fixed lg:static inset-y-0 left-0 z-50 transform transition-all duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         ${isExpanded ? 'w-64' : 'w-20'}`}
         role="navigation"
@@ -108,8 +108,8 @@ const Sidebar = () => {
                   onClick={() => setIsOpen(false)}
                   className={({ isActive }) =>
                     isActive
-                      ? `flex items-center p-3 rounded-lg justify-start bg-white text-teal-700 shadow-md transform scale-[1.02] transition-all duration-200 font-medium`
-                      : `flex items-center p-3 rounded-lg justify-start text-teal-100 hover:bg-teal-600 hover:text-white hover:shadow-md transition-all duration-200`
+                      ? `flex items-center px-5 py-3 rounded-lg justify-start bg-white text-teal-700 shadow-md transform scale-[1.02] transition-all duration-200 font-medium`
+                      : `flex items-center px-5 py-3 rounded-lg justify-start text-white hover:bg-teal-600 hover:text-white  transition-all duration-200`
                   }
                   title={isExpanded ? '' : link.name}
                 >

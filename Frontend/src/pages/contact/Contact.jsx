@@ -206,7 +206,7 @@ const Contact = () => {
 
       <div className="relative w-full flex items-center justify-center px-4 py-8 md:py-12 lg:py-16 bg-gray-100 overflow-hidden">
  
-        <div className="grid grid-cols-1 lg:grid-cols-2 w-full max-w-7xl bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-2 w-full container bg-white rounded-lg shadow-lg overflow-hidden">
           {/* Contact Info Section */}
           <div className="w-full p-6 md:p-8 lg:p-10 flex flex-col justify-center">
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#18978d] mb-6 md:mb-8">

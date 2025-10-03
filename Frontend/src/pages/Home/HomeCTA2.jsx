@@ -101,7 +101,7 @@ export default function CallbackRequestComponent() {
       </div>
 
       <div className="relative z-10 min-h-screen flex items-center justify-center p-6">
-        <div className="w-full max-w-7xl mx-auto">
+        <div className="w-full container mx-auto">
           <div className="bg-white/10 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
             <div className="grid lg:grid-cols-2 gap-0">
               

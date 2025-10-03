@@ -238,8 +238,8 @@ const DoctorsAdmin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 to-cyan-50 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto">
         {/* Header */}
         <div className="text-center mb-10">
           <div className="inline-flex items-center justify-center p-4 bg-gradient-to-r from-teal-500 to-teal-600 rounded-full mb-4 shadow-lg">
@@ -254,66 +254,72 @@ const DoctorsAdmin = () => {
         </div>
 
         {/* Modern Statistics Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          {/* Total Doctors Card */}
-          <div className="bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl shadow-xl p-6 text-white transform transition-transform hover:scale-105">
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-teal-100 text-lg font-medium">Total Doctors</p>
-                <p className="text-4xl font-bold mt-2">{totalDoctors}</p>
-              </div>
-              <div className="bg-teal-400/30 p-4 rounded-full">
-                <FaUsers className="text-3xl" />
-              </div>
-            </div>
-            <div className="mt-4 h-2 w-full bg-teal-400/30 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-white rounded-full" 
-                style={{ width: `${Math.min(100, totalDoctors * 10)}%` }}
-              ></div>
-            </div>
-          </div>
-          
-          {/* Total Departments Card */}
-          <div className="bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl shadow-xl p-6 text-white transform transition-transform hover:scale-105">
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-cyan-100 text-lg font-medium">Departments</p>
-                <p className="text-4xl font-bold mt-2">{totalDepartments}</p>
-              </div>
-              <div className="bg-cyan-400/30 p-4 rounded-full">
-                <FaBuilding className="text-3xl" />
-              </div>
-            </div>
-            <div className="mt-4 h-2 w-full bg-cyan-400/30 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-white rounded-full" 
-                style={{ width: `${Math.min(100, totalDepartments * 20)}%` }}
-              ></div>
-            </div>
-          </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-10 w-full">
+  {/* Total Doctors Card */}
+  <div className="relative bg-white rounded-2xl p-8 border-t-4 border-teal-500 shadow-xs hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 flex flex-col items-center text-center">
+    {/* Icon */}
+    <div className="bg-teal-500 w-16 h-16 rounded-2xl flex items-center justify-center shadow-md mb-4 group-hover:scale-110 transition-transform duration-300">
+      <FaUsers className="text-white text-3xl" />
+    </div>
 
-          {/* Average Doctors per Department Card */}
-          <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl shadow-xl p-6 text-white transform transition-transform hover:scale-105">
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-green-100 text-lg font-medium">Avg. per Dept</p>
-                <p className="text-4xl font-bold mt-2">
-                  {totalDepartments ? Math.round(totalDoctors / totalDepartments) : 0}
-                </p>
-              </div>
-              <div className="bg-green-400/30 p-4 rounded-full">
-                <FaChartBar className="text-3xl" />
-              </div>
-            </div>
-            <div className="mt-4 h-2 w-full bg-green-400/30 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-white rounded-full" 
-                style={{ width: `${Math.min(100, (totalDoctors / totalDepartments || 0) * 20)}%` }}
-              ></div>
-            </div>
-          </div>
-        </div>
+    {/* Value */}
+    <h3 className="text-4xl font-extrabold text-gray-900 mb-2">
+      {totalDoctors.toLocaleString()}
+    </h3>
+
+    {/* Title */}
+    <p className="text-base font-medium text-gray-600">Total Doctors</p>
+
+    {/* Progress Bar */}
+    <div className="mt-4 h-2 w-full bg-teal-400/30 rounded-full overflow-hidden">
+      <div
+        className="h-full bg-teal-500 rounded-full"
+        style={{ width: `${Math.min(100, totalDoctors * 10)}%` }}
+      ></div>
+    </div>
+  </div>
+
+  {/* Total Departments Card */}
+  <div className="relative bg-white rounded-2xl p-8 border-t-4 border-cyan-500 shadow-xs hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 flex flex-col items-center text-center">
+    <div className="bg-cyan-500 w-16 h-16 rounded-2xl flex items-center justify-center shadow-md mb-4 group-hover:scale-110 transition-transform duration-300">
+      <FaBuilding className="text-white text-3xl" />
+    </div>
+
+    <h3 className="text-4xl font-extrabold text-gray-900 mb-2">
+      {totalDepartments.toLocaleString()}
+    </h3>
+
+    <p className="text-base font-medium text-gray-600">Departments</p>
+
+    <div className="mt-4 h-2 w-full bg-cyan-400/30 rounded-full overflow-hidden">
+      <div
+        className="h-full bg-cyan-500 rounded-full"
+        style={{ width: `${Math.min(100, totalDepartments * 20)}%` }}
+      ></div>
+    </div>
+  </div>
+
+  {/* Average Doctors per Department Card */}
+  <div className="relative bg-white rounded-2xl p-8 border-t-4 border-green-500 shadow-xs hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 flex flex-col items-center text-center">
+    <div className="bg-green-500 w-16 h-16 rounded-2xl flex items-center justify-center shadow-md mb-4 group-hover:scale-110 transition-transform duration-300">
+      <FaChartBar className="text-white text-3xl" />
+    </div>
+
+    <h3 className="text-4xl font-extrabold text-gray-900 mb-2">
+      {totalDepartments ? Math.round(totalDoctors / totalDepartments) : 0}
+    </h3>
+
+    <p className="text-base font-medium text-gray-600">Avg. per Dept</p>
+
+    <div className="mt-4 h-2 w-full bg-green-400/30 rounded-full overflow-hidden">
+      <div
+        className="h-full bg-green-500 rounded-full"
+        style={{ width: `${Math.min(100, (totalDoctors / totalDepartments || 0) * 20)}%` }}
+      ></div>
+    </div>
+  </div>
+</div>
+ 
 
         {/* Error Alert */}
         {error && (
@@ -334,7 +340,7 @@ const DoctorsAdmin = () => {
         )}
 
         {/* Doctor Form */}
-        <div ref={doctorFormRef} className="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-xl p-6 md:p-8 mb-10 border border-gray-100">
+        <div ref={doctorFormRef} className="bg-white  rounded-2xl   p-6 md:p-8 mb-10 border border-gray-200">
           <div className="flex items-center mb-6">
             <div className="h-1 w-12 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full mr-4"></div>
             <h2 className="text-2xl font-bold text-gray-800">
@@ -541,7 +547,7 @@ const DoctorsAdmin = () => {
         </div>
 
         {/* Doctors List */}
-        <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-xl p-6 md:p-6 border border-gray-100">
+        <div className="  rounded-2xl   border border-gray-100">
           <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
             <div className="flex items-center mb-4 md:mb-0">
               <div className="h-1 w-12 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full mr-4"></div>
@@ -806,9 +812,12 @@ const DoctorsAdmin = () => {
         </div>
       )}
           {/* Footer */}
-                        <div className="container flex justify-center fixed bottom-0 left-0 text-white ">
-                          <Footer />
-                        </div>
+                         <div className="mt-12">
+          
+      <div className="container  flex justify-center fixed bottom-0 left-0  text-white ">
+        <Footer />
+      </div>
+      </div>
     </div>
   );
 };

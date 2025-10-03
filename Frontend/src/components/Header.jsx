@@ -133,7 +133,7 @@ if(!isMobileMenuOpen){
               </a>
             </div>
 
-            <div className="flex items-center justify-center gap-3">
+            <div className="hidden   items-center justify-center gap-3">  /* hide in mobile */
               {/* Call */}
               {/* <a
                 href="tel:+917897934949"

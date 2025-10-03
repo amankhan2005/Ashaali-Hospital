@@ -26,7 +26,7 @@ const AboutHospitalComponent = () => {
               </p>
               
               <p className="text-sm sm:text-base leading-relaxed">
-                At Ashaali, a patient-centric approach is at the core of our care philosophy. We ensure that every individual 
+                <span className='font-bold'> At Ashaali</span>, a patient-centric approach is at the core of our care philosophy. We ensure that every individual 
                 receives personalized attention, while also supporting their family's emotional and psychological well-being throughout the 
                 healing journey.
               </p>

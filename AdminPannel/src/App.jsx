@@ -2,13 +2,13 @@
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./routes/ProtectedRoute";
-
+import ScrollToTop from "./components/ScrollToTop";
 const App = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
-        {/* Agar "/" khola toh login page pe redirect hoga */}
-        <Route path="/" element={<Navigate to="/admin/login" replace />} />
+         <Route path="/" element={<Navigate to="/admin/login" replace />} />
 
         <Route path="/admin/login" element={<Login />} />
 
@@ -22,8 +22,7 @@ const App = () => {
           }
         />
 
-        {/* Agar koi aur galat path daale toh bhi login pe bhejo */}
-        <Route path="*" element={<Navigate to="/admin/login" replace />} />
+         <Route path="*" element={<Navigate to="/admin/login" replace />} />
       </Routes>
     </BrowserRouter>
   );

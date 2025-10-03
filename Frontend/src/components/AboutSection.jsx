@@ -35,7 +35,7 @@ const AboutSection = () => {
         {/* Content */}
         <div className="space-y-5">
           <p className="text-gray-700 leading-6 md:leading-6  text-base md:text-lg text-center md:text-justify">
-            Ashaali Hospital is a premier Super Specialty Hospital, committed to delivering comprehensive, compassionate, and world-class medical care—all under one roof. Backed by a team of highly experienced doctors and surgeons, cutting-edge technology, and state-of-the-art infrastructure, we strive to meet every healthcare need with precision and personalized attention.
+            <span className='font-bold'>  Ashaali Hospital   is a premier Super Specialty Hospital,</span> committed to delivering comprehensive, compassionate, and world-class medical care—all under one roof. Backed by a team of highly experienced doctors and surgeons,<span className='font-bold'> cutting-edge technology, and state-of-the-art infrastructure </span>, we strive to meet every healthcare need with precision and personalized attention.
           </p>
 
           <p className="text-gray-700 leading-6 md:leading-6 text-base md:text-lg text-center md:text-justify">
@@ -43,7 +43,7 @@ const AboutSection = () => {
           </p>
 
           <p className="text-gray-700 leading-6 md:leading-6 text-base md:text-lg text-center md:text-justify">
-            At Ashaali Hospital, we embrace a patient-centric approach, placing your health, well-being, and recovery at the heart of everything we do. From routine check-ups to the most complex treatments, we are dedicated to delivering holistic and high-quality care tailored to each individual. Our mission is to emerge as a trusted center of excellence, known for clinical expertise, compassionate service, and exceptional outcomes. Whatever your health journey, Ashaali Hospital is here to walk with you—every step of the way.
+             <span className='font-bold'> At Ashaali Hospital, </span> we embrace a patient-centric approach, placing your health, well-being, and recovery at the heart of everything we do. From routine check-ups to the most complex treatments, we are dedicated to delivering holistic and high-quality care tailored to each individual. <span className='font-bold'> Our mission is to emerge as a trusted center of excellence, known for clinical expertise, compassionate service, and exceptional outcomes </span> .  Whatever your health journey, <span className='font-bold'> Ashaali Hospital </span> is here to walk with you—every step of the way.
           </p>
         </div>
 

@@ -14,11 +14,13 @@ import AshaaliHospitalAbout from './pages/About/AboutHospital';
 import Team from './pages/About/Team';
 import DoctorProfile from './pages/About/DoctorProfile';
 import BookAppointment from './pages/Booking/BookAppointment';
+import ScrollToTop from './components/ScrollToTop';
 
 export default function App() {
   return (
     <div className='overflow-x-hidden'>
       <div className='h-32'>
+        <ScrollToTop />
 
       <Header />
       </div>

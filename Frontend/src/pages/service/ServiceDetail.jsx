@@ -58,7 +58,7 @@ const DepartmentPage = () => {
     "ENT",
     "Gastrology",
     "General Surgery",
-    "Obstetrics & Gynaecology",
+    "obstetrics-gynaecology",
     "Urology",
     "Nephrology",
     "Dental",
@@ -69,6 +69,7 @@ const DepartmentPage = () => {
     "Oncology",
     "Hematology",
     "Endocrinology",
+    "Neurosurgery"
   ];
 
  

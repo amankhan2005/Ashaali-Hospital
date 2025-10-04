@@ -183,9 +183,9 @@ const AdminDepartment = () => {
                   <div className="font-semibold text-gray-800 text-lg">
                     {dept.name}
                   </div>
-                  <div className="text-sm text-gray-500 mt-1">
+                  {/* <div className="text-sm text-gray-500 mt-1">
                     ID: {dept._id}
-                  </div>
+                  </div> */}
                 </div>
               )}
             </div>

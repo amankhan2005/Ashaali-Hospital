@@ -26,7 +26,7 @@ const Contact = () => {
     },
     {
       icon: <FaWhatsapp />,
-      url: `https://wa.me/+917897934949?text=${encodeURIComponent(
+      url: `https://wa.me/918303212210?text=${encodeURIComponent(
         "Hello, I need help!"
       )}`,
       color: "bg-green-500",

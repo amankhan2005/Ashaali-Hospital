@@ -6,12 +6,12 @@ import { TbDeviceLandlinePhone } from 'react-icons/tb';
 
 const Footer = () => {
   const facilities = [
-    "ICU/NICU", "Emergency", "Ventilator", "Ambulance", "XRay", "Pathology", "Physiotherapy"
+    "icu", "Emergency", "Ventilator", "Ambulance", "XRay", "Pathology", "Physiotherapy"
   ];
 
   const specialties = [
-    "Orthopaedics", "Ophthalmology", "Pediatrics", "Neurology", "General Medicine", "ENT", "Gastrology",
-    "General Surgery", "Obstetrics & Gynaecology", "Urology", "Nephrology", "Dental", "Hematology"
+    "orthopaedics", "ophthalmology", "pediatrics", "neurology", "general-medicine", "ent", "gastrology",
+    "general-surgery", "obstetrics-gynaecology", "urology", "nephrology", "dental", "hematology"
   ];
 
   return (

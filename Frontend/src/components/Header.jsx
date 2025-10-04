@@ -64,7 +64,7 @@ const SahyadriHeader = () => {
     // Column 2
     [
       { name: "General Surgery", icon: <FaMicroscope /> },
-      { name: "Obstetrics & Gynaecology", icon: <FaHeartbeat /> },
+      { name: "obstetrics-gynaecology", icon: <FaHeartbeat /> },
       { name: "Urology", icon: <FaUserMd /> },
       { name: "Nephrology", icon: <FaTeeth /> },
       { name: "Dental", icon: <FaTeeth /> },
@@ -79,6 +79,7 @@ const SahyadriHeader = () => {
       { name: "Oncology", icon: <FaNotesMedical /> },
       { name: "ICU and Critical Care", icon: <FaHospitalAlt /> },
        { name: "Endocrinology", icon: <FaUserMd /> },
+         { name: "Neurosurgery", icon: <FaBrain /> },
     ],
   ];
 
@@ -144,7 +145,7 @@ if(!isMobileMenuOpen){
 
               {/* WhatsApp */}
               <a
-                href="https://wa.me/917897934949"
+                href="https://wa.me/918303212210"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center"
@@ -241,7 +242,7 @@ if(!isMobileMenuOpen){
               <div className="hidden md:flex gap-2">
                 {/* WhatsApp */}
                 <a
-                  href="https://wa.me/917897934949"
+                  href="https://wa.me/918303212210"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center"

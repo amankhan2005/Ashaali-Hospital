@@ -35,19 +35,19 @@ const SpecialistSection = () => {
     { name: 'ENT', image: img5 },
     { name: 'Cardiology', image: img },
     { name: 'General Surgery', image: img7 },
-    { name: 'Obs. & Gynaecology', image: img8 },
-    { name: 'Urology & Andrology', image: img9 },
-    { name: 'Nephrology', image: img10 },
-    { name: 'Dental', image: img11 },
-    { name: 'Hematology', image: img12 },
-    { name: 'Pulmonology', image: img13 },
-    { name: 'Dermatology', image: img14 },
-    { name: ' Neurosurgery', image: img18 }, // img add
-     { name: 'Gastrology', image: img19 }, //Gastroenterology
-      { name: '  Endocrinology', image: img20 }, //add
-    { name: 'Psychiatry', image: img15 },
-    { name: 'Oncology', image: img16 },
-    { name: 'ICU and Critical Care', image: img17 },
+    { name: 'obstetrics-gynaecology', image: img8 },
+    { name: 'urology-and-andrology', image: img9 },
+    { name: 'nephrology', image: img10 },
+    { name: 'dental', image: img11 },
+    { name: 'hematology', image: img12 },
+    { name: 'pulmonology', image: img13 },
+    { name: 'dermatology', image: img14 },
+    { name: 'neurosurgery', image: img18 }, // img add
+    { name: 'gastrology', image: img19 }, //Gastroenterology
+    { name: 'endocrinology', image: img20 }, //add
+    { name: 'psychiatry', image: img15 },
+    { name: 'oncology', image: img16 },
+    { name: 'icu-and-critical-care', image: img17 },
   ];
 
   return (

@@ -326,138 +326,140 @@ if(!isMobileMenuOpen){
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
-              <Link
-                to="/"
-                className="text-gray-700 hover:text-teal-600 cursor-pointer font-medium"
-              >
-                Home
-              </Link>
-              <div
-                className="relative"
-                onMouseEnter={() => setIsOpen(true)}
-                onMouseLeave={() => setIsOpen(false)}
-              >
-                <div className="flex items-center gap-1 text-gray-700 hover:text-teal-600 cursor-pointer">
-                  <span>About</span>
-                  <ChevronDown className="w-4 h-4" />
-                </div>
+      <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8 text-[15px] font-medium text-gray-700">
+  {/* Home */}
+  <Link
+    to="/"
+    className="hover:text-teal-600 transition-colors cursor-pointer"
+  >
+    Home
+  </Link>
 
-                {isOpen && (
-                  <div className="absolute left-0 mt-0 w-48 bg-white border border-gray-200 shadow-lg rounded-md z-10">
-                    <ul className="py-2 text-sm text-gray-700">
-                      <li className="px-4 py-2 cursor-pointer">
-                        <Link to="/about/ashaali-hospitals">
-                          About Ashaali Hospital
-                        </Link>
-                      </li>
-                      <li className="px-4 py-2 cursor-pointer">
-                        <Link to="/about/team">Find A Doctor</Link>
-                      </li>
-                    </ul>
-                  </div>
-                )}
-              </div>
-              <div
-                className="relative flex items-center gap-1 text-gray-700 hover:text-teal-600 cursor-pointer"
-                onMouseEnter={() => setIsSpecialtiesOpen(true)}
-                onMouseLeave={() => setIsSpecialtiesOpen(false)}
-              >
-                <span className="text-gray-700 font-medium">Specialties</span>
-                <ChevronDown className="w-4 h-4" />
+  {/* About */}
+  <div
+    className="relative"
+    onMouseEnter={() => setIsOpen(true)}
+    onMouseLeave={() => setIsOpen(false)}
+  >
+    <div className="flex items-center gap-1 hover:text-teal-600 cursor-pointer transition-colors">
+      <span>About</span>
+      <ChevronDown className="w-4 h-4" />
+    </div>
 
-                {/* Specialties Dropdown */}
-                {isSpecialtiesOpen && (
-                  <div className="absolute top-full left-0 mt-0 bg-white shadow-2xl  rounded-lg px-4 py-2 z-50 w-screen max-w-2xl ">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0">
-                      {specialties.map((column, columnIndex) => (
-                        <div key={columnIndex} className="space-y-2 ">
-                          {column.map((specialty, index) => (
-                            <Link
-                              key={index}
-                              to={`/department/${specialty.name
-                                .toLowerCase()
-                                .replace(/\s+/g, "-")}`}
-                              className="flex items-center gap-2 text-sm text-black hover:text-red-500 transition-colors py-1"
-                            >
-                              <span style={{ color: "#18978d" }}>
-                                {specialty.icon}
-                              </span>
-                              <span>{specialty.name}</span>
-                            </Link>
-                          ))}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-              <div
-                className="relative flex items-center gap-1 text-gray-700 hover:text-teal-600 cursor-pointer"
-                onMouseEnter={() => setIsFacility(true)}
-                onMouseLeave={() => setIsFacility(false)}
-              >
-                <span className="text-gray-700 font-medium">Facility</span>
-                <ChevronDown className="w-4 h-4" />
+    {isOpen && (
+      <div className="absolute left-0 mt-0 w-52 bg-white border border-gray-200 shadow-lg rounded-md z-10">
+        <ul className="py-2 text-[15px] text-gray-700 font-medium">
+          <li className="px-4 py-2 hover:text-teal-600 transition-colors">
+            <Link to="/about/ashaali-hospitals">About Ashaali Hospital</Link>
+          </li>
+          <li className="px-4 py-2 hover:text-teal-600 transition-colors">
+            <Link to="/about/team">Find A Doctor</Link>
+          </li>
+        </ul>
+      </div>
+    )}
+  </div>
 
-                {isFacilityOpen && (
-                  <div className="absolute top-full left-0 mt-0 bg-white shadow-2xl border rounded-lg px-2 py-2 z-50 w-screen max-w-[20rem]">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-2">
-                      {facilities.map((column, columnIndex) => (
-                        <div key={columnIndex} className="space-y-1">
-                          {column.map((facility, index) => (
-                            <Link
-                              key={index}
-                              to={`/facility/${facility.name
-                                .toLowerCase()
-                                .replace(/\s+/g, "-")}`}
-                              className="flex items-center gap-2 text-sm text-gray-700 hover:text-red-500 transition-colors py-1"
-                            >
-                              <span
-                                style={{ color: "#18978d" }}
-                                className="text-base"
-                              >
-                                {facility.icon}
-                              </span>
-                              <span>{facility.name}</span>
-                            </Link>
-                          ))}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
+  {/* Specialties */}
+  <div
+    className="relative flex items-center gap-1 hover:text-teal-600 cursor-pointer transition-colors"
+    onMouseEnter={() => setIsSpecialtiesOpen(true)}
+    onMouseLeave={() => setIsSpecialtiesOpen(false)}
+  >
+    <span>Specialties</span>
+    <ChevronDown className="w-4 h-4" />
 
-              <Link
-                to="/gallery"
-                className="text-gray-700 hover:text-teal-600 cursor-pointer"
-              >
-                Gallery
-              </Link>
+    {isSpecialtiesOpen && (
+      <div className="absolute top-full left-0 mt-0 bg-white shadow-2xl rounded-lg px-4 py-2 z-50 w-screen max-w-2xl border border-gray-100">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+          {specialties.map((column, columnIndex) => (
+            <div key={columnIndex} className="space-y-1">
+              {column.map((specialty, index) => (
+                <Link
+                  key={index}
+                  to={`/department/${specialty.name
+                    .toLowerCase()
+                    .replace(/\s+/g, "-")}`}
+                  className="flex items-center gap-2 text-[15px] text-gray-700 hover:text-teal-600 transition-colors py-1"
+                >
+                  <span className="text-teal-600 text-base">
+                    {specialty.icon}
+                  </span>
+                  <span>{specialty.name}</span>
+                </Link>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
 
-              <Link
-                to="/blogs"
-                className="text-gray-700 hover:text-teal-600 cursor-pointer"
-              >
-                Blogs
-              </Link>
+  {/* Facility */}
+  <div
+    className="relative flex items-center gap-1 hover:text-teal-600 cursor-pointer transition-colors"
+    onMouseEnter={() => setIsFacility(true)}
+    onMouseLeave={() => setIsFacility(false)}
+  >
+    <span>Facility</span>
+    <ChevronDown className="w-4 h-4" />
 
-              <Link
-                to="/contact"
-                className="text-gray-700 hover:text-teal-600 cursor-pointer"
-              >
-                Contact Us
-              </Link>
+    {isFacilityOpen && (
+      <div className="absolute top-full left-0 mt-0 bg-white shadow-2xl border border-gray-100 rounded-lg px-3 py-2 z-50 w-screen max-w-[22rem]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {facilities.map((column, columnIndex) => (
+            <div key={columnIndex} className="space-y-1">
+              {column.map((facility, index) => (
+                <Link
+                  key={index}
+                  to={`/facility/${facility.name
+                    .toLowerCase()
+                    .replace(/\s+/g, "-")}`}
+                  className="flex items-center gap-2 text-[15px] text-gray-700 hover:text-teal-600 transition-colors py-1"
+                >
+                  <span className="text-teal-600 text-base">
+                    {facility.icon}
+                  </span>
+                  <span>{facility.name}</span>
+                </Link>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
 
-               <Link to="/careers"  className="text-gray-700 hover:text-teal-600 cursor-pointer" >
-            Careers
-          </Link>
+  {/* Other Links */}
+  <Link
+    to="/gallery"
+    className="hover:text-teal-600 cursor-pointer transition-colors"
+  >
+    Gallery
+  </Link>
 
-              {/* <Link to="/about/team" className="text-gray-700 hover:text-teal-600 cursor-pointer">
-                Find A Doctor
-              </Link> */}
-            </nav>
+  <Link
+    to="/blogs"
+    className="hover:text-teal-600 cursor-pointer transition-colors"
+  >
+    Blogs
+  </Link>
+
+  <Link
+    to="/contact"
+    className="hover:text-teal-600 cursor-pointer transition-colors"
+  >
+    Contact Us
+  </Link>
+
+  <Link
+    to="/careers"
+    className="hover:text-teal-600 cursor-pointer transition-colors"
+  >
+    Careers
+  </Link>
+</nav>
+
 
             <Link
               to="/book-appointment"

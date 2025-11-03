@@ -30,6 +30,7 @@ const Sidebar = () => {
     { name: "Blogs", path: "/admin/blogs", icon: <FaBlog /> },
     { name: "Gallery", path: "/admin/gallery", icon: <FaImages /> },
     { name: "Inquiries", path: "/admin/inquiries", icon: <FaQuestionCircle /> },
+    { name: "Jobs", path: "/admin/jobs", icon: <FaUserNurse /> },
   ];
 
   const toggleSidebar = () => setIsOpen(!isOpen);

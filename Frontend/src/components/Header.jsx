@@ -450,6 +450,10 @@ if(!isMobileMenuOpen){
                 Contact Us
               </Link>
 
+               <Link to="/careers"  className="text-gray-700 hover:text-teal-600 cursor-pointer" >
+            Careers
+          </Link>
+
               {/* <Link to="/about/team" className="text-gray-700 hover:text-teal-600 cursor-pointer">
                 Find A Doctor
               </Link> */}

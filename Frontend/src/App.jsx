@@ -15,6 +15,8 @@ import Team from './pages/About/Team';
 import DoctorProfile from './pages/About/DoctorProfile';
 import BookAppointment from './pages/Booking/BookAppointment';
 import ScrollToTop from './components/ScrollToTop';
+import CareerPage from "./pages/CareerPage.jsx";
+
 
 export default function App() {
   return (
@@ -36,6 +38,8 @@ export default function App() {
         <Route path='/blogs' element={<BlogPage />} />
         <Route path='/blogs/:detail' element={<BlogDetails />} />
 <Route path='/book-appointment' element={<BookAppointment />} />
+        <Route path="/careers" element={<CareerPage />} />
+
       </Routes>
       <Footer />
     </div>

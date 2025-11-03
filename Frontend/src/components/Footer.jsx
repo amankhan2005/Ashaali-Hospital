@@ -6,12 +6,12 @@ import { TbDeviceLandlinePhone } from 'react-icons/tb';
 
 const Footer = () => {
   const facilities = [
-    "icu", "Emergency", "Ventilator", "Ambulance", "XRay", "Pathology", "Physiotherapy"
+    "ICU", "Emergency", "Ventilator", "Ambulance", "XRay", "Pathology", "Physiotherapy"
   ];
 
   const specialties = [
-    "orthopaedics", "ophthalmology", "pediatrics", "neurology", "general-medicine", "ent", "gastrology",
-    "general-surgery", "obstetrics-gynaecology", "urology", "nephrology", "dental", "hematology"
+    "Orthopaedics", "Ophthalmology", "Pediatrics", "Neurology", "General Medicine", "ENT", "Gastrology",
+    "General Surgery", "Obstetrics & Gynaecology", "Urology", "Nephrology", "Dental", "Hematology"
   ];
 
   return (
@@ -88,11 +88,12 @@ const Footer = () => {
             <ul className="space-y-2 text-gray-300 text-sm">
               {[
                 { name: "Home", path: "/" },
-                { name: "About Ashaali", path: "/about/ashaali-hospitals" },
+                { name: "About Ashaali Hospital", path: "/about/ashaali-hospitals" },
                 { name: "Our Doctors", path: "/about/team" },
                 { name: "Gallery", path: "/gallery" },
                 { name: "Patients Story", path: "/patients-story" },
                 { name: "Blogs", path: "/blogs" },
+                {name: "Careers",path: "/careers"},
                 { name: "Contact Us", path: "/contact" },
               ].map((item, idx) => (
                 <li key={idx}>

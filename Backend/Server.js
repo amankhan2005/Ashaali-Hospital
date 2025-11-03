@@ -98,6 +98,8 @@ import galleryRoutes from './src/routes/gallery.routes.js';
 import blogRoutes from './src/routes/blog.routes.js'; 
 import contactRoutes from './src/routes/contact.routes.js'; 
 import appointmentRoutes from './src/routes/appointment.routes.js';
+import careerRoutes from "./src/routes/career.routes.js";
+
 
 dotenv.config();
 const app = express();
@@ -129,7 +131,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// -------------------- MongoDB --------------------
+app.use("/uploads/resumes", express.static("uploads/resumes"));
+app.use("/api/career", careerRoutes);// -------------------- MongoDB --------------------
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log("MONGODB CONNECTED SUCCESSFULLY 🚀"))
   .catch(err => console.log("MONGODB CONNECTION FAILED ❌", err));

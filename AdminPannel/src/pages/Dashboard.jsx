@@ -27,6 +27,8 @@ import GalleryAdmin from "./GalleryAdmin";
 import InquiriesAdmin from "./InquiriesAdmin";
 import AdminDepartment from "./AdminDepartment";
 import Footer from "../components/Footer";
+import JobsAdmin from "./jobsAdmin";
+
 
 import {
   FaUserMd,
@@ -41,7 +43,7 @@ import {
   FaDownload,
   FaNewspaper,
   FaArrowUp,
-  FaClock,
+   FaClock,
   FaPhone,
   FaUser,
   FaSpinner,
@@ -106,7 +108,7 @@ const Dashboard = () => {
         API.get("/api/blogs"),
         API.get("/api/gallery"),
         API.get("/api/contact/getall"),
-      ]);
+       ]);
 
       const doctors = doctorsRes.data || [];
       const departments = departmentsRes.data || [];
@@ -614,6 +616,8 @@ const Dashboard = () => {
                         iconColor: "text-indigo-600",
                         link: "/admin/blogs",
                       },
+                      
+     
                     ].map((stat, index) => (
                       <Link key={index} to={stat.link} className="block h-full">
                         <div
@@ -1241,6 +1245,9 @@ const Dashboard = () => {
             <Route path="blogs" element={<BlogsAdmin />} />
             <Route path="gallery" element={<GalleryAdmin />} />
             <Route path="inquiries" element={<InquiriesAdmin />} />
+            <Route path ="jobs" element={<JobsAdmin/>}/>
+
+
           </Routes>
         </div>
       </div>

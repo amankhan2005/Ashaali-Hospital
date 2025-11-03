@@ -635,51 +635,76 @@ const CareerPage = () => {
                     </div>
                   </div>
 
-                  <div>
-                    <label htmlFor="jobId" className="block mb-2 font-semibold text-gray-900 text-lg">
-                      Select Position *
-                    </label>
-                    <select
-                      id="jobId"
-                      name="jobId"
-                      value={formData.jobId}
-                      onChange={handleInputChange}
-                      ref={jobSelectRef}
-                      className="w-full px-5 py-4 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-lg disabled:opacity-60 disabled:bg-gray-100"
-                      required
-                      disabled={jobsLoading || (!!jobsError && jobs.length === 0)}
-                    >
-                      <option value="" disabled>
-                        {jobsLoading ? 'Loading positions...' : 'Select a position'}
-                      </option>
-                      {jobs.map(job => (
-                        <option key={job._id} value={job._id}>
-                          {job.title}
-                        </option>
-                      ))}
-                      <option value="other">Other / Not Listed</option>
-                    </select>
-                  </div>
+   <div className="relative mb-6">
+  <label
+    htmlFor="jobId"
+    className="block mb-2 font-semibold text-gray-900 text-lg"
+  >
+    Select Position *
+  </label>
 
-                  {formData.jobId === 'other' && (
-                    <div className="bg-teal-50 p-6 rounded-2xl border border-teal-200">
-                      <label htmlFor="jobTitle" className="block mb-2 font-semibold text-gray-900 text-lg">
-                        Specify Your Desired Role *
-                      </label>
-                      <input
-                        type="text"
-                        id="jobTitle"
-                        name="jobTitle"
-                        value={formData.jobTitle}
-                        onChange={handleInputChange}
-                        className="w-full px-5 py-4 rounded-xl border-2 border-teal-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-lg bg-white"
-                        placeholder="e.g., Senior Cardiac Surgeon"
-                        required
-                      />
-                    </div>
-                  )}
+  <div className="relative">
+    <select
+      id="jobId"
+      name="jobId"
+      value={formData.jobId}
+      onChange={handleInputChange}
+      ref={jobSelectRef}
+      className="appearance-none w-full px-5 py-4 pr-14 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-lg disabled:opacity-60 disabled:bg-gray-100"
+      required
+      disabled={jobsLoading || (!!jobsError && jobs.length === 0)}
+    >
+      <option value="" disabled>
+        {jobsLoading ? "Loading positions..." : "Select a position"}
+      </option>
+      {jobs.map((job) => (
+        <option key={job._id} value={job._id}>
+          {job.title}
+        </option>
+      ))}
+      <option value="other">Other / Not Listed</option>
+    </select>
 
-                  <div>
+    {/* Dropdown arrow */}
+    <span className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-gray-500">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-5 h-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2}
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+      </svg>
+    </span>
+  </div>
+</div>
+
+{/* If “Other” is selected */}
+{formData.jobId === "other" && (
+  <div className="bg-teal-50 p-6 rounded-2xl border border-teal-200 mt-4">
+    <label
+      htmlFor="jobTitle"
+      className="block mb-2 font-semibold text-gray-900 text-lg"
+    >
+      Specify Your Desired Role *
+    </label>
+    <input
+      type="text"
+      id="jobTitle"
+      name="jobTitle"
+      value={formData.jobTitle}
+      onChange={handleInputChange}
+      className="w-full px-5 py-4 rounded-xl border-2 border-teal-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-lg bg-white"
+      placeholder="e.g., Senior Cardiac Surgeon"
+      required
+    />
+  </div>
+)}
+
+
+                  {/* <div>
                     <label htmlFor="resumeUpload" className="block mb-2 font-semibold text-gray-900 text-lg">
                       Upload Resume / CV *
                     </label>
@@ -718,7 +743,82 @@ const CareerPage = () => {
                         )}
                       </label>
                     </div>
-                  </div>
+                  </div> */}
+
+<div>
+  <label
+    htmlFor="resumeUpload"
+    className="block mb-2 font-semibold text-gray-900 text-lg"
+  >
+    Upload Resume (PDF only) *
+  </label>
+
+  <div className="border-2 border-dashed border-gray-300 rounded-2xl p-10 text-center bg-gray-50 hover:bg-gray-100 transition-colors">
+    <input
+      ref={fileInputRef}
+      type="file"
+      id="resumeUpload"
+      name="resume"
+      onChange={(e) => {
+        const file = e.target.files?.[0];
+        if (!file) {
+          setFormData((p) => ({ ...p, resume: null }));
+          return;
+        }
+
+        // ✅ PDF-only validation (frontend)
+        const isPdf =
+          file.type === "application/pdf" || /\.pdf$/i.test(file.name);
+        const maxSize = 5 * 1024 * 1024; // 5MB
+
+        if (!isPdf) {
+          alert("Please upload PDF files only (.pdf).");
+          e.target.value = "";
+          setFormData((p) => ({ ...p, resume: null }));
+          return;
+        }
+        if (file.size > maxSize) {
+          alert("File size must be 5MB or less.");
+          e.target.value = "";
+          setFormData((p) => ({ ...p, resume: null }));
+          return;
+        }
+
+        setFormData((p) => ({ ...p, resume: file }));
+      }}
+      className="hidden"
+      accept=".pdf,application/pdf" // ✅ restrict PDF in file picker
+      required
+    />
+
+    <label htmlFor="resumeUpload" className="cursor-pointer block">
+      <div className="mx-auto w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mb-4">
+        <Upload size={28} className="text-white" />
+      </div>
+
+      {formData.resume ? (
+        <div className="space-y-2">
+          <p className="text-teal-700 font-semibold text-lg flex items-center justify-center gap-2">
+            <CheckCircle size={20} />
+            {formData.resume.name}
+          </p>
+          <p className="text-sm text-gray-500">Click to change file</p>
+        </div>
+      ) : (
+        <div className="space-y-2">
+          <p className="text-gray-700 font-medium text-lg">
+            Drop your resume here or click to browse
+          </p>
+          <p className="text-sm text-gray-500">
+            Supported format: <b>PDF only</b> • Max size: 5MB
+          </p>
+        </div>
+      )}
+    </label>
+  </div>
+</div>
+
+
                 </div>
 
                 <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-end">

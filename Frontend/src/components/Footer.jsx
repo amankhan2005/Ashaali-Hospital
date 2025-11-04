@@ -5,46 +5,29 @@ import { TbDeviceLandlinePhone } from 'react-icons/tb';
 
 const Footer = () => {
   const facilities = [
-    'ICU',
-    'Emergency',
-    'Ventilator',
-    'Ambulance',
-    'XRay',
-    'Pathology',
-    'Physiotherapy',
+    'ICU','Emergency','Ventilator','Ambulance','XRay','Pathology','Physiotherapy',
   ];
 
   const specialties = [
-    'Orthopaedics',
-    'Ophthalmology',
-    'Pediatrics',
-    'Neurology',
-    'General Medicine',
-    'ENT',
-    'Gastrology',
-    'General Surgery',
-    'Obstetrics & Gynaecology',
-    'Urology',
-    'Nephrology',
-    'Dental',
-    'Hematology',
+    'Orthopaedics','Ophthalmology','Pediatrics','Neurology','General Medicine','ENT','Gastrology',
+    'General Surgery','Obstetrics & Gynaecology','Urology','Nephrology','Dental','Hematology',
   ];
 
-  const leftSpecialties = specialties.slice(0, Math.ceil(specialties.length / 2));
+  const leftSpecialties  = specialties.slice(0, Math.ceil(specialties.length / 2));
   const rightSpecialties = specialties.slice(Math.ceil(specialties.length / 2));
 
   return (
-    <footer className="bg-gray-900 text-white py-10 px-2">
-      <div className="container lg:px-16 px-4 sm:px-6 md:px-8 mx-auto">
+    <footer className="bg-gray-900 text-white py-10 px-3">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-16">
         {/* ===== Top Grid ===== */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-20">
 
           {/* 1) Hospital Info */}
           <div className="space-y-5">
             <h2 className="text-2xl font-bold">Ashaali Hospital</h2>
 
             <div className="space-y-3 text-gray-300 text-sm">
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                 <FiPhone />
                 <a href="tel:+918303212210" className="hover:underline">+91-83032 12210</a>
                 <a href="tel:+917897934949" className="hover:underline">+91-78979 34949</a>
@@ -114,7 +97,7 @@ const Footer = () => {
               ))}
             </ul>
 
-            <div className="mt-5">
+           <div className="mt-5">
               <a
                 href="https://ashaali-adminpage.netlify.app/"
                 target="_blank"
@@ -127,18 +110,19 @@ const Footer = () => {
           </div>
 
           {/* 3) Specialties */}
-          <div className="flex flex-col pr-4">
+          <div className="flex flex-col lg:pr-4">
             <h3 className="text-lg font-semibold border-b border-gray-700 pb-2">Specialties</h3>
 
-            <div className="mt-4 grid grid-cols-2 gap-x-8 text-gray-300 text-sm">
+            {/* single col on phones, two cols from sm+ */}
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-8 text-gray-300 text-sm">
               <ul className="space-y-2">
                 {leftSpecialties.map((item, idx) => (
                   <li key={idx}>
                     <Link
                       to={`/department/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="flex items-center gap-2 hover:text-white transition whitespace-nowrap"
+                      className="min-w-0 flex items-start sm:items-center gap-2 hover:text-white transition whitespace-normal sm:whitespace-nowrap"
                     >
-                      <FiChevronRight className="text-xs w-4 shrink-0 flex-none" />
+                      <FiChevronRight className="text-xs w-4 flex-none self-start sm:self-center" />
                       <span className="leading-tight flex-1">{item}</span>
                     </Link>
                   </li>
@@ -150,9 +134,9 @@ const Footer = () => {
                   <li key={idx}>
                     <Link
                       to={`/department/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="flex items-center gap-2 hover:text-white transition whitespace-nowrap"
+                      className="min-w-0 flex items-start sm:items-center gap-2 hover:text-white transition whitespace-normal sm:whitespace-nowrap"
                     >
-                      <FiChevronRight className="text-xs w-4 shrink-0 flex-none" />
+                      <FiChevronRight className="text-xs w-4 flex-none self-start sm:self-center" />
                       <span className="leading-tight flex-1">{item}</span>
                     </Link>
                   </li>
@@ -161,8 +145,8 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* 4) Facilities - moved more to right */}
-          <div className="flex flex-col pl-14">
+          {/* 4) Facilities */}
+          <div className="flex flex-col lg:pl-14 mt-8 lg:mt-0">
             <h3 className="text-lg font-semibold border-b border-gray-700 pb-2">Facilities</h3>
 
             <ul className="mt-4 space-y-2 text-gray-300 text-sm">
@@ -170,9 +154,9 @@ const Footer = () => {
                 <li key={idx}>
                   <Link
                     to={`/facility/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                    className="flex items-center gap-2 hover:text-white transition whitespace-nowrap"
+                    className="min-w-0 flex items-start sm:items-center gap-2 hover:text-white transition whitespace-normal sm:whitespace-nowrap"
                   >
-                    <FiChevronRight className="text-xs w-4 shrink-0 flex-none" />
+                    <FiChevronRight className="text-xs w-4 flex-none self-start sm:self-center" />
                     <span className="leading-tight flex-1">{item}</span>
                   </Link>
                 </li>
@@ -182,7 +166,7 @@ const Footer = () => {
         </div>
 
         {/* ===== Bottom Bar ===== */}
-        <div className="border-t border-gray-700 mt-10 pt-4 flex flex-col sm:flex-row items-center justify-center gap-2 text-center">
+        <div className="border-t border-gray-700 mt-8 pt-4 flex flex-col sm:flex-row items-center justify-center gap-2 text-center">
           <p className="text-sm">
             Copyright © 2025 <span className="font-semibold">Ashaali Hospital</span> || All Rights
             Reserved

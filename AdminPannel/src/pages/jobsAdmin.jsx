@@ -1,6 +1,6 @@
  import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Plus, Trash2, RefreshCw, Eye, Briefcase, Users, CheckCircle, XCircle } from "lucide-react";
+import { Plus, Trash2, RefreshCw, Eye, Briefcase, Users, CheckCircle, XCircle, Download } from "lucide-react";
 
 export default function JobsAdmin() {
   // ---- Safe API base (no trailing slash). If undefined, we'll still build relative paths for dev proxy.
@@ -108,6 +108,44 @@ export default function JobsAdmin() {
     }
   };
 
+  /* -------------------- DOWNLOAD HANDLER -------------------- */
+  const handleDownload = async (url, filenameFallback) => {
+    setErr(null);
+    if (!url) {
+      setErr("Resume URL not available");
+      return;
+    }
+
+    // Try to open in new tab first (fast, keeps browser behavior)
+    try {
+      const win = window.open(url, "_blank", "noopener,noreferrer");
+      if (win) {
+        return; // opened successfully
+      }
+    } catch (e) {
+      // fall through to blob fetch
+    }
+
+    // Fallback: fetch blob and trigger download (works if popups are blocked)
+    try {
+      const res = await axios.get(url, { responseType: "blob" });
+      const blobUrl = window.URL.createObjectURL(res.data);
+      const a = document.createElement("a");
+      a.href = blobUrl;
+
+      // try to use server-sent filename, otherwise fallback to provided filename or generic name
+      const suggestedName = filenameFallback || `resume-${Date.now()}`;
+      a.download = suggestedName;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Download failed:", error);
+      setErr("Failed to download file. Try opening the View link then saving the file.");
+    }
+  };
+
   /* -------------------- HANDLERS -------------------- */
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -121,6 +159,33 @@ export default function JobsAdmin() {
   }, []);
 
   /* -------------------- UI -------------------- */
+
+  // helper to compute links for each application
+  const getResumeLinks = (a) => {
+    // Backend now returns resumeViewUrl & resumeDownloadUrl on each application row (see controller)
+    const view = a?.resumeViewUrl
+      ? a.resumeViewUrl
+      : API_BASE
+      ? `${API_BASE}/api/career/applications/${a._id}/resume?inline=1`
+      : `/api/career/applications/${a._id}/resume?inline=1`;
+
+    const download = a?.resumeDownloadUrl
+      ? a.resumeDownloadUrl
+      : API_BASE
+      ? `${API_BASE}/api/career/applications/${a._id}/resume`
+      : `/api/career/applications/${a._id}/resume`;
+
+    // Cloud link fallback (still provided if you want to view original Cloudinary URL)
+    const cloud = a?.resume?.url || a?.resume?.path || null;
+    const cloudLink = cloud
+      ? cloud.startsWith("http")
+        ? cloud
+        : `${API_BASE}/${cloud.replace(/^\/+/, "")}`
+      : null;
+
+    return { cloudLink, view, download };
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -389,11 +454,7 @@ export default function JobsAdmin() {
                 </thead>
                 <tbody>
                   {applications.map((a, idx) => {
-                    const link = a?.resume?.path
-                      ? a.resume.path.startsWith("http")
-                        ? a.resume.path
-                        : "/" + a.resume.path.replace(/^\/+/, "")
-                      : null;
+                    const { cloudLink, view, download } = getResumeLinks(a);
 
                     return (
                       <tr key={a._id} className={`hover:bg-blue-50 transition-colors ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
@@ -402,19 +463,30 @@ export default function JobsAdmin() {
                         <td className="p-4 border-b border-gray-200 text-gray-600">{a.phone}</td>
                         <td className="p-4 border-b border-gray-200 text-gray-600">{a.jobTitle}</td>
                         <td className="p-4 border-b border-gray-200 text-gray-600">{new Date(a.createdAt).toLocaleString("en-IN")}</td>
-                        <td className="p-4 border-b border-gray-200">
-                          {link ? (
+                        <td className="p-4 border-b border-gray-200 flex items-center gap-3">
+                          {view ? (
                             <a 
-                              href={link} 
+                              href={view} 
                               target="_blank" 
-                              rel="noreferrer" 
+                              rel="noopener noreferrer" 
                               className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium hover:underline"
+                              title="View resume (inline)"
                             >
                               <Eye size={16} /> View
                             </a>
                           ) : (
                             <span className="text-gray-400">-</span>
                           )}
+
+                          {/* Download via backend proxy (uses JS to avoid page refresh) */}
+                          <button
+                            type="button"
+                            onClick={() => handleDownload(download, a?.resume?.originalName)}
+                            className="inline-flex items-center gap-2 text-white bg-indigo-600 hover:bg-indigo-700 px-3 py-1 rounded-md text-sm font-medium shadow-sm"
+                            title="Download resume"
+                          >
+                            <Download size={14} /> Download
+                          </button>
                         </td>
                       </tr>
                     );

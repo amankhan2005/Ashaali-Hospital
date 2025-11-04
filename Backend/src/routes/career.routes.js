@@ -6,6 +6,7 @@ import {
   deletePosition,
   saveApplication,
   getApplications,
+  downloadApplicationResume, // <-- added
 } from "../controllers/career.controllers.js";
 
 const router = express.Router();
@@ -18,5 +19,8 @@ router.delete("/positions/:id", deletePosition); // Delete job by ID
 // ===== APPLICATIONS =====
 router.get("/applications", getApplications); // Admin panel - get all applications
 router.post("/save", upload.single("resume"), saveApplication); // User apply
+
+// Serve resume for view or download (inline if ?inline=1)
+router.get("/applications/:id/resume", downloadApplicationResume);
 
 export default router;

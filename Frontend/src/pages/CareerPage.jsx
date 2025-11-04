@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Users,
   Trophy,
@@ -283,11 +283,11 @@ const CareerPage = () => {
         
         <div className="container mx-auto px-4 py-14 md:py-14 relative h-full flex items-center">
           <div className="max-w-7xl mx-auto text-center">
-           
-            
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-              Shape the Future of
-              <span className="block bg-gradient-to-r from-cyan-200 to-white bg-clip-text text-transparent">
+              <span className="inline-block">
+                Shape the Future of&nbsp;
+              </span>
+              <span className="inline-block">
                 Medical Excellence
               </span>
             </h1>
@@ -302,8 +302,8 @@ const CareerPage = () => {
       {/* Open Positions - Now right after Hero */}
       <div className="bg-white py-12" id="open-positions">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-             <p className="text-2xl text-gray-800 max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <p className="text-2xl text-gray-800 max-w-4xl mx-auto">
               Explore exciting career opportunities across various specializations
             </p>
           </div>
@@ -422,9 +422,9 @@ const CareerPage = () => {
       </div>
 
       {/* Why Join Us - Now after Job Roles */}
-      <div className="py-12 md:py-12 bg-gray-50">
+      <div className="py-10 md:py-8 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10">
             <div className="inline-flex items-center gap-2 bg-teal-100 text-teal-700 px-4 py-2 rounded-full mb-4 font-medium">
               <Award size={18} />
               Why Ashaali Hospital
@@ -534,72 +534,83 @@ const CareerPage = () => {
 
       {/* Application Form Modal */}
       {isModalOpen && (
-        <div 
-          className="fixed inset-0 z-[11000] flex items-center justify-center p-4"
+        <div
+          className="fixed inset-0 z-[11000] flex items-center justify-center p-3"
           onClick={(e) => {
             if (e.target === e.currentTarget) closeModal();
           }}
         >
-          {/* Light overlay background */}
+          {/* Overlay */}
           <div className="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
-          
-          {/* Modal content - Made smaller */}
-          <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            {/* Close button */}
+
+          {/* Compact Modal */}
+          <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-md h-[85vh] overflow-hidden border border-gray-200 flex flex-col">
+            {/* Close Button */}
             <button
               onClick={closeModal}
-              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+              className="absolute top-3 right-3 z-10 w-7 h-7 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
             >
-              <X size={20} className="text-gray-600" />
+              <X size={16} className="text-gray-600" />
             </button>
-            
-            <div className="p-6 md:p-8">
-              <div className="text-center mb-8">
-                <div className="inline-flex items-center gap-2 bg-teal-100 text-teal-700 px-4 py-2 rounded-full mb-4 font-medium">
-                  <Upload size={18} />
-                  Submit Your Application
-                </div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
-                  Start Your Journey With Us
-                </h2>
-                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                  Take the first step towards an exceptional career in healthcare excellence
-                </p>
-              </div>
 
-              {formStatus.submitted ? (
-                <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-3xl p-8 text-center shadow-xl">
-                  <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <CheckCircle size={36} className="text-white" />
+            {/* Content Wrapper */}
+            <div className="flex-1 overflow-y-auto px-4 py-3">
+              {/* Success Screen */}
+              {formStatus.submitted && !formStatus.error ? (
+                <div className="flex flex-col items-center justify-center h-full py-8">
+                  <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                    <CheckCircle size={40} className="text-green-600" />
                   </div>
-                  <h3 className="text-2xl font-bold mb-3 text-gray-900">Application Submitted Successfully!</h3>
-                  <p className="text-base text-gray-600 mb-6 max-w-2xl mx-auto leading-relaxed">
-                    Thank you for your interest in joining Ashaali Hospital. Our recruitment team will carefully review your application and contact you within 5-7 business days.
+                   <p className="text-gray-600 text-center mb-8 px-4">
+                    {formStatus.message || "Thank you for your application. We'll review it and contact you soon."}
                   </p>
-                  <button
-                    onClick={() => {
-                      setFormStatus({ submitted: false, error: false, message: '' });
-                    }}
-                    className="bg-gradient-to-r from-green-500 to-emerald-500 text-white font-semibold px-6 py-3 rounded-xl hover:from-green-600 hover:to-emerald-600 transition-all duration-300 shadow-lg hover:shadow-xl"
-                  >
-                    Submit Another Application
-                  </button>
+                  <div className="flex flex-col gap-3 w-full max-w-xs">
+                    <button
+                      onClick={closeModal}
+                      className="w-full py-3 bg-gradient-to-r from-teal-600 to-teal-500 text-white font-semibold rounded-lg shadow-md hover:from-teal-700 hover:to-teal-600 transition-all duration-300"
+                    >
+                      Return to Careers
+                    </button>
+                    <button
+                      onClick={() => {
+                        closeModal();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      className="w-full py-3 bg-white text-teal-700 font-semibold rounded-lg border-2 border-teal-200 hover:bg-teal-50 transition-colors"
+                    >
+                      Explore More Positions
+                    </button>
+                  </div>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="bg-white rounded-3xl p-6 md:p-8 shadow-2xl border border-gray-200">
+                /* Form Content */
+                <>
+                  <div className="text-center mb-4">
+                    <div className="inline-flex items-center gap-2 bg-teal-100 text-teal-700 px-3 py-1 rounded-full mb-2 font-medium text-xs">
+                      <Upload size={14} />
+                      Submit Your Application
+                    </div>
+                    <h2 className="text-xl font-bold mb-1 text-gray-900">Start Your Journey With Us</h2>
+                    <p className="text-sm text-gray-600">
+                      Take the first step towards an exceptional career
+                    </p>
+                  </div>
+
+                  {/* Error Display */}
                   {formStatus.error && (
-                    <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-4 mb-6 flex items-start gap-3">
-                      <AlertCircle size={20} className="text-red-500 flex-shrink-0 mt-1" />
-                      <div>
-                        <h4 className="font-semibold text-red-900 mb-1">Application Error</h4>
-                        <p className="text-red-700 text-sm">{formStatus.message}</p>
-                      </div>
+                    <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
+                      <AlertCircle size={16} className="text-red-500 mt-0.5 flex-shrink-0" />
+                      <p className="text-sm text-red-700">{formStatus.message}</p>
                     </div>
                   )}
 
-                  <div className="space-y-5">
+                  <form
+                    onSubmit={handleSubmit}
+                    className="bg-white rounded-xl p-4 shadow-md border border-gray-200 space-y-3"
+                  >
+                    {/* Full Name */}
                     <div>
-                      <label htmlFor="fullName" className="block mb-2 font-semibold text-gray-900 text-base">
+                      <label htmlFor="fullName" className="block mb-0.5 font-semibold text-gray-900 text-xs">
                         Full Name *
                       </label>
                       <input
@@ -607,18 +618,38 @@ const CareerPage = () => {
                         id="fullName"
                         name="fullName"
                         value={formData.fullName}
-                        onChange={handleInputChange}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          // Only allow letters and spaces
+                          if (/^[A-Za-z\s]*$/.test(value)) {
+                            setFormData((p) => ({ ...p, fullName: value }));
+                          }
+                        }}
+                        pattern="^[A-Za-z\s]{2,}$"
+                        title="Enter a valid name (letters only, at least 2 characters)."
                         ref={firstFieldRef}
-                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-base"
-                        placeholder="Dr. John Smith"
+                        className={`w-full px-3 py-2 rounded-md border outline-none text-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 ${
+                          formData.fullName &&
+                          (formData.fullName.length < 2 ? 'border-red-400 bg-red-50' : 'border-gray-300')
+                        }`}
+                        placeholder="Name"
                         required
                       />
+                      {formData.fullName &&
+                        formData.fullName.length > 0 &&
+                        formData.fullName.length < 2 && (
+                          <p className="text-xs text-red-600 mt-0.5 flex items-center gap-1">
+                            <AlertCircle size={12} />
+                            Must be at least 2 letters
+                          </p>
+                        )}
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    {/* Email + Mobile */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       <div>
-                        <label htmlFor="email" className="block mb-2 font-semibold text-gray-900 text-base">
-                          Email Address *
+                        <label htmlFor="email" className="block mb-0.5 font-semibold text-gray-900 text-xs">
+                          Email *
                         </label>
                         <input
                           type="email"
@@ -626,15 +657,15 @@ const CareerPage = () => {
                           name="email"
                           value={formData.email}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-base"
-                          placeholder="john.smith@email.com"
+                          className="w-full px-3 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none text-sm"
+                          placeholder="Email"
                           required
                         />
                       </div>
 
                       <div>
-                        <label htmlFor="phone" className="block mb-2 font-semibold text-gray-900 text-base">
-                          Phone Number *
+                        <label htmlFor="phone" className="block mb-0.5 font-semibold text-gray-900 text-xs">
+                          Mobile Number *
                         </label>
                         <input
                           type="tel"
@@ -643,33 +674,32 @@ const CareerPage = () => {
                           inputMode="numeric"
                           maxLength={10}
                           pattern="^[6-9]\d{9}$"
-                          title="Please enter a valid 10-digit phone number starting with 6 to 9."
+                          title="Enter a valid 10-digit mobile number starting with 6–9."
                           value={formData.phone}
                           onChange={handleInputChange}
                           onBlur={() => setPhoneTouched(true)}
-                          className={`w-full px-4 py-3 rounded-xl border-2 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-base ${
-                            phoneTouched && !phoneValid ? 'border-red-400 bg-red-50' : 'border-gray-300'
+                          className={`w-full px-3 py-2 rounded-md border outline-none text-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 ${
+                            phoneTouched && !phoneValid
+                              ? 'border-red-400 bg-red-50'
+                              : 'border-gray-300'
                           }`}
-                          placeholder="9876543210"
+                          placeholder="Mobile Number"
                           required
                         />
                         {phoneTouched && !phoneValid && (
-                          <p className="text-xs text-red-600 mt-1 flex items-center gap-1">
+                          <p className="text-xs text-red-600 mt-0.5 flex items-center gap-1">
                             <AlertCircle size={12} />
-                            Enter a valid 10-digit Indian mobile number (starts with 6–9)
+                            Enter valid 10-digit number
                           </p>
                         )}
                       </div>
                     </div>
 
-                    <div className="relative mb-5">
-                      <label
-                        htmlFor="jobId"
-                        className="block mb-2 font-semibold text-gray-900 text-base"
-                      >
-                        Select Position *
+                    {/* Position */}
+                    <div>
+                      <label htmlFor="jobId" className="block mb-0.5 font-semibold text-gray-900 text-xs">
+                        Position *
                       </label>
-
                       <div className="relative">
                         <select
                           id="jobId"
@@ -677,12 +707,12 @@ const CareerPage = () => {
                           value={formData.jobId}
                           onChange={handleInputChange}
                           ref={jobSelectRef}
-                          className="appearance-none w-full px-4 py-3 pr-12 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-base disabled:opacity-60 disabled:bg-gray-100"
+                          className="appearance-none w-full px-3 py-2 pr-8 rounded-md border border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none text-sm"
                           required
                           disabled={jobsLoading || (!!jobsError && jobs.length === 0)}
                         >
                           <option value="" disabled>
-                            {jobsLoading ? "Loading positions..." : "Select a position"}
+                            {jobsLoading ? 'Loading...' : 'Select position'}
                           </option>
                           {jobs.map((job) => (
                             <option key={job._id} value={job._id}>
@@ -691,54 +721,18 @@ const CareerPage = () => {
                           ))}
                           <option value="other">Other / Not Listed</option>
                         </select>
-
-                        {/* Dropdown arrow */}
-                        <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-5 h-5"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={2}
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                          </svg>
+                        <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-500">
+                          ▼
                         </span>
                       </div>
                     </div>
 
-                    {/* If "Other" is selected */}
-                    {formData.jobId === "other" && (
-                      <div className="bg-teal-50 p-4 rounded-2xl border border-teal-200 mt-3">
-                        <label
-                          htmlFor="jobTitle"
-                          className="block mb-2 font-semibold text-gray-900 text-base"
-                        >
-                          Specify Your Desired Role *
-                        </label>
-                        <input
-                          type="text"
-                          id="jobTitle"
-                          name="jobTitle"
-                          value={formData.jobTitle}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 rounded-xl border-2 border-teal-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-base bg-white"
-                          placeholder="e.g., Senior Cardiac Surgeon"
-                          required
-                        />
-                      </div>
-                    )}
-
+                    {/* Resume Upload */}
                     <div>
-                      <label
-                        htmlFor="resumeUpload"
-                        className="block mb-2 font-semibold text-gray-900 text-base"
-                      >
-                        Upload Resume (PDF only) *
+                      <label htmlFor="resumeUpload" className="block mb-0.5 font-semibold text-gray-900 text-xs">
+                        Resume (PDF) *
                       </label>
-
-                      <div className="border-2 border-dashed border-gray-300 rounded-2xl p-6 text-center bg-gray-50 hover:bg-gray-100 transition-colors">
+                      <div className="border-2 border-dashed border-gray-300 rounded-lg p-3 text-center bg-gray-50 hover:bg-gray-100 transition">
                         <input
                           ref={fileInputRef}
                           type="file"
@@ -750,98 +744,82 @@ const CareerPage = () => {
                               setFormData((p) => ({ ...p, resume: null }));
                               return;
                             }
-
-                            // PDF-only validation (frontend)
-                            const isPdf =
-                              file.type === "application/pdf" || /\.pdf$/i.test(file.name);
-                            const maxSize = 5 * 1024 * 1024; // 5MB
-
+                            const isPdf = file.type === 'application/pdf' || /\.pdf$/i.test(file.name);
+                            const maxSize = 5 * 1024 * 1024;
                             if (!isPdf) {
-                              alert("Please upload PDF files only (.pdf).");
-                              e.target.value = "";
-                              setFormData((p) => ({ ...p, resume: null }));
+                              alert('Please upload PDF files only.');
+                              e.target.value = '';
                               return;
                             }
                             if (file.size > maxSize) {
-                              alert("File size must be 5MB or less.");
-                              e.target.value = "";
-                              setFormData((p) => ({ ...p, resume: null }));
+                              alert('File size must be 5MB or less.');
+                              e.target.value = '';
                               return;
                             }
-
                             setFormData((p) => ({ ...p, resume: file }));
                           }}
                           className="hidden"
-                          accept=".pdf,application/pdf" // restrict PDF in file picker
+                          accept=".pdf,application/pdf"
                           required
                         />
 
                         <label htmlFor="resumeUpload" className="cursor-pointer block">
-                          <div className="mx-auto w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mb-3">
-                            <Upload size={24} className="text-white" />
+                          <div className="mx-auto w-9 h-9 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg flex items-center justify-center mb-2">
+                            <Upload size={18} className="text-white" />
                           </div>
-
                           {formData.resume ? (
-                            <div className="space-y-2">
-                              <p className="text-teal-700 font-semibold text-base flex items-center justify-center gap-2">
-                                <CheckCircle size={16} />
-                                {formData.resume.name}
-                              </p>
-                              <p className="text-xs text-gray-500">Click to change file</p>
-                            </div>
+                            <p className="text-teal-700 font-semibold text-xs flex items-center justify-center gap-1">
+                              <CheckCircle size={12} />
+                              {formData.resume.name}
+                            </p>
                           ) : (
-                            <div className="space-y-2">
-                              <p className="text-gray-700 font-medium text-base">
-                                Drop your resume here or click to browse
-                              </p>
-                              <p className="text-xs text-gray-500">
-                                Supported format: <b>PDF only</b> • Max size: 5MB
-                              </p>
-                            </div>
+                            <p className="text-gray-700 font-medium text-xs">
+                              Click to upload PDF (max 5MB)
+                            </p>
                           )}
                         </label>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-end">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setFormData({
-                          fullName: '',
-                          email: '',
-                          phone: '',
-                          jobId: '',
-                          jobTitle: '',
-                          resume: null,
-                        });
-                        if (fileInputRef.current) fileInputRef.current.value = '';
-                        setFormStatus({ submitted: false, error: false, message: '' });
-                      }}
-                      className="px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-300 transition-all duration-300 text-base"
-                    >
-                      Clear Form
-                    </button>
-                    <button
-                      type="submit"
-                      disabled={loadingSubmit}
-                      className="px-8 py-3 bg-gradient-to-r from-teal-600 to-teal-500 text-white font-semibold rounded-xl shadow-lg hover:from-teal-700 hover:to-teal-600 transition-all duration-300 focus:ring-4 focus:ring-teal-200 disabled:opacity-70 disabled:cursor-not-allowed text-base flex items-center justify-center gap-2"
-                    >
-                      {loadingSubmit ? (
-                        <>
-                          <div className="animate-spin w-4 h-4 border-3 border-white border-t-transparent rounded-full"></div>
-                          Processing...
-                        </>
-                      ) : (
-                        <>
-                          Submit Application
-                          <ChevronRight size={18} />
-                        </>
-                      )}
-                    </button>
-                  </div>
-                </form>
+                    {/* Buttons */}
+                    <div className="mt-4 flex flex-col sm:flex-row gap-2 justify-end">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFormData({
+                            fullName: '',
+                            email: '',
+                            phone: '',
+                            jobId: '',
+                            jobTitle: '',
+                            resume: null,
+                          });
+                          if (fileInputRef.current) fileInputRef.current.value = '';
+                          setFormStatus({ submitted: false, error: false, message: '' });
+                        }}
+                        className="px-4 py-1.5 bg-gray-200 text-gray-700 font-semibold rounded-md hover:bg-gray-300 transition text-sm"
+                      >
+                        Clear
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={loadingSubmit}
+                        className="px-5 py-1.5 bg-gradient-to-r from-teal-600 to-teal-500 text-white font-semibold rounded-md shadow hover:from-teal-700 hover:to-teal-600 transition text-sm flex items-center justify-center gap-1"
+                      >
+                        {loadingSubmit ? (
+                          <>
+                            <div className="animate-spin w-3 h-3 border-2 border-white border-t-transparent rounded-full"></div>
+                            Processing...
+                          </>
+                        ) : (
+                          <>
+                            Submit <ChevronRight size={14} />
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </form>
+                </>
               )}
             </div>
           </div>

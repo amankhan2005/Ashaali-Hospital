@@ -78,8 +78,8 @@ const SahyadriHeader = () => {
       { name: "Cardiology", icon: <FaHeartbeat /> },
       { name: "Oncology", icon: <FaNotesMedical /> },
       { name: "ICU and Critical Care", icon: <FaHospitalAlt /> },
-       { name: "Endocrinology", icon: <FaUserMd /> },
-         { name: "Neurosurgery", icon: <FaBrain /> },
+      { name: "Endocrinology", icon: <FaUserMd /> },
+      { name: "Neurosurgery", icon: <FaBrain /> },
     ],
   ];
 
@@ -105,12 +105,12 @@ const SahyadriHeader = () => {
     ],
   ];
 
-  useEffect(()=>{
-if(!isMobileMenuOpen){
-  setIsSpecialtiesOpen(false)
-  setIsFacility(false)
-}
-  },[isMobileMenuOpen])
+  useEffect(() => {
+    if (!isMobileMenuOpen) {
+      setIsSpecialtiesOpen(false);
+      setIsFacility(false);
+    }
+  }, [isMobileMenuOpen]);
 
   return (
     <div className="w-full fixed top-0 z-50">
@@ -125,7 +125,8 @@ if(!isMobileMenuOpen){
                 href="tel:+91830321220"
                 className="text-red-600 font-semibold hover:underline"
               >
-+91-83032 12210              </a>
+                +91-83032 12210{" "}
+              </a>
               <a
                 href="tel:05223503390 "
                 className="hidden md:block text-red-600 font-semibold hover:underline"
@@ -134,7 +135,9 @@ if(!isMobileMenuOpen){
               </a>
             </div>
 
-            <div className="hidden   items-center justify-center gap-3">  /* hide in mobile */
+            <div className="hidden   items-center justify-center gap-3">
+              {" "}
+              /* hide in mobile */
               {/* Call */}
               {/* <a
                 href="tel:+917897934949"
@@ -142,7 +145,6 @@ if(!isMobileMenuOpen){
               >
                 <FaPhoneAlt className="text-white text-sm" />
               </a> */}
-
               {/* WhatsApp */}
               <a
                 href="https://wa.me/918303212210"
@@ -152,7 +154,6 @@ if(!isMobileMenuOpen){
               >
                 <FaWhatsapp className="text-white text-sm" />
               </a>
-
               {/* Mail */}
               <a
                 href="mailto:ashaalihospital@gmail.com"
@@ -160,7 +161,6 @@ if(!isMobileMenuOpen){
               >
                 <FaEnvelope className="text-white text-sm" />
               </a>
-
               {/* YouTube */}
               <a
                 href="www.youtube.com/@AshaaliHospital"
@@ -170,7 +170,6 @@ if(!isMobileMenuOpen){
               >
                 <FaYoutube className="text-white text-sm" />
               </a>
-
               {/* LinkedIn */}
               <a
                 href="https://www.linkedin.com/company/ashaali-hospital/"
@@ -180,7 +179,6 @@ if(!isMobileMenuOpen){
               >
                 <FaLinkedin className="text-white text-sm" />
               </a>
-
               {/* X insta */}
               <a
                 href="https://www.instagram.com/ashaalihospital"
@@ -190,7 +188,6 @@ if(!isMobileMenuOpen){
               >
                 <FaInstagram className="text-white text-sm" />
               </a>
-
               {/* Facebook */}
               <a
                 href="https://www.facebook.com/profile.php?id=61555497311285"
@@ -227,17 +224,24 @@ if(!isMobileMenuOpen){
                 href="tel:+91830321220"
                 className="text-red-600 font-semibold hover:underline"
               >
-                 +91-83032 12210
+                +91-83032 12210
               </a>
               <a
                 href="tel:05223503390 "
                 className="text-red-600 font-semibold hover:underline "
               >
-                 0522-3503390
+                0522-3503390
               </a>
             </div>
 
             <div className="flex items-center gap-4">
+              <Link
+                to="/careers"
+                className="inline-block bg-teal-500 text-white px-5 py-2 rounded-full font-semibold hover:bg-teal-600 transition-all duration-300"
+              >
+                Careers
+              </Link>
+
               {/* Emergency Contacts */}
               <div className="hidden md:flex gap-2">
                 {/* WhatsApp */}
@@ -326,140 +330,134 @@ if(!isMobileMenuOpen){
             </Link>
 
             {/* Desktop Navigation */}
-      <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8 text-[15px] font-medium text-gray-700">
-  {/* Home */}
-  <Link
-    to="/"
-    className="hover:text-teal-600 transition-colors cursor-pointer"
-  >
-    Home
-  </Link>
+            <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8 text-[15px] font-medium text-gray-700">
+              {/* Home */}
+              <Link
+                to="/"
+                className="hover:text-teal-600 transition-colors cursor-pointer"
+              >
+                Home
+              </Link>
 
-  {/* About */}
-  <div
-    className="relative"
-    onMouseEnter={() => setIsOpen(true)}
-    onMouseLeave={() => setIsOpen(false)}
-  >
-    <div className="flex items-center gap-1 hover:text-teal-600 cursor-pointer transition-colors">
-      <span>About</span>
-      <ChevronDown className="w-4 h-4" />
-    </div>
+              {/* About */}
+              <div
+                className="relative"
+                onMouseEnter={() => setIsOpen(true)}
+                onMouseLeave={() => setIsOpen(false)}
+              >
+                <div className="flex items-center gap-1 hover:text-teal-600 cursor-pointer transition-colors">
+                  <span>About</span>
+                  <ChevronDown className="w-4 h-4" />
+                </div>
 
-    {isOpen && (
-      <div className="absolute left-0 mt-0 w-52 bg-white border border-gray-200 shadow-lg rounded-md z-10">
-        <ul className="py-2 text-[15px] text-gray-700 font-medium">
-          <li className="px-4 py-2 hover:text-teal-600 transition-colors">
-            <Link to="/about/ashaali-hospitals">About Ashaali Hospital</Link>
-          </li>
-          <li className="px-4 py-2 hover:text-teal-600 transition-colors">
-            <Link to="/about/team">Find A Doctor</Link>
-          </li>
-        </ul>
-      </div>
-    )}
-  </div>
+                {isOpen && (
+                  <div className="absolute left-0 mt-0 w-52 bg-white border border-gray-200 shadow-lg rounded-md z-10">
+                    <ul className="py-2 text-[15px] text-gray-700 font-medium">
+                      <li className="px-4 py-2 hover:text-teal-600 transition-colors">
+                        <Link to="/about/ashaali-hospitals">
+                          About Ashaali Hospital
+                        </Link>
+                      </li>
+                      <li className="px-4 py-2 hover:text-teal-600 transition-colors">
+                        <Link to="/about/team">Find A Doctor</Link>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
 
-  {/* Specialties */}
-  <div
-    className="relative flex items-center gap-1 hover:text-teal-600 cursor-pointer transition-colors"
-    onMouseEnter={() => setIsSpecialtiesOpen(true)}
-    onMouseLeave={() => setIsSpecialtiesOpen(false)}
-  >
-    <span>Specialties</span>
-    <ChevronDown className="w-4 h-4" />
+              {/* Specialties */}
+              <div
+                className="relative flex items-center gap-1 hover:text-teal-600 cursor-pointer transition-colors"
+                onMouseEnter={() => setIsSpecialtiesOpen(true)}
+                onMouseLeave={() => setIsSpecialtiesOpen(false)}
+              >
+                <span>Specialties</span>
+                <ChevronDown className="w-4 h-4" />
 
-    {isSpecialtiesOpen && (
-      <div className="absolute top-full left-0 mt-0 bg-white shadow-2xl rounded-lg px-4 py-2 z-50 w-screen max-w-2xl border border-gray-100">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-          {specialties.map((column, columnIndex) => (
-            <div key={columnIndex} className="space-y-1">
-              {column.map((specialty, index) => (
-                <Link
-                  key={index}
-                  to={`/department/${specialty.name
-                    .toLowerCase()
-                    .replace(/\s+/g, "-")}`}
-                  className="flex items-center gap-2 text-[15px] text-gray-700 hover:text-teal-600 transition-colors py-1"
-                >
-                  <span className="text-teal-600 text-base">
-                    {specialty.icon}
-                  </span>
-                  <span>{specialty.name}</span>
-                </Link>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-    )}
-  </div>
+                {isSpecialtiesOpen && (
+                  <div className="absolute top-full left-0 mt-0 bg-white shadow-2xl rounded-lg px-4 py-2 z-50 w-screen max-w-2xl border border-gray-100">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                      {specialties.map((column, columnIndex) => (
+                        <div key={columnIndex} className="space-y-1">
+                          {column.map((specialty, index) => (
+                            <Link
+                              key={index}
+                              to={`/department/${specialty.name
+                                .toLowerCase()
+                                .replace(/\s+/g, "-")}`}
+                              className="flex items-center gap-2 text-[15px] text-gray-700 hover:text-teal-600 transition-colors py-1"
+                            >
+                              <span className="text-teal-600 text-base">
+                                {specialty.icon}
+                              </span>
+                              <span>{specialty.name}</span>
+                            </Link>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
 
-  {/* Facility */}
-  <div
-    className="relative flex items-center gap-1 hover:text-teal-600 cursor-pointer transition-colors"
-    onMouseEnter={() => setIsFacility(true)}
-    onMouseLeave={() => setIsFacility(false)}
-  >
-    <span>Facility</span>
-    <ChevronDown className="w-4 h-4" />
+              {/* Facility */}
+              <div
+                className="relative flex items-center gap-1 hover:text-teal-600 cursor-pointer transition-colors"
+                onMouseEnter={() => setIsFacility(true)}
+                onMouseLeave={() => setIsFacility(false)}
+              >
+                <span>Facility</span>
+                <ChevronDown className="w-4 h-4" />
 
-    {isFacilityOpen && (
-      <div className="absolute top-full left-0 mt-0 bg-white shadow-2xl border border-gray-100 rounded-lg px-3 py-2 z-50 w-screen max-w-[22rem]">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          {facilities.map((column, columnIndex) => (
-            <div key={columnIndex} className="space-y-1">
-              {column.map((facility, index) => (
-                <Link
-                  key={index}
-                  to={`/facility/${facility.name
-                    .toLowerCase()
-                    .replace(/\s+/g, "-")}`}
-                  className="flex items-center gap-2 text-[15px] text-gray-700 hover:text-teal-600 transition-colors py-1"
-                >
-                  <span className="text-teal-600 text-base">
-                    {facility.icon}
-                  </span>
-                  <span>{facility.name}</span>
-                </Link>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-    )}
-  </div>
+                {isFacilityOpen && (
+                  <div className="absolute top-full left-0 mt-0 bg-white shadow-2xl border border-gray-100 rounded-lg px-3 py-2 z-50 w-screen max-w-[22rem]">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {facilities.map((column, columnIndex) => (
+                        <div key={columnIndex} className="space-y-1">
+                          {column.map((facility, index) => (
+                            <Link
+                              key={index}
+                              to={`/facility/${facility.name
+                                .toLowerCase()
+                                .replace(/\s+/g, "-")}`}
+                              className="flex items-center gap-2 text-[15px] text-gray-700 hover:text-teal-600 transition-colors py-1"
+                            >
+                              <span className="text-teal-600 text-base">
+                                {facility.icon}
+                              </span>
+                              <span>{facility.name}</span>
+                            </Link>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
 
-  {/* Other Links */}
-  <Link
-    to="/gallery"
-    className="hover:text-teal-600 cursor-pointer transition-colors"
-  >
-    Gallery
-  </Link>
+              {/* Other Links */}
+              <Link
+                to="/gallery"
+                className="hover:text-teal-600 cursor-pointer transition-colors"
+              >
+                Gallery
+              </Link>
 
-  <Link
-    to="/blogs"
-    className="hover:text-teal-600 cursor-pointer transition-colors"
-  >
-    Blogs
-  </Link>
+              <Link
+                to="/blogs"
+                className="hover:text-teal-600 cursor-pointer transition-colors"
+              >
+                Blogs
+              </Link>
 
-  <Link
-    to="/contact"
-    className="hover:text-teal-600 cursor-pointer transition-colors"
-  >
-    Contact Us
-  </Link>
-
-  <Link
-    to="/careers"
-    className="hover:text-teal-600 cursor-pointer transition-colors"
-  >
-    Careers
-  </Link>
-</nav>
-
+              <Link
+                to="/contact"
+                className="hover:text-teal-600 cursor-pointer transition-colors"
+              >
+                Contact Us
+              </Link>
+            </nav>
 
             <Link
               to="/book-appointment"

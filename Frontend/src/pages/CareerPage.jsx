@@ -1,4 +1,4 @@
- import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Users,
   Trophy,
@@ -15,6 +15,7 @@ import {
   Stethoscope,
   Building2,
   CalendarCheck,
+  X,
 } from 'lucide-react';
 import axios from 'axios';
 
@@ -42,6 +43,9 @@ const CareerPage = () => {
   const formSectionRef = useRef(null);
   const jobSelectRef = useRef(null);
   const firstFieldRef = useRef(null);
+
+  // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // For phone validation UI
   const [phoneTouched, setPhoneTouched] = useState(false);
@@ -104,7 +108,7 @@ const CareerPage = () => {
     if (selected) {
       setFormData(p => ({ ...p, jobId: String(selected._id), jobTitle: selected.title }));
       setTimeout(() => {
-        formSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setIsModalOpen(true);
         jobSelectRef.current?.focus();
       }, 0);
     }
@@ -138,13 +142,13 @@ const CareerPage = () => {
 
   // ---------- HELPERS ----------
   const scrollToForm = () => {
-    formSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setIsModalOpen(true);
   };
 
   const handleApply = (job) => {
     setFormData(p => ({ ...p, jobId: String(job._id), jobTitle: job.title }));
     setTimeout(() => {
-      scrollToForm();
+      setIsModalOpen(true);
       jobSelectRef.current?.focus();
     }, 0);
   };
@@ -209,7 +213,6 @@ const CareerPage = () => {
         error: true,
         message: 'Please enter a valid 10-digit Indian mobile number starting with 6–9.',
       });
-      scrollToForm();
       return;
     }
 
@@ -266,151 +269,49 @@ const CareerPage = () => {
     }
   };
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setFormStatus({ submitted: false, error: false, message: '' });
+  };
+
   // ---------- UI ----------
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-teal-600 via-teal-500 to-cyan-500 text-white overflow-hidden">
+      <div className="relative bg-gradient-to-br from-teal-600 via-teal-500 to-cyan-500 text-white overflow-hidden" style={{ height: '60vh' }}>
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-20"></div>
         
-        <div className="container mx-auto px-4 py-24 md:py-32 relative">
-          <div className="max-w-4xl mx-auto text-center">
+        <div className="container mx-auto px-4 py-12 md:py-12 relative h-full flex items-center">
+          <div className="max-w-7xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
               <Heart size={18} className="text-white" />
               <span className="text-sm font-medium">Join Our Mission of Healthcare Excellence</span>
             </div>
             
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
               Shape the Future of
               <span className="block bg-gradient-to-r from-cyan-200 to-white bg-clip-text text-transparent">
                 Medical Excellence
               </span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-teal-50 mb-10 leading-relaxed max-w-3xl mx-auto">
+            <p className="text-xl md:text-xl text-teal-50 mb-10 leading-relaxed max-w-4xl mx-auto">
               Join Ashaali Hospital's team of distinguished healthcare professionals delivering world-class care in Orthopedics, Ophthalmology, Gynecology, and Neurosurgery
             </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a
-                href="#application-form"
-                className="group bg-white text-teal-600 font-semibold py-4 px-8 rounded-xl hover:bg-teal-50 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 inline-flex items-center gap-2"
-              >
-                Apply Now
-                <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a
-                href="#open-positions"
-                className="bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white font-semibold py-4 px-8 rounded-xl hover:bg-white/20 transition-all duration-300 inline-flex items-center gap-2"
-              >
-                View Openings
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="rgb(248, 250, 252)"/>
-          </svg>
-        </div>
-      </div>
-
-      {/* Why Join Us */}
-      <div className="py-20 md:py-28">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-teal-100 text-teal-700 px-4 py-2 rounded-full mb-4 font-medium">
-              <Award size={18} />
-              Why Ashaali Hospital
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-              Build Your Career With Us
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Experience a workplace that values innovation, collaboration, and continuous growth in patient care excellence
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-teal-200 hover:-translate-y-1">
-              <div className="w-14 h-14 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Stethoscope size={28} className="text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Advanced Medical Technology</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Work with cutting-edge equipment and innovative treatment protocols that set industry standards for patient outcomes and care quality.
-              </p>
-            </div>
-
-            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-teal-200 hover:-translate-y-1">
-              <div className="w-14 h-14 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Users size={28} className="text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Collaborative Excellence</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Join a multidisciplinary team of renowned specialists fostering a culture of knowledge sharing and collective growth.
-              </p>
-            </div>
-
-            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-teal-200 hover:-translate-y-1">
-              <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <GraduationCap size={28} className="text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Continuous Learning</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Access to international conferences, specialized training programs, and mentorship from industry leaders to advance your expertise.
-              </p>
-            </div>
-
-            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-teal-200 hover:-translate-y-1">
-              <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Trophy size={28} className="text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Recognition & Rewards</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Competitive compensation packages, performance incentives, and comprehensive benefits recognizing your dedication and contributions.
-              </p>
-            </div>
-
-            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-teal-200 hover:-translate-y-1">
-              <div className="w-14 h-14 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Building2 size={28} className="text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">State-of-the-Art Facilities</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Practice medicine in modern, patient-centered facilities designed for optimal clinical efficiency and comfort.
-              </p>
-            </div>
-
-            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-teal-200 hover:-translate-y-1">
-              <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <CalendarCheck size={28} className="text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Work-Life Balance</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Flexible scheduling, wellness programs, and supportive policies ensuring you thrive both professionally and personally.
-              </p>
-            </div>
           </div>
         </div>
       </div>
 
-      {/* Open Positions */}
-      <div className="bg-white py-20" id="open-positions">
+      {/* Open Positions - Now right after Hero */}
+      <div className="bg-white py-12" id="open-positions">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-teal-100 text-teal-700 px-4 py-2 rounded-full mb-4 font-medium">
-              <Briefcase size={18} />
-              Current Opportunities
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">Open Positions</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+             <p className="text-2xl text-gray-800 max-w-4xl mx-auto">
               Explore exciting career opportunities across various specializations
             </p>
           </div>
 
-          <div className="max-w-6xl mx-auto mb-8">
+          <div className="max-w-6xl mx-auto mb-10">
             <div className="bg-gray-50 rounded-2xl p-6 border border-gray-200">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <input
@@ -473,41 +374,43 @@ const CareerPage = () => {
               ) : (
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   {filteredJobs.map((job) => (
-                    <div key={job._id} className="group bg-white border-2 border-gray-200 rounded-2xl p-6 hover:border-teal-300 hover:shadow-xl transition-all duration-300">
-                      <div className="flex items-start justify-between gap-4 mb-4">
-                        <div>
-                          <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-teal-600 transition-colors">
-                            {job.title}
-                          </h3>
-                          <div className="flex flex-wrap gap-3 text-sm text-gray-600">
-                            {job.department && (
-                              <span className="inline-flex items-center gap-1.5 bg-teal-50 text-teal-700 px-3 py-1 rounded-lg font-medium">
-                                <Briefcase size={14} /> {job.department}
-                              </span>
-                            )}
-                            {job.location && (
-                              <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 px-3 py-1 rounded-lg font-medium">
-                                <MapPin size={14} /> {job.location}
-                              </span>
-                            )}
-                            {job.type && (
-                              <span className="inline-flex items-center gap-1.5 bg-purple-50 text-purple-700 px-3 py-1 rounded-lg font-medium">
-                                <Clock size={14} /> {job.type}
-                              </span>
-                            )}
+                    <div key={job._id} className="group bg-white border-2 border-gray-200 rounded-2xl p-6 hover:border-teal-300 hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+                      <div className="flex-grow">
+                        <div className="flex items-start justify-between gap-4 mb-4">
+                          <div>
+                            <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-teal-600 transition-colors">
+                              {job.title}
+                            </h3>
+                            <div className="flex flex-wrap gap-3 text-sm text-gray-600">
+                              {job.department && (
+                                <span className="inline-flex items-center gap-1.5 bg-teal-50 text-teal-700 px-3 py-1 rounded-lg font-medium">
+                                  <Briefcase size={14} /> {job.department}
+                                </span>
+                              )}
+                              {job.location && (
+                                <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 px-3 py-1 rounded-lg font-medium">
+                                  <MapPin size={14} /> {job.location}
+                                </span>
+                              )}
+                              {job.type && (
+                                <span className="inline-flex items-center gap-1.5 bg-purple-50 text-purple-700 px-3 py-1 rounded-lg font-medium">
+                                  <Clock size={14} /> {job.type}
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
+                        
+                        {job.description && (
+                          <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+                            {job.description}
+                          </p>
+                        )}
                       </div>
-                      
-                      {job.description && (
-                        <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
-                          {job.description}
-                        </p>
-                      )}
                       
                       <button
                         onClick={() => handleApply(job)}
-                        className="w-full bg-gradient-to-r from-teal-600 to-teal-500 text-white font-semibold py-3 px-6 rounded-xl hover:from-teal-700 hover:to-teal-600 transition-all duration-300 inline-flex items-center justify-center gap-2 group-hover:shadow-lg"
+                        className="mt-auto w-full bg-gradient-to-r from-teal-600 to-teal-500 text-white font-semibold py-3 px-6 rounded-xl hover:from-teal-700 hover:to-teal-600 transition-all duration-300 inline-flex items-center justify-center gap-2 group-hover:shadow-lg"
                       >
                         Apply for this Position
                         <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -521,345 +424,82 @@ const CareerPage = () => {
         </div>
       </div>
 
-      {/* Application Form */}
-      <div
-        className="py-20 bg-gradient-to-b from-white to-gray-50"
-        id="application-form"
-        ref={formSectionRef}
-      >
+      {/* Why Join Us - Now after Job Roles */}
+      <div className="py-12 md:py-12 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 bg-teal-100 text-teal-700 px-4 py-2 rounded-full mb-4 font-medium">
-                <Upload size={18} />
-                Submit Your Application
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-teal-100 text-teal-700 px-4 py-2 rounded-full mb-4 font-medium">
+              <Award size={18} />
+              Why Ashaali Hospital
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+              Build Your Career With Us
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Experience a workplace that values innovation, collaboration, and continuous growth in patient care excellence
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-teal-200 hover:-translate-y-1 flex flex-col h-full">
+              <div className="w-14 h-14 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <Stethoscope size={28} className="text-white" />
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-                Start Your Journey With Us
-              </h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Take the first step towards an exceptional career in healthcare excellence
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Advanced Medical Technology</h3>
+              <p className="text-gray-600 leading-relaxed flex-grow">
+                Work with cutting-edge equipment and innovative treatment protocols that set industry standards for patient outcomes and care quality.
               </p>
             </div>
 
-            {formStatus.submitted ? (
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-3xl p-12 text-center shadow-xl">
-                <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <CheckCircle size={48} className="text-white" />
-                </div>
-                <h3 className="text-3xl font-bold mb-4 text-gray-900">Application Submitted Successfully!</h3>
-                <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-                  Thank you for your interest in joining Ashaali Hospital. Our recruitment team will carefully review your application and contact you within 5-7 business days.
-                </p>
-                <button
-                  onClick={() => setFormStatus({ submitted: false, error: false, message: '' })}
-                  className="bg-gradient-to-r from-green-500 to-emerald-500 text-white font-semibold px-8 py-4 rounded-xl hover:from-green-600 hover:to-emerald-600 transition-all duration-300 shadow-lg hover:shadow-xl"
-                >
-                  Submit Another Application
-                </button>
+            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-teal-200 hover:-translate-y-1 flex flex-col h-full">
+              <div className="w-14 h-14 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <Users size={28} className="text-white" />
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl border border-gray-200">
-                {formStatus.error && (
-                  <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-6 mb-8 flex items-start gap-4">
-                    <AlertCircle size={24} className="text-red-500 flex-shrink-0 mt-1" />
-                    <div>
-                      <h4 className="font-semibold text-red-900 mb-1">Application Error</h4>
-                      <p className="text-red-700">{formStatus.message}</p>
-                    </div>
-                  </div>
-                )}
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Collaborative Excellence</h3>
+              <p className="text-gray-600 leading-relaxed flex-grow">
+                Join a multidisciplinary team of renowned specialists fostering a culture of knowledge sharing and collective growth.
+              </p>
+            </div>
 
-                <div className="space-y-6">
-                  <div>
-                    <label htmlFor="fullName" className="block mb-2 font-semibold text-gray-900 text-lg">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="fullName"
-                      name="fullName"
-                      value={formData.fullName}
-                      onChange={handleInputChange}
-                      ref={firstFieldRef}
-                      className="w-full px-5 py-4 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-lg"
-                      placeholder="Dr. John Smith"
-                      required
-                    />
-                  </div>
+            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-teal-200 hover:-translate-y-1 flex flex-col h-full">
+              <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <GraduationCap size={28} className="text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Continuous Learning</h3>
+              <p className="text-gray-600 leading-relaxed flex-grow">
+                Access to international conferences, specialized training programs, and mentorship from industry leaders to advance your expertise.
+              </p>
+            </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="email" className="block mb-2 font-semibold text-gray-900 text-lg">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        className="w-full px-5 py-4 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-lg"
-                        placeholder="john.smith@email.com"
-                        required
-                      />
-                    </div>
+            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-teal-200 hover:-translate-y-1 flex flex-col h-full">
+              <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <Trophy size={28} className="text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Recognition & Rewards</h3>
+              <p className="text-gray-600 leading-relaxed flex-grow">
+                Competitive compensation packages, performance incentives, and comprehensive benefits recognizing your dedication and contributions.
+              </p>
+            </div>
 
-                    <div>
-                      <label htmlFor="phone" className="block mb-2 font-semibold text-gray-900 text-lg">
-                        Phone Number *
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        inputMode="numeric"
-                        maxLength={10}
-                        pattern="^[6-9]\d{9}$"
-                        title="Please enter a valid 10-digit phone number starting with 6 to 9."
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        onBlur={() => setPhoneTouched(true)}
-                        className={`w-full px-5 py-4 rounded-xl border-2 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-lg ${
-                          phoneTouched && !phoneValid ? 'border-red-400 bg-red-50' : 'border-gray-300'
-                        }`}
-                        placeholder="9876543210"
-                        required
-                      />
-                      {phoneTouched && !phoneValid && (
-                        <p className="text-sm text-red-600 mt-2 flex items-center gap-1">
-                          <AlertCircle size={14} />
-                          Enter a valid 10-digit Indian mobile number (starts with 6–9)
-                        </p>
-                      )}
-                    </div>
-                  </div>
+            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-teal-200 hover:-translate-y-1 flex flex-col h-full">
+              <div className="w-14 h-14 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <Building2 size={28} className="text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">State-of-the-Art Facilities</h3>
+              <p className="text-gray-600 leading-relaxed flex-grow">
+                Practice medicine in modern, patient-centered facilities designed for optimal clinical efficiency and comfort.
+              </p>
+            </div>
 
-   <div className="relative mb-6">
-  <label
-    htmlFor="jobId"
-    className="block mb-2 font-semibold text-gray-900 text-lg"
-  >
-    Select Position *
-  </label>
-
-  <div className="relative">
-    <select
-      id="jobId"
-      name="jobId"
-      value={formData.jobId}
-      onChange={handleInputChange}
-      ref={jobSelectRef}
-      className="appearance-none w-full px-5 py-4 pr-14 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-lg disabled:opacity-60 disabled:bg-gray-100"
-      required
-      disabled={jobsLoading || (!!jobsError && jobs.length === 0)}
-    >
-      <option value="" disabled>
-        {jobsLoading ? "Loading positions..." : "Select a position"}
-      </option>
-      {jobs.map((job) => (
-        <option key={job._id} value={job._id}>
-          {job.title}
-        </option>
-      ))}
-      <option value="other">Other / Not Listed</option>
-    </select>
-
-    {/* Dropdown arrow */}
-    <span className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-gray-500">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="w-5 h-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-      </svg>
-    </span>
-  </div>
-</div>
-
-{/* If “Other” is selected */}
-{formData.jobId === "other" && (
-  <div className="bg-teal-50 p-6 rounded-2xl border border-teal-200 mt-4">
-    <label
-      htmlFor="jobTitle"
-      className="block mb-2 font-semibold text-gray-900 text-lg"
-    >
-      Specify Your Desired Role *
-    </label>
-    <input
-      type="text"
-      id="jobTitle"
-      name="jobTitle"
-      value={formData.jobTitle}
-      onChange={handleInputChange}
-      className="w-full px-5 py-4 rounded-xl border-2 border-teal-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-lg bg-white"
-      placeholder="e.g., Senior Cardiac Surgeon"
-      required
-    />
-  </div>
-)}
-
-
-                  {/* <div>
-                    <label htmlFor="resumeUpload" className="block mb-2 font-semibold text-gray-900 text-lg">
-                      Upload Resume / CV *
-                    </label>
-                    <div className="border-3 border-dashed border-gray-300 rounded-2xl p-10 text-center bg-gray-50 hover:bg-gray-100 transition-colors">
-                      <input
-                        ref={fileInputRef}
-                        type="file"
-                        id="resumeUpload"
-                        name="resume"
-                        onChange={handleFileChange}
-                        className="hidden"
-                        accept=".pdf,.doc,.docx"
-                        required
-                      />
-                      <label htmlFor="resumeUpload" className="cursor-pointer block">
-                        <div className="mx-auto w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                          <Upload size={28} className="text-white" />
-                        </div>
-                        {formData.resume ? (
-                          <div className="space-y-2">
-                            <p className="text-teal-700 font-semibold text-lg flex items-center justify-center gap-2">
-                              <CheckCircle size={20} />
-                              {formData.resume.name}
-                            </p>
-                            <p className="text-sm text-gray-500">Click to change file</p>
-                          </div>
-                        ) : (
-                          <div className="space-y-2">
-                            <p className="text-gray-700 font-medium text-lg">
-                              Drop your resume here or click to browse
-                            </p>
-                            <p className="text-sm text-gray-500">
-                              Supported formats: PDF, DOC, DOCX • Maximum size: 5MB
-                            </p>
-                          </div>
-                        )}
-                      </label>
-                    </div>
-                  </div> */}
-
-<div>
-  <label
-    htmlFor="resumeUpload"
-    className="block mb-2 font-semibold text-gray-900 text-lg"
-  >
-    Upload Resume (PDF only) *
-  </label>
-
-  <div className="border-2 border-dashed border-gray-300 rounded-2xl p-10 text-center bg-gray-50 hover:bg-gray-100 transition-colors">
-    <input
-      ref={fileInputRef}
-      type="file"
-      id="resumeUpload"
-      name="resume"
-      onChange={(e) => {
-        const file = e.target.files?.[0];
-        if (!file) {
-          setFormData((p) => ({ ...p, resume: null }));
-          return;
-        }
-
-        // ✅ PDF-only validation (frontend)
-        const isPdf =
-          file.type === "application/pdf" || /\.pdf$/i.test(file.name);
-        const maxSize = 5 * 1024 * 1024; // 5MB
-
-        if (!isPdf) {
-          alert("Please upload PDF files only (.pdf).");
-          e.target.value = "";
-          setFormData((p) => ({ ...p, resume: null }));
-          return;
-        }
-        if (file.size > maxSize) {
-          alert("File size must be 5MB or less.");
-          e.target.value = "";
-          setFormData((p) => ({ ...p, resume: null }));
-          return;
-        }
-
-        setFormData((p) => ({ ...p, resume: file }));
-      }}
-      className="hidden"
-      accept=".pdf,application/pdf" // ✅ restrict PDF in file picker
-      required
-    />
-
-    <label htmlFor="resumeUpload" className="cursor-pointer block">
-      <div className="mx-auto w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mb-4">
-        <Upload size={28} className="text-white" />
-      </div>
-
-      {formData.resume ? (
-        <div className="space-y-2">
-          <p className="text-teal-700 font-semibold text-lg flex items-center justify-center gap-2">
-            <CheckCircle size={20} />
-            {formData.resume.name}
-          </p>
-          <p className="text-sm text-gray-500">Click to change file</p>
-        </div>
-      ) : (
-        <div className="space-y-2">
-          <p className="text-gray-700 font-medium text-lg">
-            Drop your resume here or click to browse
-          </p>
-          <p className="text-sm text-gray-500">
-            Supported format: <b>PDF only</b> • Max size: 5MB
-          </p>
-        </div>
-      )}
-    </label>
-  </div>
-</div>
-
-
-                </div>
-
-                <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-end">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setFormData({
-                        fullName: '',
-                        email: '',
-                        phone: '',
-                        jobId: '',
-                        jobTitle: '',
-                        resume: null,
-                      });
-                      if (fileInputRef.current) fileInputRef.current.value = '';
-                      setFormStatus({ submitted: false, error: false, message: '' });
-                    }}
-                    className="px-8 py-4 bg-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-300 transition-all duration-300 text-lg"
-                  >
-                    Clear Form
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={loadingSubmit}
-                    className="px-10 py-4 bg-gradient-to-r from-teal-600 to-teal-500 text-white font-semibold rounded-xl shadow-lg hover:from-teal-700 hover:to-teal-600 transition-all duration-300 focus:ring-4 focus:ring-teal-200 disabled:opacity-70 disabled:cursor-not-allowed text-lg flex items-center justify-center gap-2"
-                  >
-                    {loadingSubmit ? (
-                      <>
-                        <div className="animate-spin w-5 h-5 border-3 border-white border-t-transparent rounded-full"></div>
-                        Processing Application...
-                      </>
-                    ) : (
-                      <>
-                        Submit Application
-                        <ChevronRight size={20} />
-                      </>
-                    )}
-                  </button>
-                </div>
-              </form>
-            )}
+            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-teal-200 hover:-translate-y-1 flex flex-col h-full">
+              <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <CalendarCheck size={28} className="text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Work-Life Balance</h3>
+              <p className="text-gray-600 leading-relaxed flex-grow">
+                Flexible scheduling, wellness programs, and supportive policies ensuring you thrive both professionally and personally.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -877,13 +517,13 @@ const CareerPage = () => {
               We're always seeking exceptional healthcare professionals to join our growing team. Share your expertise with us, and we'll keep your profile for future opportunities that match your specialization.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="mailto:ashaalihospital@gmail.com"
+              <button
+                onClick={() => setIsModalOpen(true)}
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-teal-700 font-semibold rounded-xl shadow-xl hover:bg-teal-50 transition-all duration-300 hover:scale-105 text-lg"
               >
                 <Heart size={20} />
                 Contact HR Department
-              </a>
+              </button>
               <a
                 href="tel:+918303212210"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 text-lg"
@@ -894,6 +534,322 @@ const CareerPage = () => {
           </div>
         </div>
       </div>
+
+      {/* Application Form Modal */}
+      {isModalOpen && (
+        <div 
+          className="fixed inset-0 z-[11000] flex items-center justify-center p-4"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) closeModal();
+          }}
+        >
+          {/* Light overlay background */}
+          <div className="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
+          
+          {/* Modal content - Made smaller */}
+          <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            {/* Close button */}
+            <button
+              onClick={closeModal}
+              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+            >
+              <X size={20} className="text-gray-600" />
+            </button>
+            
+            <div className="p-6 md:p-8">
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center gap-2 bg-teal-100 text-teal-700 px-4 py-2 rounded-full mb-4 font-medium">
+                  <Upload size={18} />
+                  Submit Your Application
+                </div>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+                  Start Your Journey With Us
+                </h2>
+                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                  Take the first step towards an exceptional career in healthcare excellence
+                </p>
+              </div>
+
+              {formStatus.submitted ? (
+                <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-3xl p-8 text-center shadow-xl">
+                  <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle size={36} className="text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3 text-gray-900">Application Submitted Successfully!</h3>
+                  <p className="text-base text-gray-600 mb-6 max-w-2xl mx-auto leading-relaxed">
+                    Thank you for your interest in joining Ashaali Hospital. Our recruitment team will carefully review your application and contact you within 5-7 business days.
+                  </p>
+                  <button
+                    onClick={() => {
+                      setFormStatus({ submitted: false, error: false, message: '' });
+                    }}
+                    className="bg-gradient-to-r from-green-500 to-emerald-500 text-white font-semibold px-6 py-3 rounded-xl hover:from-green-600 hover:to-emerald-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
+                    Submit Another Application
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="bg-white rounded-3xl p-6 md:p-8 shadow-2xl border border-gray-200">
+                  {formStatus.error && (
+                    <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-4 mb-6 flex items-start gap-3">
+                      <AlertCircle size={20} className="text-red-500 flex-shrink-0 mt-1" />
+                      <div>
+                        <h4 className="font-semibold text-red-900 mb-1">Application Error</h4>
+                        <p className="text-red-700 text-sm">{formStatus.message}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="space-y-5">
+                    <div>
+                      <label htmlFor="fullName" className="block mb-2 font-semibold text-gray-900 text-base">
+                        Full Name *
+                      </label>
+                      <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleInputChange}
+                        ref={firstFieldRef}
+                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-base"
+                        placeholder="Dr. John Smith"
+                        required
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                      <div>
+                        <label htmlFor="email" className="block mb-2 font-semibold text-gray-900 text-base">
+                          Email Address *
+                        </label>
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-base"
+                          placeholder="john.smith@email.com"
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label htmlFor="phone" className="block mb-2 font-semibold text-gray-900 text-base">
+                          Phone Number *
+                        </label>
+                        <input
+                          type="tel"
+                          id="phone"
+                          name="phone"
+                          inputMode="numeric"
+                          maxLength={10}
+                          pattern="^[6-9]\d{9}$"
+                          title="Please enter a valid 10-digit phone number starting with 6 to 9."
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          onBlur={() => setPhoneTouched(true)}
+                          className={`w-full px-4 py-3 rounded-xl border-2 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-base ${
+                            phoneTouched && !phoneValid ? 'border-red-400 bg-red-50' : 'border-gray-300'
+                          }`}
+                          placeholder="9876543210"
+                          required
+                        />
+                        {phoneTouched && !phoneValid && (
+                          <p className="text-xs text-red-600 mt-1 flex items-center gap-1">
+                            <AlertCircle size={12} />
+                            Enter a valid 10-digit Indian mobile number (starts with 6–9)
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="relative mb-5">
+                      <label
+                        htmlFor="jobId"
+                        className="block mb-2 font-semibold text-gray-900 text-base"
+                      >
+                        Select Position *
+                      </label>
+
+                      <div className="relative">
+                        <select
+                          id="jobId"
+                          name="jobId"
+                          value={formData.jobId}
+                          onChange={handleInputChange}
+                          ref={jobSelectRef}
+                          className="appearance-none w-full px-4 py-3 pr-12 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-base disabled:opacity-60 disabled:bg-gray-100"
+                          required
+                          disabled={jobsLoading || (!!jobsError && jobs.length === 0)}
+                        >
+                          <option value="" disabled>
+                            {jobsLoading ? "Loading positions..." : "Select a position"}
+                          </option>
+                          {jobs.map((job) => (
+                            <option key={job._id} value={job._id}>
+                              {job.title}
+                            </option>
+                          ))}
+                          <option value="other">Other / Not Listed</option>
+                        </select>
+
+                        {/* Dropdown arrow */}
+                        <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-5 h-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* If "Other" is selected */}
+                    {formData.jobId === "other" && (
+                      <div className="bg-teal-50 p-4 rounded-2xl border border-teal-200 mt-3">
+                        <label
+                          htmlFor="jobTitle"
+                          className="block mb-2 font-semibold text-gray-900 text-base"
+                        >
+                          Specify Your Desired Role *
+                        </label>
+                        <input
+                          type="text"
+                          id="jobTitle"
+                          name="jobTitle"
+                          value={formData.jobTitle}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-3 rounded-xl border-2 border-teal-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-base bg-white"
+                          placeholder="e.g., Senior Cardiac Surgeon"
+                          required
+                        />
+                      </div>
+                    )}
+
+                    <div>
+                      <label
+                        htmlFor="resumeUpload"
+                        className="block mb-2 font-semibold text-gray-900 text-base"
+                      >
+                        Upload Resume (PDF only) *
+                      </label>
+
+                      <div className="border-2 border-dashed border-gray-300 rounded-2xl p-6 text-center bg-gray-50 hover:bg-gray-100 transition-colors">
+                        <input
+                          ref={fileInputRef}
+                          type="file"
+                          id="resumeUpload"
+                          name="resume"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (!file) {
+                              setFormData((p) => ({ ...p, resume: null }));
+                              return;
+                            }
+
+                            // PDF-only validation (frontend)
+                            const isPdf =
+                              file.type === "application/pdf" || /\.pdf$/i.test(file.name);
+                            const maxSize = 5 * 1024 * 1024; // 5MB
+
+                            if (!isPdf) {
+                              alert("Please upload PDF files only (.pdf).");
+                              e.target.value = "";
+                              setFormData((p) => ({ ...p, resume: null }));
+                              return;
+                            }
+                            if (file.size > maxSize) {
+                              alert("File size must be 5MB or less.");
+                              e.target.value = "";
+                              setFormData((p) => ({ ...p, resume: null }));
+                              return;
+                            }
+
+                            setFormData((p) => ({ ...p, resume: file }));
+                          }}
+                          className="hidden"
+                          accept=".pdf,application/pdf" // restrict PDF in file picker
+                          required
+                        />
+
+                        <label htmlFor="resumeUpload" className="cursor-pointer block">
+                          <div className="mx-auto w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mb-3">
+                            <Upload size={24} className="text-white" />
+                          </div>
+
+                          {formData.resume ? (
+                            <div className="space-y-2">
+                              <p className="text-teal-700 font-semibold text-base flex items-center justify-center gap-2">
+                                <CheckCircle size={16} />
+                                {formData.resume.name}
+                              </p>
+                              <p className="text-xs text-gray-500">Click to change file</p>
+                            </div>
+                          ) : (
+                            <div className="space-y-2">
+                              <p className="text-gray-700 font-medium text-base">
+                                Drop your resume here or click to browse
+                              </p>
+                              <p className="text-xs text-gray-500">
+                                Supported format: <b>PDF only</b> • Max size: 5MB
+                              </p>
+                            </div>
+                          )}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-end">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setFormData({
+                          fullName: '',
+                          email: '',
+                          phone: '',
+                          jobId: '',
+                          jobTitle: '',
+                          resume: null,
+                        });
+                        if (fileInputRef.current) fileInputRef.current.value = '';
+                        setFormStatus({ submitted: false, error: false, message: '' });
+                      }}
+                      className="px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-300 transition-all duration-300 text-base"
+                    >
+                      Clear Form
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={loadingSubmit}
+                      className="px-8 py-3 bg-gradient-to-r from-teal-600 to-teal-500 text-white font-semibold rounded-xl shadow-lg hover:from-teal-700 hover:to-teal-600 transition-all duration-300 focus:ring-4 focus:ring-teal-200 disabled:opacity-70 disabled:cursor-not-allowed text-base flex items-center justify-center gap-2"
+                    >
+                      {loadingSubmit ? (
+                        <>
+                          <div className="animate-spin w-4 h-4 border-3 border-white border-t-transparent rounded-full"></div>
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          Submit Application
+                          <ChevronRight size={18} />
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

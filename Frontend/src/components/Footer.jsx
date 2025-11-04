@@ -35,9 +35,9 @@ const Footer = () => {
 
   return (
     <footer className="bg-gray-900 text-white py-10 px-2">
-      <div className="container lg:px-12 px-4 sm:px-6 md:px-8 mx-auto">
+      <div className="container lg:px-16 px-4 sm:px-6 md:px-8 mx-auto">
         {/* ===== Top Grid ===== */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-20">
 
           {/* 1) Hospital Info */}
           <div className="space-y-5">
@@ -127,19 +127,19 @@ const Footer = () => {
           </div>
 
           {/* 3) Specialties */}
-          <div className="flex flex-col pr-6">
+          <div className="flex flex-col pr-4">
             <h3 className="text-lg font-semibold border-b border-gray-700 pb-2">Specialties</h3>
 
-            <div className="mt-4 grid grid-cols-2 gap-x-6 text-gray-300 text-sm">
+            <div className="mt-4 grid grid-cols-2 gap-x-8 text-gray-300 text-sm">
               <ul className="space-y-2">
                 {leftSpecialties.map((item, idx) => (
                   <li key={idx}>
                     <Link
                       to={`/department/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="flex items-center gap-2 hover:text-white transition"
+                      className="flex items-center gap-2 hover:text-white transition whitespace-nowrap"
                     >
-                      <FiChevronRight className="text-xs w-4 shrink-0" />
-                      <span className="leading-tight">{item}</span>
+                      <FiChevronRight className="text-xs w-4 shrink-0 flex-none" />
+                      <span className="leading-tight flex-1">{item}</span>
                     </Link>
                   </li>
                 ))}
@@ -150,10 +150,10 @@ const Footer = () => {
                   <li key={idx}>
                     <Link
                       to={`/department/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="flex items-center gap-2 hover:text-white transition"
+                      className="flex items-center gap-2 hover:text-white transition whitespace-nowrap"
                     >
-                      <FiChevronRight className="text-xs w-4 shrink-0" />
-                      <span className="leading-tight">{item}</span>
+                      <FiChevronRight className="text-xs w-4 shrink-0 flex-none" />
+                      <span className="leading-tight flex-1">{item}</span>
                     </Link>
                   </li>
                 ))}
@@ -161,8 +161,8 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* 4) Facilities */}
-          <div className="flex flex-col pl-6">
+          {/* 4) Facilities - moved more to right */}
+          <div className="flex flex-col pl-14">
             <h3 className="text-lg font-semibold border-b border-gray-700 pb-2">Facilities</h3>
 
             <ul className="mt-4 space-y-2 text-gray-300 text-sm">
@@ -170,10 +170,10 @@ const Footer = () => {
                 <li key={idx}>
                   <Link
                     to={`/facility/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                    className="flex items-center gap-2 hover:text-white transition"
+                    className="flex items-center gap-2 hover:text-white transition whitespace-nowrap"
                   >
-                    <FiChevronRight className="text-xs w-4 shrink-0" />
-                    <span className="leading-tight">{item}</span>
+                    <FiChevronRight className="text-xs w-4 shrink-0 flex-none" />
+                    <span className="leading-tight flex-1">{item}</span>
                   </Link>
                 </li>
               ))}

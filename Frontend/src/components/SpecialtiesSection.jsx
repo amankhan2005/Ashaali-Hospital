@@ -1,7 +1,8 @@
- import React from 'react';
+ // SpecialistSection.jsx
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-// fallback/original images
+// bundled fallback/original images (keep these in src/assets/department)
 import img from '../assets/department/cardiology.webp';
 import img1 from '../assets/department/body-parts.webp';
 import img2 from '../assets/department/pediatrics.webp';
@@ -25,60 +26,28 @@ import img19 from '../assets/department/gastroenterology.webp';
 import img20 from '../assets/department/endocrinology.webp';
 
 const originals = {
-  'cardiology': img,
+  cardiology: img,
   'body-parts': img1,
-  'pediatrics': img2,
-  'neurology': img3,
+  pediatrics: img2,
+  neurology: img3,
   'first-aid-kit': img4,
-  'ent': img5,
-  'ortopedic': img6,
-  'surgical': img7,
-  'obstetrics': img8,
-  'urology': img9,
-  'nephrology': img10,
+  ent: img5,
+  ortopedic: img6,
+  surgical: img7,
+  obstetrics: img8,
+  urology: img9,
+  nephrology: img10,
   'dental-implant': img11,
-  'hematology': img12,
-  'pulmonology': img13,
-  'skin': img14,
+  hematology: img12,
+  pulmonology: img13,
+  skin: img14,
   'human-brain': img15,
-  'oncology': img16,
-  'icu': img17,
-  'neurosurgery': img18,
-  'gastroenterology': img19,
-  'endocrinology': img20,
+  oncology: img16,
+  icu: img17,
+  neurosurgery: img18,
+  gastroenterology: img19,
+  endocrinology: img20,
 };
-
-// small image loader (works for webpack/vite)
-function loadSmallFiles() {
-  let map = {};
-  try {
-    if (typeof require !== 'undefined' && typeof require.context === 'function') {
-      const r = require.context('../assets/department', false, /\.(webp|png|jpg)$/);
-      r.keys().forEach((key) => {
-        const name = key.replace('./', '');
-        map[name] = r(key).default || r(key);
-      });
-      return map;
-    }
-  } catch {}
-
-  try {
-    if (typeof import.meta !== 'undefined' && typeof import.meta.globEager === 'function') {
-      const modules = import.meta.globEager('../assets/department/*.{webp,png,jpg}');
-      Object.keys(modules).forEach((fullPath) => {
-        const parts = fullPath.split('/');
-        const name = parts[parts.length - 1];
-        const value = modules[fullPath].default || modules[fullPath];
-        map[name] = value;
-      });
-      return map;
-    }
-  } catch {}
-
-  return map;
-}
-
-const smallFiles = loadSmallFiles();
 
 const SpecialistSection = () => {
   const primaryColor = '#18978d';
@@ -107,13 +76,10 @@ const SpecialistSection = () => {
   ];
 
   const DISPLAY_SIZE = 56;
-  const getSrcSet = (base) => {
-    const f56 = smallFiles[`${base}-56.webp`];
-    const f112 = smallFiles[`${base}-112.webp`];
-    if (f56 && f112) return `${f56} 56w, ${f112} 112w`;
-    if (f56) return `${f56} 56w`;
-    return null;
-  };
+
+  // public small paths (expects files in public/assets/department/)
+  const public56 = (base) => `/assets/department/${base}-56.webp`;
+  const public112 = (base) => `/assets/department/${base}-112.webp`;
 
   const getFallback = (base) => originals[base] || Object.values(originals)[0];
 
@@ -141,13 +107,16 @@ const SpecialistSection = () => {
 
         <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
           {specialists.map((s, index) => {
-            const srcset = getSrcSet(s.base);
-            const src = getFallback(s.base);
+            const src56 = public56(s.base);
+            const src112 = public112(s.base);
+            const fallback = getFallback(s.base);
+
             return (
               <Link
                 key={index}
                 to={`/department/${s.name.toLowerCase().replace(/\s+/g, '-')}`}
                 className="h-full"
+                aria-label={`Open ${s.name} department`}
               >
                 <div
                   className="bg-white rounded-xl p-3 sm:p-4 text-center shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer group border border-gray-100 hover:border-opacity-0 transform hover:-translate-y-1 sm:hover:-translate-y-2 h-full flex flex-col justify-between overflow-hidden"
@@ -165,8 +134,8 @@ const SpecialistSection = () => {
                       }}
                     >
                       <img
-                        src={src}
-                        srcSet={srcset || undefined}
+                        src={src56}
+                        srcSet={`${src56} 56w, ${src112} 112w`}
                         sizes={`${DISPLAY_SIZE}px`}
                         width={DISPLAY_SIZE}
                         height={DISPLAY_SIZE}
@@ -175,6 +144,15 @@ const SpecialistSection = () => {
                         alt={`${s.name} Department Icon – Ashaali Hospital`}
                         className="w-12 h-12 sm:w-12 md:w-14 rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
                         style={{ objectFit: 'cover' }}
+                        onError={(e) => {
+                          const imgEl = e.currentTarget;
+                          if (!imgEl.dataset.fallbackApplied) {
+                            console.warn(`Small image missing for "${s.base}", falling back to bundled asset. Check public/assets/department/${s.base}-56.webp`);
+                            imgEl.dataset.fallbackApplied = '1';
+                            imgEl.src = fallback;
+                            imgEl.srcset = '';
+                          }
+                        }}
                       />
                     </div>
                   </div>

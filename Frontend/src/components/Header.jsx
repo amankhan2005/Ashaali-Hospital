@@ -206,6 +206,7 @@ const SahyadriHeader = () => {
                 <Link
                   to="/book-appointment"
                   className="px-20 py-1.5 bg-[#18978d] text-white text-center rounded-xl transition-colors text-xs w-fit mx-auto"
+                  aria-label="Go to Book Appointment Page at Ashaali Hospital"
                 >
                   Book Appointment
                 </Link>
@@ -235,12 +236,14 @@ const SahyadriHeader = () => {
             </div>
 
             <div className="flex items-center gap-4">
-              <Link
-                to="/careers"
-                className="inline-block bg-teal-500 text-white px-5 py-2 rounded-full font-semibold hover:bg-teal-600 transition-all duration-300"
-              >
-                Careers
-              </Link>
+             <Link
+  to="/careers"
+  className="inline-block bg-teal-500 text-white px-5 py-2 rounded-full font-semibold hover:bg-teal-600 transition-all duration-300"
+  aria-label="Go to Careers Page at Ashaali Hospital"
+>
+  Careers
+</Link>
+
 
               {/* Emergency Contacts */}
               <div className="hidden md:flex gap-2">
@@ -305,7 +308,7 @@ const SahyadriHeader = () => {
 
               {/* Action Buttons */}
               <div className="flex gap-2">
-                <Link className="px-4 py-1.5 bg-[#18978d] lg:block xl:hidden text-white rounded-md transition-colors text-sm">
+                <Link className="px-4 py-1.5 bg-[#18978d] lg:block xl:hidden text-white rounded-md transition-colors text-sm" aria-label="Go to Book Appointment Page at Ashaali Hospital">
                   Book Appointment
                 </Link>
               </div>
@@ -468,6 +471,7 @@ const SahyadriHeader = () => {
             <Link
               to="/book-appointment"
               className=" hidden md:block px-4 py-1.5 bg-[#18978d] text-white rounded-md transition-colors text-sm"
+              aria-label="Go to Book Appointment Page at Ashaali Hospital"
             >
               Book Appointment
             </Link>

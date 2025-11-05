@@ -284,11 +284,11 @@ const ActiveIcon = tabContent[activeTab].icon;
           <h3 className="text-3xl font-bold mb-4">Ready to Experience Excellence in Healthcare?</h3>
           <p className="text-xl mb-8 opacity-90">Join thousands of satisfied patients who trust Ashaali Hospital for their healthcare needs.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-teal-600 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center group">
+            <button className="bg-white text-teal-600 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center group" aria-label="Go to Book Appointment Page at Ashaali Hospital">
               <span>Book Appointment</span>
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-teal-600 transition-colors flex items-center justify-center">
+            <button className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-teal-600 transition-colors flex items-center justify-center" aria-label="Take Virtual Tour of Ashaali Hospital">
               <Play className="w-5 h-5 mr-2" />
               <span>Take Virtual Tour</span>
             </button>

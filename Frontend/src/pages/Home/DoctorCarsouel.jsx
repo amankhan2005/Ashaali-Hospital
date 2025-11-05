@@ -1,4 +1,4 @@
- import React from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import { Calendar } from "lucide-react";
@@ -134,11 +134,12 @@ const DoctorCarouselBackend = () => {
                       window.scrollTo({ top: 0, behavior: "smooth" });
                       window.location.href = `/book-appointment?doctorId=${
                         doctor._id
-                      }&department=${doctor.department}&doctorName=${encodeURIComponent(
-                        doctor.name
-                      )}`;
+                      }&department=${
+                        doctor.department
+                      }&doctorName=${encodeURIComponent(doctor.name)}`;
                     }}
                     className="bg-[#18978d] text-white py-2 px-4 rounded-lg text-sm font-semibold hover:bg-[#147a71] transition-all duration-300 flex items-center justify-center gap-2 mx-auto mt-2"
+                    aria-label="Go to Book Appointment Page at Ashaali Hospital"
                   >
                     <Calendar className="w-4 h-4" />
                     Book Appointment

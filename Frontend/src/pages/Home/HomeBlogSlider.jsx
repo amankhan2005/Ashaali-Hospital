@@ -137,7 +137,7 @@ const HomeBlogSlider = () => {
                         <button
                           onClick={() => handleReadMore(post.slug)}
                           className="w-full py-2.5 md:py-3 px-4 rounded-lg font-semibold text-white 
-                                     transition-all duration-300 hover:shadow-lg transform hover:scale-105 mt-auto"
+                                     transition-all duration-300 hover:shadow-lg transform hover:scale-105 mt-auto" aria-label="Go to Read More Page at Ashaali Hospital"
                           style={{
                             backgroundColor: primaryColor,
                             boxShadow: `0 4px 15px ${primaryColor}40`

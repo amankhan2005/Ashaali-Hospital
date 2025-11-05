@@ -425,7 +425,8 @@ const CareerPage = () => {
                         
                         <button
                           onClick={() => handleApply(job)}
-                          className="mt-auto w-full bg-gradient-to-r from-teal-600 to-teal-500 text-white font-semibold py-3 px-6 rounded-xl hover:from-teal-700 hover:to-teal-600 transition-all duration-300 inline-flex items-center justify-center gap-2 group-hover:shadow-lg"
+                          className="mt-auto w-full bg-gradient-to-r from-teal-600 to-teal-500 text-white font-semibold py-3 px-6 rounded-xl hover:from-teal-700 hover:to-teal-600 transition-all duration-300 inline-flex items-center justify-center gap-2 group-hover:shadow-lg"  
+                          aria-label={`Apply for the position of ${job.title} at Ashaali Hospital`}
                         >
                           Apply for this Position
                           <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -823,7 +824,7 @@ const CareerPage = () => {
                       <button
                         type="submit"
                         disabled={loadingSubmit}
-                        className="px-5 py-1.5 bg-gradient-to-r from-teal-600 to-teal-500 text-white font-semibold rounded-md shadow hover:from-teal-700 hover:to-teal-600 transition text-sm flex items-center justify-center gap-1"
+                        className="px-5 py-1.5 bg-gradient-to-r from-teal-600 to-teal-500 text-white font-semibold rounded-md shadow hover:from-teal-700 hover:to-teal-600 transition text-sm flex items-center justify-center gap-1" aria-live="polite"
                       >
                         {loadingSubmit ? (
                           <>

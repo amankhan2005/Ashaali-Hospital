@@ -1,25 +1,25 @@
  import React from 'react';
-import img from '../assets/department/cardiology.png';
-import img1 from '../assets/department/body-parts.png';
-import img2 from '../assets/department/pediatrics.png';
-import img3 from '../assets/department/neurology.png';
-import img4 from '../assets/department/first-aid-kit.png';
-import img5 from '../assets/department/ent.png';
-import img6 from '../assets/department/ortopedic.png';
-import img7 from '../assets/department/surgical.png';
-import img8 from '../assets/department/obstetrics.png';
-import img9 from '../assets/department/urology.png';
-import img10 from '../assets/department/nephrology.png';
-import img11 from '../assets/department/dental-implant.png';
-import img12 from '../assets/department/hematology.png';
-import img13 from '../assets/department/pulmonology.png';
-import img14 from '../assets/department/skin.png';
-import img15 from '../assets/department/human-brain.png';
-import img16 from '../assets/department/oncology.png';
-import img17 from '../assets/department/icu.png';
-import img18 from '../assets/department/neurosurgery.png';
-import img19 from '../assets/department/gastroenterology.png';
-import img20 from '../assets/department/endocrinology.png';
+import img from '../assets/department/cardiology.webp';
+import img1 from '../assets/department/body-parts.webp';
+import img2 from '../assets/department/pediatrics.webp';
+import img3 from '../assets/department/neurology.webp';
+import img4 from '../assets/department/first-aid-kit.webp';
+import img5 from '../assets/department/ent.webp';
+import img6 from '../assets/department/ortopedic.webp';
+import img7 from '../assets/department/surgical.webp';
+import img8 from '../assets/department/obstetrics.webp';
+import img9 from '../assets/department/urology.webp';
+import img10 from '../assets/department/nephrology.webp';
+import img11 from '../assets/department/dental-implant.webp';
+import img12 from '../assets/department/hematology.webp';
+import img13 from '../assets/department/pulmonology.webp';
+import img14 from '../assets/department/skin.webp';
+import img15 from '../assets/department/human-brain.webp';
+import img16 from '../assets/department/oncology.webp';
+import img17 from '../assets/department/icu.webp';
+import img18 from '../assets/department/neurosurgery.webp';
+import img19 from '../assets/department/gastroenterology.webp';
+import img20 from '../assets/department/endocrinology.webp';
 import { Link } from 'react-router-dom';
 
 const SpecialistSection = () => {
@@ -115,7 +115,7 @@ const SpecialistSection = () => {
                 {/* Specialist Name */}
                 <div className="flex-grow flex items-center justify-center">
                   <h3
-                    className="text-sm sm:text-sm md:text-base font-semibold leading-tight transition-colors duration-300 group-hover:font-bold line-clamp-2 px-1"
+                    className="text-xl capitalize sm:text-sm md:text-sm md:font-semibold leading-tight transition-colors duration-300 group-hover:font-bold "
                     style={{
                       color: '#374151',
                     }}
@@ -131,10 +131,10 @@ const SpecialistSection = () => {
                 </div>
 
                 {/* Hover Effect Indicator */}
-                <div
+                {/* <div
                   className="w-0 h-0.5 mx-auto mt-2 transition-all duration-300 group-hover:w-8"
                   style={{ backgroundColor: secondaryColor }}
-                ></div>
+                ></div> */}
               </div>
             </Link>
           ))}

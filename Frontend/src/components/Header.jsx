@@ -8,7 +8,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.webp";
 import { Link } from "react-router-dom";
 import {
   FaProcedures,
@@ -323,8 +323,14 @@ const SahyadriHeader = () => {
               <div className="w-[14rem] md:w-[16rem] lg:w-[14rem] xl:w-[18rem]">
                 <img
                   src={logo}
-                  alt="Ashaali-hospital"
+                  alt="Ashaali Hospital"
+                  width="720"
+                  height="180"
+                  decoding="async"
+                  fetchpriority="high"
+                  loading="eager"
                   className="w-full h-auto p-2 object-contain"
+                  style={{ display: "block" }}
                 />
               </div>
             </Link>

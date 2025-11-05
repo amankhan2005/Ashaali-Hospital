@@ -2,6 +2,7 @@
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import ServiceBreadcums from "../service/ServiceBrad";
+import Loader from "../../components/Loader";
 
 // ✅ Lazy import
 const BreadCrumb = lazy(() => import("../../components/Breadcrumb"));

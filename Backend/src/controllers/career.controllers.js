@@ -30,9 +30,7 @@ const formatDateIST = (d) =>
 /* ------------------------------ EMAIL TEMPLATES ------------------------------ */
 const adminEmailHtml = (brand, app, submittedAt, downloadUrl) => `
   <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-    <h2 style="color: #18978d; margin: 0 0 8px;">${brand}</h2>
-    <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;" />
-    <p>Dear <strong>Admin</strong>,</p>
+     <p>Dear <strong>Admin</strong>,</p>
     <p>A new job application has been submitted via the Careers page.</p>
     <p><strong>Name:</strong> ${app.fullName}</p>
     <p><strong>Email:</strong> ${app.email}</p>

@@ -160,7 +160,7 @@ export const saveApplication = async (req, res) => {
     });
 
     const BRAND = "Ashaali Hospital";
-    const TAGLINE = "Hospital in Lucknow";
+    // const TAGLINE = "Hospital in Lucknow";
     const FROM = `"${BRAND}" <${process.env.ADMIN_EMAIL}>`;
     const submittedAt = formatDateIST(application.createdAt);
 
@@ -248,7 +248,7 @@ export const downloadApplicationResume = async (req, res) => {
     if (!mongoose.isValidObjectId(id)) return res.status(400).send("Invalid application id");
 
     const app = await Application.findById(id);
-    if (!app || !app.resume?.path) return res.status(404).send("Resume not found");
+    if (!app || !app.resume?.path) return res.status(404).send(""); // No resume upload found 
 
     const filePath = app.resume.path;
     if (!fs.existsSync(filePath)) return res.status(404).send("Resume file missing on server");

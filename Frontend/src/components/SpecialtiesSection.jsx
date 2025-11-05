@@ -74,74 +74,71 @@ const SpecialistSection = () => {
         </div>
 
         {/* Specialists Grid */}
-       
-       <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
-  {specialists.map((specialist, index) => (
-    <Link
-      key={index}
-      to={`/department/${specialist.name
-        .toLowerCase()
-        .replace(/\s+/g, '-')}`}
-      className="h-full"
-    >
-      <div
-        className="bg-white rounded-xl p-3 sm:p-4 text-center shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer group border border-gray-100 hover:border-opacity-0 transform hover:-translate-y-1 sm:hover:-translate-y-2 h-full flex flex-col justify-between overflow-hidden"
-        style={{
-          '--hover-shadow': `0 20px 40px rgba(24, 151, 141, 0.15)`,
-          minHeight: '180px',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.boxShadow =
-            '0 20px 40px rgba(24, 151, 141, 0.15)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.boxShadow = '';
-        }}
-      >
-        {/* Image Container */}
-        <div className="flex justify-center mb-2 sm:mb-3">
-          <div
-            className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
-            style={{
-              backgroundColor: `${primaryColor}15`,
-              border: `2px solid ${primaryColor}30`,
-            }}
-          >
-            <img
-              src={specialist.image}
-              alt={specialist.name}
-              className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
-            />
-          </div>
-        </div>
+        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
+          {specialists.map((specialist, index) => (
+            <Link
+              key={index}
+              to={`/department/${specialist.name.toLowerCase().replace(/\s+/g, '-')}`}
+              className="h-full"
+            >
+              <div
+                className="bg-white rounded-xl p-3 sm:p-4 text-center shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer group border border-gray-100 hover:border-opacity-0 transform hover:-translate-y-1 sm:hover:-translate-y-2 h-full flex flex-col justify-between overflow-hidden"
+                style={{
+                  '--hover-shadow': `0 20px 40px rgba(24, 151, 141, 0.15)`,
+                  minHeight: '180px',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow =
+                    '0 20px 40px rgba(24, 151, 141, 0.15)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '';
+                }}
+              >
+                {/* Image Container */}
+                <div className="flex justify-center mb-1 sm:mb-3">
+                  <div
+                    className="w-20 h-20 sm:w-20 md:w-24 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                    style={{
+                      backgroundColor: `${primaryColor}15`,
+                      border: `2px solid ${primaryColor}30`,
+                    }}
+                  >
+                    <img
+                      src={specialist.image}
+                      alt={specialist.name}
+                      className="w-12 h-12 sm:w-12 md:w-14 rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                  </div>
+                </div>
 
-        {/* Specialist Name */}
-        <div className="flex-grow flex items-center justify-center">
-          <h3
-            className="text-xs sm:text-sm md:text-base font-semibold leading-tight transition-colors duration-300 group-hover:font-bold line-clamp-2 px-1"
-            style={{
-              color: '#374151',
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.color = secondaryColor;
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.color = '#374151';
-            }}
-          >
-            {specialist.name}
-          </h3>
-        </div>
+                {/* Specialist Name */}
+                <div className="flex-grow flex items-center justify-center">
+                  <h3
+                    className="text-sm sm:text-sm md:text-base font-semibold leading-tight transition-colors duration-300 group-hover:font-bold line-clamp-2 px-1"
+                    style={{
+                      color: '#374151',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.color = secondaryColor;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.color = '#374151';
+                    }}
+                  >
+                    {specialist.name}
+                  </h3>
+                </div>
 
-        {/* Hover Effect Indicator */}
-        <div
-          className="w-0 h-0.5 mx-auto mt-2 transition-all duration-300 group-hover:w-8"
-          style={{ backgroundColor: secondaryColor }}
-        ></div>
-      </div>
-    </Link>
-  ))}
-</div>
+                {/* Hover Effect Indicator */}
+                <div
+                  className="w-0 h-0.5 mx-auto mt-2 transition-all duration-300 group-hover:w-8"
+                  style={{ backgroundColor: secondaryColor }}
+                ></div>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );

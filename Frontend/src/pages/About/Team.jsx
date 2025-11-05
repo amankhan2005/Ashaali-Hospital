@@ -384,7 +384,7 @@ const Team = () => {
                             {mainDoctor.department}
                           </span>
                         </div>
-                        <h3 className="text-3xl font-bold text-gray-900 mt-3 mb-2">
+                        <h3 className="text-2xl font-bold text-gray-900 mt-3 mb-2">
                           {mainDoctor.name}
                         </h3>
                         <p className="text-xl text-[#18978d] font-medium ">

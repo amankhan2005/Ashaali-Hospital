@@ -1,45 +1,46 @@
  // App.js
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Home from './pages/Home'; // keep Home static (no lazy)
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import Loader from "./components/Loader"; // loader component
+import Spinner from './components/Spinner'; // <-- replace Loader
 
-// Lazy load all other pages (except Home)
-const Contact = lazy(() => import('./pages/contact/Contact' /* webpackChunkName: "contact" */));
-const Gallery = lazy(() => import('./pages/Gallery/Gallery' /* webpackChunkName: "gallery" */));
-const BlogPage = lazy(() => import('./pages/Blog/BlogPage' /* webpackChunkName: "blogpage" */));
-const BlogDetails = lazy(() => import('./pages/Blog/BlogDetail' /* webpackChunkName: "blogdetail" */));
-const ServiceDetail = lazy(() => import('./pages/service/ServiceDetail' /* webpackChunkName: "servicedetail" */));
-const FacilitiesComponent = lazy(() => import('./pages/facilites/Facilites' /* webpackChunkName: "facilities" */));
-const AshaaliHospitalAbout = lazy(() => import('./pages/About/AboutHospital' /* webpackChunkName: "about-hospital" */));
-const Team = lazy(() => import('./pages/About/Team' /* webpackChunkName: "team" */));
-const DoctorProfile = lazy(() => import('./pages/About/DoctorProfile' /* webpackChunkName: "doctor-profile" */));
-const BookAppointment = lazy(() => import('./pages/Booking/BookAppointment' /* webpackChunkName: "book-appointment" */));
-const CareerPage = lazy(() => import('./pages/CareerPage.jsx' /* webpackChunkName: "career" */));
+// Lazy routes (prefetch on idle for faster 2nd load)
+const Contact = lazy(() => import(/* webpackChunkName:"contact", webpackPrefetch:true */ './pages/contact/Contact'));
+const Gallery = lazy(() => import(/* webpackChunkName:"gallery", webpackPrefetch:true */ './pages/Gallery/Gallery'));
+const BlogPage = lazy(() => import(/* webpackChunkName:"blogpage", webpackPrefetch:true */ './pages/Blog/BlogPage'));
+const BlogDetails = lazy(() => import(/* webpackChunkName:"blogdetail", webpackPrefetch:true */ './pages/Blog/BlogDetail'));
+const ServiceDetail = lazy(() => import(/* webpackChunkName:"servicedetail", webpackPrefetch:true */ './pages/service/ServiceDetail'));
+const FacilitiesComponent = lazy(() => import(/* webpackChunkName:"facilities", webpackPrefetch:true */ './pages/facilites/Facilites'));
+const AshaaliHospitalAbout = lazy(() => import(/* webpackChunkName:"about-hospital", webpackPrefetch:true */ './pages/About/AboutHospital'));
+const Team = lazy(() => import(/* webpackChunkName:"team", webpackPrefetch:true */ './pages/About/Team'));
+const DoctorProfile = lazy(() => import(/* webpackChunkName:"doctor-profile", webpackPrefetch:true */ './pages/About/DoctorProfile'));
+const BookAppointment = lazy(() => import(/* webpackChunkName:"book-appointment", webpackPrefetch:true */ './pages/Booking/BookAppointment'));
+const CareerPage = lazy(() => import(/* webpackChunkName:"career", webpackPrefetch:true */ './pages/CareerPage.jsx'));
 
-// Route change loader (kept as you had it)
-import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-
+// Tiny route-change spinner (covers non-lazy state too)
 function RouteChangeLoader({ children }) {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // show a very brief spinner on every navigation
     setLoading(true);
-    const timer = setTimeout(() => setLoading(false), 400); // smooth transition
-    return () => clearTimeout(timer);
-  }, [location.pathname]);
+    const id = requestAnimationFrame(() => {
+      // allow next screen to paint; if Suspense kicks in, its fallback will show
+      setLoading(false);
+    });
+    return () => cancelAnimationFrame(id);
+  }, [location]);
 
   return (
     <>
       {loading && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/70 backdrop-blur-sm">
-          <Loader variant="spinner" message="Loading page..." />
+        <div className="fixed inset-0 z-40 grid place-items-center bg-white/60 backdrop-blur-sm">
+          <Spinner label="Loading page..." />
         </div>
       )}
       {children}
@@ -53,15 +54,16 @@ export default function App() {
       <ScrollToTop />
 
       <RouteChangeLoader>
+        {/* Keep header slim so banner shows ASAP */}
         <div className="h-32">
           <Header />
         </div>
 
-        {/* Suspense wraps Routes so any lazy page shows fallback while loading */}
+        {/* Suspense fallback with spinner (replaces Loader) */}
         <Suspense
           fallback={
-            <div className="fixed inset-0 z-40 flex items-center justify-center bg-white/70 backdrop-blur-sm">
-              <Loader variant="spinner" message="Loading..." />
+            <div className="fixed inset-0 z-40 grid place-items-center bg-white/70 backdrop-blur-sm">
+              <Spinner label="Loading..." />
             </div>
           }
         >

@@ -1,7 +1,7 @@
  import React from 'react';
 import { Link } from 'react-router-dom';
 
-// fallback/original images (you already had these)
+// fallback/original images
 import img from '../assets/department/cardiology.webp';
 import img1 from '../assets/department/body-parts.webp';
 import img2 from '../assets/department/pediatrics.webp';
@@ -48,11 +48,10 @@ const originals = {
   'endocrinology': img20,
 };
 
-// Safe loader: try Webpack require.context, else Vite import.meta.globEager, else empty map
+// small image loader (works for webpack/vite)
 function loadSmallFiles() {
   let map = {};
   try {
-    // Webpack/Cra
     if (typeof require !== 'undefined' && typeof require.context === 'function') {
       const r = require.context('../assets/department', false, /\.(webp|png|jpg)$/);
       r.keys().forEach((key) => {
@@ -61,16 +60,12 @@ function loadSmallFiles() {
       });
       return map;
     }
-  } catch (e) {
-    // ignore and try next
-  }
+  } catch {}
 
   try {
-    // Vite
     if (typeof import.meta !== 'undefined' && typeof import.meta.globEager === 'function') {
       const modules = import.meta.globEager('../assets/department/*.{webp,png,jpg}');
       Object.keys(modules).forEach((fullPath) => {
-        // fullPath like "../assets/department/cardiology-56.webp"
         const parts = fullPath.split('/');
         const name = parts[parts.length - 1];
         const value = modules[fullPath].default || modules[fullPath];
@@ -78,11 +73,8 @@ function loadSmallFiles() {
       });
       return map;
     }
-  } catch (e) {
-    // ignore
-  }
+  } catch {}
 
-  // fallback: empty map (no small files)
   return map;
 }
 
@@ -90,8 +82,6 @@ const smallFiles = loadSmallFiles();
 
 const SpecialistSection = () => {
   const primaryColor = '#18978d';
-  const secondaryColor = '#ed8022';
-
   const specialists = [
     { name: 'Orthopaedics', base: 'ortopedic' },
     { name: 'Ophthalmology', base: 'body-parts' },
@@ -101,23 +91,22 @@ const SpecialistSection = () => {
     { name: 'ENT', base: 'ent' },
     { name: 'Cardiology', base: 'cardiology' },
     { name: 'General Surgery', base: 'surgical' },
-    { name: 'obstetrics-gynaecology', base: 'obstetrics' },
-    { name: 'urology-and-andrology', base: 'urology' },
-    { name: 'nephrology', base: 'nephrology' },
-    { name: 'dental', base: 'dental-implant' },
-    { name: 'hematology', base: 'hematology' },
-    { name: 'pulmonology', base: 'pulmonology' },
-    { name: 'dermatology', base: 'skin' },
-    { name: 'neurosurgery', base: 'neurosurgery' },
-    { name: 'gastrology', base: 'gastroenterology' },
-    { name: 'endocrinology', base: 'endocrinology' },
-    { name: 'psychiatry', base: 'human-brain' },
-    { name: 'oncology', base: 'oncology' },
-    { name: 'icu-and-critical-care', base: 'icu' },
+    { name: 'Obstetrics & Gynaecology', base: 'obstetrics' },
+    { name: 'Urology and Andrology', base: 'urology' },
+    { name: 'Nephrology', base: 'nephrology' },
+    { name: 'Dental', base: 'dental-implant' },
+    { name: 'Hematology', base: 'hematology' },
+    { name: 'Pulmonology', base: 'pulmonology' },
+    { name: 'Dermatology', base: 'skin' },
+    { name: 'Neurosurgery', base: 'neurosurgery' },
+    { name: 'Gastrology', base: 'gastroenterology' },
+    { name: 'Endocrinology', base: 'endocrinology' },
+    { name: 'Psychiatry', base: 'human-brain' },
+    { name: 'Oncology', base: 'oncology' },
+    { name: 'ICU & Critical Care', base: 'icu' },
   ];
 
   const DISPLAY_SIZE = 56;
-
   const getSrcSet = (base) => {
     const f56 = smallFiles[`${base}-56.webp`];
     const f112 = smallFiles[`${base}-112.webp`];
@@ -126,9 +115,7 @@ const SpecialistSection = () => {
     return null;
   };
 
-  const getFallback = (base) => {
-    return originals[base] || Object.values(originals)[0];
-  };
+  const getFallback = (base) => originals[base] || Object.values(originals)[0];
 
   return (
     <div className="bg-gray-50 py-6 lg:py-12">
@@ -185,7 +172,7 @@ const SpecialistSection = () => {
                         height={DISPLAY_SIZE}
                         loading="lazy"
                         decoding="async"
-                        alt={s.name}
+                        alt={`${s.name} Department Icon – Ashaali Hospital`}
                         className="w-12 h-12 sm:w-12 md:w-14 rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
                         style={{ objectFit: 'cover' }}
                       />
@@ -194,7 +181,7 @@ const SpecialistSection = () => {
 
                   <div className="flex-grow flex items-center justify-center">
                     <h3
-                      className="text-xl capitalize sm:text-sm md:text-sm md:font-semibold leading-tight transition-colors duration-300 group-hover:font-bold "
+                      className="text-xl capitalize sm:text-sm md:text-sm md:font-semibold leading-tight transition-colors duration-300 group-hover:font-bold"
                       style={{
                         color: '#374151',
                       }}

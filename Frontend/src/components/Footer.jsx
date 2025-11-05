@@ -127,7 +127,7 @@ const Footer = () => {
             <h3 className="text-lg font-semibold border-b border-gray-700 pb-2">
               Quick Links
             </h3>
-            <ul className="mt-3 space-y-2 text-gray-300 text-sm">
+            <ul className="mt-3  text-gray-300 text-sm">
               {[
                 { name: "Home", path: "/" },
                 {
@@ -144,7 +144,7 @@ const Footer = () => {
                 <li key={idx}>
                   <Link
                     to={item.path}
-                    className="flex items-center gap-2 hover:text-white transition font-medium py-1"
+                    className="flex items-center gap-2 hover:text-white transition font-normal py-1"
                   >
                     <FiChevronRight className="w-4 h-4 flex-shrink-0 text-gray-400" />
                     <span className="leading-tight">{item.name}</span>
@@ -240,7 +240,7 @@ const Footer = () => {
             <h3 className="text-lg font-semibold border-b border-gray-700 pb-2">
               Facilities
             </h3>
-            <ul className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-y-2 text-gray-300 text-sm">
+            <ul className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1  text-gray-300 text-sm">
               {facilities.map((item, idx) => (
                 <li key={idx}>
                   <Link

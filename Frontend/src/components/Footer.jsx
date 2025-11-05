@@ -8,7 +8,7 @@ import {
   FiChevronRight,
 } from "react-icons/fi";
 import { TbDeviceLandlinePhone } from "react-icons/tb";
-import logo from "../assets/code.png";
+import logo from "../assets/Clogo.png";
 
 const Footer = () => {
   const facilities = [

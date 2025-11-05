@@ -28,10 +28,9 @@ const formatDateIST = (d) =>
   });
 
 /* ------------------------------ EMAIL TEMPLATES ------------------------------ */
-const adminEmailHtml = (brand, tagline, app, submittedAt, downloadUrl) => `
+const adminEmailHtml = (brand, app, submittedAt, downloadUrl) => `
   <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
     <h2 style="color: #18978d; margin: 0 0 8px;">${brand}</h2>
-    <p style="margin: 0 0 4px;"><em>${tagline}</em></p>
     <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;" />
     <p>Dear <strong>Admin</strong>,</p>
     <p>A new job application has been submitted via the Careers page.</p>
@@ -40,17 +39,22 @@ const adminEmailHtml = (brand, tagline, app, submittedAt, downloadUrl) => `
     <p><strong>Phone:</strong> ${app.phone}</p>
     <p><strong>Position:</strong> ${app.jobTitle}</p>
     <p><strong>Submitted:</strong> ${submittedAt}</p>
-    ${ app?.resume?.url ? `<p><strong>Resume:</strong> <a href="${app.resume.url}" target="_blank">View</a> ${downloadUrl ? ` | <a href="${downloadUrl}" target="_blank">Download</a>` : ""}</p>` : `<p>Resume not available.</p>` }
+    ${
+      app?.resume?.url
+        ? `<p><strong>Resume:</strong> <a href="${app.resume.url}" target="_blank">View</a> ${
+            downloadUrl ? ` | <a href="${downloadUrl}" target="_blank">Download</a>` : ""
+          }</p>`
+        : `<p>Resume not available.</p>`
+    }
     <br/>
     <p>Best Regards,</p>
     <p><strong>${brand}</strong></p>
   </div>
 `;
 
-const applicantEmailHtml = (brand, tagline, app, submittedAt) => `
+const applicantEmailHtml = (brand, app, submittedAt) => `
   <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
     <h2 style="color: #18978d; margin: 0 0 8px;">${brand}</h2>
-    <p style="margin: 0 0 4px;"><em>${tagline}</em></p>
     <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;" />
     <p>Dear <strong>${app.fullName}</strong>,</p>
     <p>Thank you for applying to <strong>${brand}</strong>. We have received your application for <strong>${app.jobTitle}</strong>.</p>
@@ -115,7 +119,7 @@ export const deletePosition = async (req, res) => {
 export const saveApplication = async (req, res) => {
   try {
     const { fullName, email, phone, jobId, jobTitle } = req.body || {};
-    const file = req.file; // multer disk
+    const file = req.file;
 
     if (!fullName || !email || !phone || (!jobId && !jobTitle)) {
       return res.status(400).json({ message: "fullName, email, phone and either jobId or jobTitle are required" });
@@ -137,9 +141,8 @@ export const saveApplication = async (req, res) => {
       if (job?.title) finalTitle = job.title;
     }
 
-    // multer.diskStorage fields
-    const resumeLocalPath = file.path; // absolute path
-    const resumeRelPath = `/uploads/resumes/${file.filename}`; // public relative url if served as static
+    const resumeLocalPath = file.path;
+    const resumeRelPath = `/uploads/resumes/${file.filename}`;
     const resumeMime = file.mimetype;
     const resumeSize = file.size;
     const originalName = file.originalname;
@@ -160,25 +163,21 @@ export const saveApplication = async (req, res) => {
     });
 
     const BRAND = "Ashaali Hospital";
-    // const TAGLINE = "Hospital in Lucknow";
     const FROM = `"${BRAND}" <${process.env.ADMIN_EMAIL}>`;
     const submittedAt = formatDateIST(application.createdAt);
 
-    // Build proxy download URL
     const APP_BASE = (process.env.APP_BASE_URL || "").replace(/\/$/, "");
     const resumeDownloadUrl = `${APP_BASE || ""}/api/career/applications/${application._id}/resume`;
 
-    // Admin mail with local attachment
     const adminMail = {
       from: FROM,
       to: process.env.ADMIN_EMAIL,
       replyTo: `${application.fullName} <${application.email}>`,
       subject: `📄 New Application Received - ${application.jobTitle}`,
-      html: adminEmailHtml(BRAND, TAGLINE, application, submittedAt, resumeDownloadUrl),
+      html: adminEmailHtml(BRAND, application, submittedAt, resumeDownloadUrl),
       attachments: [],
     };
 
-    // Attach the file from disk
     try {
       if (fs.existsSync(resumeLocalPath)) {
         adminMail.attachments.push({
@@ -197,7 +196,7 @@ export const saveApplication = async (req, res) => {
       to: application.email,
       replyTo: process.env.ADMIN_EMAIL,
       subject: `✅ Application Received - ${BRAND}`,
-      html: applicantEmailHtml(BRAND, TAGLINE, application, submittedAt),
+      html: applicantEmailHtml(BRAND, application, submittedAt),
     };
 
     transporter.sendMail(adminMail).catch((e) => console.error("Admin mail error:", e));
@@ -248,7 +247,7 @@ export const downloadApplicationResume = async (req, res) => {
     if (!mongoose.isValidObjectId(id)) return res.status(400).send("Invalid application id");
 
     const app = await Application.findById(id);
-    if (!app || !app.resume?.path) return res.status(404).send(""); // No resume upload found 
+    if (!app || !app.resume?.path) return res.status(404).send("Resume not found");
 
     const filePath = app.resume.path;
     if (!fs.existsSync(filePath)) return res.status(404).send("Resume file missing on server");
@@ -267,7 +266,7 @@ export const downloadApplicationResume = async (req, res) => {
         res.setHeader("Content-Range", `bytes */${total}`);
         return res.status(416).send("Requested range not satisfiable");
       }
-      const chunkSize = (end - start) + 1;
+      const chunkSize = end - start + 1;
       res.writeHead(206, {
         "Content-Range": `bytes ${start}-${end}/${total}`,
         "Accept-Ranges": "bytes",

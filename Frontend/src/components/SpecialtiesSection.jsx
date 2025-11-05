@@ -42,13 +42,16 @@ const SpecialistSection = () => {
     { name: 'hematology', image: img12 },
     { name: 'pulmonology', image: img13 },
     { name: 'dermatology', image: img14 },
-    { name: 'neurosurgery', image: img18 }, // img add
-    { name: 'gastrology', image: img19 }, //Gastroenterology
-    { name: 'endocrinology', image: img20 }, //add
+    { name: 'neurosurgery', image: img18 },
+    { name: 'gastrology', image: img19 },
+    { name: 'endocrinology', image: img20 },
     { name: 'psychiatry', image: img15 },
     { name: 'oncology', image: img16 },
     { name: 'icu-and-critical-care', image: img17 },
   ];
+
+  // target displayed base size in pixels (update if you change CSS)
+  const DISPLAY_SIZE = 56; // px (this matches the issue message you had)
 
   return (
     <div className="bg-gray-50 py-6 lg:py-12">
@@ -107,7 +110,15 @@ const SpecialistSection = () => {
                     <img
                       src={specialist.image}
                       alt={specialist.name}
+                      width={DISPLAY_SIZE}
+                      height={DISPLAY_SIZE}
+                      loading="lazy"
+                      decoding="async"
+                      // tell browser typical displayed size so it can choose best resource;
+                      // if you create responsive files later, update srcSet and sizes
+                      sizes={`${DISPLAY_SIZE}px`}
                       className="w-12 h-12 sm:w-12 md:w-14 rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
+                      style={{ objectFit: 'cover' }}
                     />
                   </div>
                 </div>
@@ -129,12 +140,6 @@ const SpecialistSection = () => {
                     {specialist.name}
                   </h3>
                 </div>
-
-                {/* Hover Effect Indicator */}
-                {/* <div
-                  className="w-0 h-0.5 mx-auto mt-2 transition-all duration-300 group-hover:w-8"
-                  style={{ backgroundColor: secondaryColor }}
-                ></div> */}
               </div>
             </Link>
           ))}

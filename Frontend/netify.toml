@@ -1,10 +1,51 @@
+ [build]
+  publish = "dist"
+  command = "npm run build"
 
-[build]
-  publish = "dist" # Make sure this points to your build folder
-  command = "npm run build" # Adjust this if your build command is different
+[build.environment]
+  NODE_VERSION = "18"
+  NPM_VERSION = "9"
 
+# ⚡ Preprocessing optimizations
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  minify = true
+
+[build.processing.js]
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+# ✅ Cache assets directly, don't redirect them
+[[redirects]]
+  from = "/assets/*"
+  to = "/assets/:splat"
+  status = 200
+  force = false
+
+# ✅ SPA fallback
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
+# ✅ HTML caching (for document request latency)
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# ✅ Cache assets heavily
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# ✅ Default catch-all cache rule (no double encoding)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

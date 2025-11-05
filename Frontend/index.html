@@ -1,15 +1,46 @@
-<!doctype html>
+ <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/Frontend/src/assets/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ashaali Hospital - Best Super Speciality Hospital in IIM Road Lucknow</title>
+
+    <!-- ✅ Favicon -->
+    <link rel="icon" type="image/png" href="/assets/logo.png" />
+
+    <!-- ✅ DNS Prefetch & Preconnect for performance -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- ✅ Preload your critical font -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Overlock:wght@400;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
       <link
-    href="https://fonts.googleapis.com/css2?family=Overlock:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap"
-    rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;700&display=swap" rel="stylesheet">
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Overlock:wght@400;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+      />
+    </noscript>
+
+    <!-- ✅ Preload main JS bundle for faster start -->
+    <link rel="preload" as="script" href="/src/main.jsx" />
+
+    <!-- ✅ Preconnect to your own domain -->
+    <link rel="preconnect" href="https://ashaali-hospital-lko.netlify.app" crossorigin />
+
+    <!-- ✅ Description for SEO -->
+    <meta
+      name="description"
+      content="Ashaali Hospital is a leading super speciality hospital in IIM Road Lucknow, offering expert medical care across all major departments with experienced doctors and advanced facilities."
+    />
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>

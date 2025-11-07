@@ -112,7 +112,7 @@ const Footer = () => {
               {/* Admin Login Button with gap below contact section */}
               <div className="pt-3 md:ml-6 mt-4">
                 <a
-                  href="https://ashaali-adminpage.netlify.app/"
+                  href="https://www.ashaalihospital.com/admin/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="relative inline-flex items-center justify-center px-6 py-2.5 w-full sm:w-auto font-semibold rounded-full bg-[#18978d] text-white transition-all duration-300 hover:bg-[#0f6e63] hover:scale-[1.03] hover:shadow-md"

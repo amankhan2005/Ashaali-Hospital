@@ -111,7 +111,8 @@ const allowedOrigins = [
   "https://www.ashaalihospital.com",
   "https://ashaali-hospital-lko.netlify.app",
   "http://localhost:5174",
-  "https://ashaali-adminpage.netlify.app"
+  "https://ashaali-adminpage.netlify.app",
+    "ashaalihospital.com",
 ];
 
 app.use(cors({

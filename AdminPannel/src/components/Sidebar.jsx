@@ -22,15 +22,15 @@ const Sidebar = () => {
   const sidebarRef = useRef(null);
 
   const links = [
-    { name: "Dashboard", path: "/admin/dashboard", icon: <FaTachometerAlt /> },
-        { name: "Departments", path: "/admin/departments", icon: <FaHospital /> },  
+    { name: "Dashboard", path: "/dashboard", icon: <FaTachometerAlt /> },
+        { name: "Departments", path: "/departments", icon: <FaHospital /> },  
 
-    { name: "Doctors", path: "/admin/doctors", icon: <FaUserMd /> },
-     { name: "Appointments", path: "/admin/appointments", icon: <FaCalendarAlt /> },
-    { name: "Blogs", path: "/admin/blogs", icon: <FaBlog /> },
-    { name: "Gallery", path: "/admin/gallery", icon: <FaImages /> },
-    { name: "Inquiries", path: "/admin/inquiries", icon: <FaQuestionCircle /> },
-    { name: "Jobs", path: "/admin/jobs", icon: <FaUserNurse /> },
+    { name: "Doctors", path: "/doctors", icon: <FaUserMd /> },
+     { name: "Appointments", path: "/appointments", icon: <FaCalendarAlt /> },
+    { name: "Blogs", path: "/blogs", icon: <FaBlog /> },
+    { name: "Gallery", path: "/gallery", icon: <FaImages /> },
+    { name: "Inquiries", path: "/inquiries", icon: <FaQuestionCircle /> },
+    { name: "Jobs", path: "/jobs", icon: <FaUserNurse /> },
   ];
 
   const toggleSidebar = () => setIsOpen(!isOpen);

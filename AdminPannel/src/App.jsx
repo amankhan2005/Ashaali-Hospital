@@ -5,16 +5,15 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import ScrollToTop from "./components/ScrollToTop";
 const App = () => {
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop />
       <Routes>
-         <Route path="/" element={<Navigate to="/admin/login" replace />} />
 
-        <Route path="/admin/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
 
         {/* Protected Dashboard with nested routes */}
         <Route
-          path="/admin/*"
+          path="/*"
           element={
             <ProtectedRoute>
               <Dashboard />
@@ -22,9 +21,9 @@ const App = () => {
           }
         />
 
-         <Route path="*" element={<Navigate to="/admin/login" replace />} />
+         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 };
 

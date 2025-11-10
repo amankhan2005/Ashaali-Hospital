@@ -555,7 +555,7 @@ const Dashboard = () => {
                         borderColor: "border-blue-500",
                         iconBg: "bg-blue-500",
                         iconColor: "text-blue-600",
-                        link: "/admin/doctors",
+                        link: "/doctors",
                       },
                       {
                         title: "Departments",
@@ -564,7 +564,7 @@ const Dashboard = () => {
                         borderColor: "border-emerald-500",
                         iconBg: "bg-emerald-500",
                         iconColor: "text-emerald-600",
-                        link: "/admin/departments",
+                        link: "/departments",
                       },
                       {
                         title: "Appointments",
@@ -580,7 +580,7 @@ const Dashboard = () => {
                         //   dashboardData.appointmentGrowth > 0
                         //     ? "positive"
                         //     : "negative",
-                        link: "/admin/appointments",
+                        link: "/appointments",
                       },
                       {
                         title: "Inquiries",
@@ -596,7 +596,7 @@ const Dashboard = () => {
                         //   dashboardData.inquiryGrowth > 0
                         //     ? "positive"
                         //     : "negative",
-                        link: "/admin/inquiries",
+                        link: "/inquiries",
                       },
                       {
                         title: "Gallery",
@@ -605,7 +605,7 @@ const Dashboard = () => {
                         borderColor: "border-teal-500",
                         iconBg: "bg-teal-500",
                         iconColor: "text-teal-600",
-                        link: "/admin/gallery",
+                        link: "/gallery",
                       },
                       {
                         title: "Blogs",
@@ -614,7 +614,7 @@ const Dashboard = () => {
                         borderColor: "border-indigo-500",
                         iconBg: "bg-indigo-500",
                         iconColor: "text-indigo-600",
-                        link: "/admin/blogs",
+                        link: "/blogs",
                       },
                       
      
@@ -998,7 +998,7 @@ const Dashboard = () => {
                             icon: FaHospital,
                             iconBg: "bg-orange-500",
                             borderColor: "border-orange-500",
-                            link: "/admin/departments",
+                            link: "/departments",
                           },
                           {
                             title: "Total Doctors",
@@ -1009,7 +1009,7 @@ const Dashboard = () => {
                             icon: FaUserMd,
                             iconBg: "bg-teal-500",
                             borderColor: "border-teal-500",
-                            link: "/admin/doctors",
+                            link: "/doctors",
                           },
                           {
                             title: "Total Appointments",
@@ -1020,7 +1020,7 @@ const Dashboard = () => {
                             icon: FaCalendarAlt,
                             iconBg: "bg-gray-500",
                             borderColor: "border-gray-500",
-                            link: "/admin/appointments",
+                            link: "/appointments",
                           },
                           {
                             title: "Avg Doctors/Dept",
@@ -1033,7 +1033,7 @@ const Dashboard = () => {
                             icon: FaUsers,
                             iconBg: "bg-purple-500",
                             borderColor: "border-purple-500",
-                            link: "/admin/departments",
+                            link: "/departments",
                           },
                         ].map((stat, index) => (
                           <Link
@@ -1154,7 +1154,7 @@ const Dashboard = () => {
                         icon: FaHospital,
                         gradient: "from-emerald-500 to-teal-600",
                         bgGradient: "from-emerald-50 to-teal-50",
-                        link: "/admin/departments",
+                        link: "/departments",
                       },
                       {
                         title: "Doctors",
@@ -1162,7 +1162,7 @@ const Dashboard = () => {
                         icon: FaUserMd,
                         gradient: "from-blue-500 to-indigo-600",
                         bgGradient: "from-blue-50 to-indigo-50",
-                        link: "/admin/doctors",
+                        link: "/doctors",
                       },
                       {
                         title: "Appointments",
@@ -1170,7 +1170,7 @@ const Dashboard = () => {
                         icon: FaCalendarAlt,
                         gradient: "from-purple-500 to-pink-600",
                         bgGradient: "from-purple-50 to-pink-50",
-                        link: "/admin/appointments",
+                        link: "/appointments",
                       },
                       {
                         title: "Blogs",
@@ -1178,7 +1178,7 @@ const Dashboard = () => {
                         icon: FaBlog,
                         gradient: "from-indigo-500 to-purple-600",
                         bgGradient: "from-indigo-50 to-purple-50",
-                        link: "/admin/blogs",
+                        link: "/blogs",
                       },
                       {
                         title: "Gallery",
@@ -1186,7 +1186,7 @@ const Dashboard = () => {
                         icon: FaImages,
                         gradient: "from-pink-500 to-rose-600",
                         bgGradient: "from-pink-50 to-rose-50",
-                        link: "/admin/gallery",
+                        link: "/gallery",
                       },
                       {
                         title: "Inquiries",
@@ -1194,7 +1194,7 @@ const Dashboard = () => {
                         icon: FaEnvelope,
                         gradient: "from-orange-500 to-red-600",
                         bgGradient: "from-orange-50 to-red-50",
-                        link: "/admin/inquiries",
+                        link: "/inquiries",
                       },
                     ].map((item, index) => (
                       <Link key={index} to={item.link} className="group block">

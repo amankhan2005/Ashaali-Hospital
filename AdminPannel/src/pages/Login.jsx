@@ -204,7 +204,7 @@ const Login = () => {
   useEffect(() => {
     const token = localStorage.getItem("adminToken");
     if (token) {
-      navigate("/admin/dashboard");
+      navigate("/dashboard");
     }
   }, [navigate]);
 
@@ -218,7 +218,7 @@ const Login = () => {
       setLoading(false);
       if (email === "ashaliadmin@gmail.com" && password === "hospital123") {
         localStorage.setItem("adminToken", "hospital123");
-        navigate("/admin/dashboard");
+        navigate("/dashboard");
       } else {
         setError("Invalid credentials. Please try again.");
       }
@@ -358,7 +358,7 @@ const Login = () => {
           {/* Footer */}
           <div className="bg-slate-800/50 px-6 md:px-8 py-4 text-center border-t border-slate-700">
             <p className="text-xs text-slate-400">
-              © 2023 Ashaali Hospital. All rights reserved. Unauthorized access is prohibited.
+              © 2025 Ashaali Hospital. All rights reserved.
             </p>
           </div>
         </div>

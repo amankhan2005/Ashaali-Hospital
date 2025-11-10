@@ -17,7 +17,7 @@ const Navbar = () => {
     setTimeout(() => {
       localStorage.removeItem("adminToken");
       setLoading(false);
-      navigate("/admin/login", { replace: true });
+      navigate("/", { replace: true });
     }, 2000);
   };
 

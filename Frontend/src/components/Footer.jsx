@@ -35,11 +35,15 @@ const Footer = () => {
     "Dental",
     "Hematology",
   ];
+
   const leftSpecialties = specialties.slice(
     0,
     Math.ceil(specialties.length / 2)
   );
   const rightSpecialties = specialties.slice(Math.ceil(specialties.length / 2));
+
+  const makeDeptLink = (name = "") =>
+    `/department/${name.toLowerCase().replace(/\s+/g, "-")}`;
 
   return (
     <footer className="bg-gray-900 text-white py-6 px-4 sm:px-6">
@@ -136,7 +140,6 @@ const Footer = () => {
                 },
                 { name: "Our Doctors", path: "/about/team" },
                 { name: "Gallery", path: "/gallery" },
-                { name: "Patients Story", path: "/patients-story" },
                 { name: "Blogs", path: "/blogs" },
                 { name: "Careers", path: "/careers" },
                 { name: "Contact Us", path: "/contact" },
@@ -169,7 +172,8 @@ const Footer = () => {
                     <Link
                       to={`/department/${leftItem
                         .toLowerCase()
-                        .replace(/\s+/g, "-")}`}
+                        .replace(/&/g, "and")
+                        .replace(/[^a-z0-9]+/g, "-")}`}
                       className="whitespace-nowrap hover:text-white transition"
                     >
                       {leftItem}
@@ -179,13 +183,16 @@ const Footer = () => {
                   {/* Right column item */}
                   {rightSpecialties[idx] ? (
                     <div className="flex items-center gap-2 py-1">
-                      <FiChevronRight className="w-4 h-4 flex-shrink-0 text-gray-500 group-hover:text-teal-500 transition" />
-                      <a
-                        href="#"
-                        className="whitespace-nowrap hover:text-white transition group"
+                      <FiChevronRight className="w-4 h-4 flex-shrink-0 text-gray-400" />
+                      <Link
+                        to={`/department/${rightSpecialties[idx]
+                          .toLowerCase()
+                          .replace(/&/g, "and")
+                          .replace(/[^a-z0-9]+/g, "-")}`}
+                        className="whitespace-nowrap hover:text-white transition"
                       >
                         {rightSpecialties[idx]}
-                      </a>
+                      </Link>
                     </div>
                   ) : (
                     <div />
@@ -210,7 +217,8 @@ const Footer = () => {
                     <Link
                       to={`/department/${leftItem
                         .toLowerCase()
-                        .replace(/\s+/g, "-")}`}
+                        .replace(/&/g, "and")
+                        .replace(/[^a-z0-9]+/g, "-")}`}
                       className="hover:text-white transition break-words"
                     >
                       {leftItem}
@@ -220,13 +228,16 @@ const Footer = () => {
                   {/* Right column item */}
                   {rightSpecialties[idx] ? (
                     <div className="flex items-center gap-1.5 py-1">
-                      <FiChevronRight className="w-4 h-4 flex-shrink-0 text-gray-500 group-hover:text-teal-500 transition" />
-                      <a
-                        href="#"
-                        className="hover:text-white transition group break-words"
+                      <FiChevronRight className="w-4 h-4 flex-shrink-0 text-gray-400" />
+                      <Link
+                        to={`/department/${rightSpecialties[idx]
+                          .toLowerCase()
+                          .replace(/&/g, "and")
+                          .replace(/[^a-z0-9]+/g, "-")}`}
+                        className="hover:text-white transition break-words"
                       >
                         {rightSpecialties[idx]}
-                      </a>
+                      </Link>
                     </div>
                   ) : (
                     <div />

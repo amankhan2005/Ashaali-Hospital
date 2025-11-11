@@ -159,10 +159,13 @@ const BlogsAdmin = () => {
   }, [fetchBlogs]);
 
   // Optimized form handlers with useCallback
-  const handleSubmit = useCallback(async (e) => {
-    e.preventDefault();
-    setLoading(true);
+   // replace the current handleSubmit with this
+const handleSubmit = useCallback(async (e) => {
+  // if this button lives inside a <form> you may receive an event - preventDefault just in case
+  if (e && e.preventDefault) e.preventDefault();
+  setLoading(true);
 
+  try {
     const formData = new FormData();
     formData.append("title", form.title);
     formData.append("excerpt", form.excerpt);
@@ -171,27 +174,60 @@ const BlogsAdmin = () => {
     formData.append("category", form.category);
     if (form.imageFile) formData.append("image", form.imageFile);
 
-    try {
-      if (editId) {
-        await API.put(`/api/blogs/update/${editId}`, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-      } else {
-        await API.post("/api/blogs/add", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-      }
-
-      setForm({ title: "", excerpt: "", content: "", author: "", category: "", imageFile: null, imagePreview: "" });
-      setEditId(null);
-      setShowForm(false);
-      fetchBlogs();
-    } catch (err) {
-      console.error("Error submitting form:", err);
+    // DEBUG: print entries so you can inspect in console (remove in production)
+    for (const pair of formData.entries()) {
+      console.log("formData:", pair[0], pair[1]);
     }
 
+    let res;
+    if (editId) {
+      // DO NOT set Content-Type manually for multipart/form-data
+      res = await API.put(`/api/blogs/update/${editId}`, formData);
+      console.log("Update response:", res?.data);
+    } else {
+      res = await API.post("/api/blogs/add", formData);
+      console.log("Create response:", res?.data);
+    }
+
+    // reset UI only after success
+    setForm({
+      title: "",
+      excerpt: "",
+      content: "",
+      author: "",
+      category: "",
+      imageFile: null,
+      imagePreview: "",
+    });
+    setEditId(null);
+    setShowForm(false);
+
+    // wait for fetch to complete so UI reflects new data
+    await fetchBlogs();
+  } catch (err) {
+    console.error("Error submitting form:", err);
+
+    // helpful breakdown for server vs network errors
+    if (err.response) {
+      // server responded with a status code outside 2xx
+      console.error("Server status:", err.response.status);
+      console.error("Server response data:", err.response.data);
+      const serverMsg = err.response.data?.message || JSON.stringify(err.response.data);
+      alert(`Server error ${err.response.status}: ${serverMsg}`);
+    } else if (err.request) {
+      // request made but no response (network / CORS)
+      console.error("No response received (possible CORS or network issue):", err.message);
+      alert(`Network or CORS error: ${err.message}`);
+    } else {
+      // something else triggered error
+      console.error("Unexpected error:", err.message);
+      alert(`Error: ${err.message}`);
+    }
+  } finally {
     setLoading(false);
-  }, [form, editId, fetchBlogs]);
+  }
+}, [form, editId, fetchBlogs]);
+
 
   const handleEdit = useCallback((blog) => {
     setForm({

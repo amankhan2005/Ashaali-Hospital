@@ -122,7 +122,7 @@ const DepartmentPage = () => {
                       <div className="flex flex-col sm:flex-row gap-4">
              <Link
   to={`/book-appointment?department=${activeService?.slug}`}
-  className="bg-teal-600 flex items-center justify-center p-3 px-4 hover:bg-teal-700 rounded-lg transform-fill"
+  className="bg-teal-600 text-white flex items-center justify-center p-3 px-4 hover:bg-teal-700 rounded-lg transform-fill"
 >
   Book Appointment
 </Link>
